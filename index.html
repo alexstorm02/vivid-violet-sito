@@ -76,7 +76,8 @@
   .marchio .tessera svg { height: 24px; width: auto; fill: var(--testo); }
   .marchio .nome { font-family: var(--serif); font-size: 24px; font-weight: 500; }
   .marchio .nome span { color: var(--viola-chiaro); }
-  .stato { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--argento); border: 1px solid rgba(200,202,210,.45); border-radius: 999px; padding: 7px 14px; white-space: nowrap; }
+  .stato { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--argento); text-decoration: none; border: 1px solid rgba(200,202,210,.45); border-radius: 999px; padding: 7px 14px; white-space: nowrap; transition: color .2s, border-color .2s; }
+  .stato:hover { color: var(--testo); border-color: var(--viola-chiaro); }
 
   /* --- Apertura --- */
   .apertura { padding: 64px 0 40px; display: grid; gap: 22px; max-width: 760px; }
@@ -112,7 +113,7 @@
   .funzione .icona svg { width: 24px; height: 24px; stroke: var(--su-chiaro); fill: none; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
   .funzione h3 { margin: 4px 0 0; font-family: var(--serif); font-weight: 500; font-size: 26px; line-height: 1.1; }
   .funzione p { margin: 0; color: var(--tenue); font-size: 14.5px; }
-  .presto { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--argento); }
+  .presto { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--argento); }
 
   .trasparenza { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; }
   .regole { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
@@ -128,8 +129,9 @@
   form { display: grid; gap: 14px; }
   label.campo { display: grid; gap: 6px; font-size: 13px; color: var(--argento); letter-spacing: .04em; }
   input[type="email"] { min-height: 54px; border-radius: 999px; border: 1px solid var(--bordo); background: rgba(11,9,16,.6); color: var(--testo); font: 400 16px var(--sans); padding: 0 22px; }
+  input[type="email"]::placeholder { color: var(--tenue); opacity: 1; }
   .consenso { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: 13.5px; color: var(--testo); opacity: .9; align-items: start; }
-  .consenso input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--viola-chiaro); }
+  .consenso input { width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--viola-chiaro); }
   .trappola { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
   .esito { min-height: 22px; margin: 0; font-size: 14px; }
   .esito.ok { color: var(--viola-pallido); }
@@ -180,7 +182,7 @@
       <span class="tessera"><svg viewBox="0 0 264 290" aria-hidden="true"><use href="#logo"/></svg></span>
       <span class="nome">Vivid <span>Violet</span></span>
     </a>
-    <span class="stato">Android · in arrivo</span>
+    <a class="stato" href="#avvisami" aria-label="App Android in arrivo: iscriviti alla lista d'attesa">Android · in arrivo</a>
   </header>
 
   <main>
@@ -239,6 +241,7 @@
           <span class="icona"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg></span>
           <h3>Cerca e confronta</h3>
           <p>Lo stesso capo in più negozi online, con il prezzo migliore in evidenza e gli sconti a portata di mano.</p>
+          <span class="presto">Con i negozi partner, al lancio</span>
         </article>
       </div>
     </section>
@@ -247,11 +250,11 @@
       <div class="trasparenza">
         <div>
           <div class="titolo-sezione"><span class="num">II</span><h2 id="titolo-trasparenza">Trasparenza, sempre</h2></div>
-          <p class="intro">Vivid Violet mostra i prodotti dei negozi partner tramite programmi di affiliazione.</p>
+          <p class="intro">Al lancio, Vivid Violet mostrerà i prodotti dei negozi partner tramite programmi di affiliazione. Queste sono le regole che seguiremo dal primo giorno.</p>
         </div>
         <ul class="regole">
-          <li><div><strong>Link di affiliazione dichiarati.</strong> <span>Ogni pagina prodotto avvisa che, se acquisti, Vivid Violet può ricevere una commissione. Il prezzo per chi compra non cambia.</span></div></li>
-          <li><div><strong>Prezzi aggiornati e confrontabili.</strong> <span>Prezzo, eventuale sconto e disponibilità arrivano dai feed ufficiali dei negozi, con la data dell'ultimo aggiornamento.</span></div></li>
+          <li><div><strong>Link di affiliazione dichiarati.</strong> <span>Ogni pagina prodotto avviserà che, se acquisti, Vivid Violet può ricevere una commissione. Il prezzo per chi compra non cambia.</span></div></li>
+          <li><div><strong>Prezzi aggiornati e confrontabili.</strong> <span>Prezzo, eventuale sconto e disponibilità arriveranno dai feed ufficiali dei negozi, con la data dell'ultimo aggiornamento.</span></div></li>
           <li><div><strong>Consigli prima delle vendite.</strong> <span>L'outfit nasce da meteo e gusti personali; i negozi entrano in gioco quando un capo manca davvero.</span></div></li>
           <li><div><strong>Dati personali al sicuro.</strong> <span>Ogni utente vede solo i propri dati; non vendiamo informazioni personali a terzi.</span></div></li>
         </ul>
@@ -262,12 +265,12 @@
       <div class="attesa">
         <div>
           <p class="occhiello">Lista d'attesa</p>
-          <h2 id="titolo-avvisami">Avvisami al lancio</h2>
+          <div class="titolo-sezione"><span class="num">III</span><h2 id="titolo-avvisami">Avvisami al lancio</h2></div>
           <p>Lascia la tua email: ti scriviamo una sola volta, quando Vivid Violet arriva su Google Play.</p>
         </div>
         <form id="modulo" novalidate>
           <label class="campo" for="email">La tua email
-            <input id="email" name="email" type="email" autocomplete="email" required placeholder="nome@esempio.it">
+            <input id="email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="nome@esempio.it">
           </label>
           <div class="trappola" aria-hidden="true">
             <label for="sito_web">Lascia vuoto</label>
@@ -284,7 +287,7 @@
     </section>
 
     <section aria-labelledby="titolo-contatti">
-      <div class="titolo-sezione"><span class="num">III</span><h2 id="titolo-contatti">Contatti</h2></div>
+      <div class="titolo-sezione"><span class="num">IV</span><h2 id="titolo-contatti">Contatti</h2></div>
       <div class="contatti">
         <a class="mail" href="mailto:info@vividviolet.it">info@vividviolet.it</a>
         <span class="intro" style="margin:0">Per negozi, partner e stampa.</span>
@@ -319,6 +322,7 @@
     evento.preventDefault();
     const email = modulo.email.value.trim();
     if (modulo.sito_web.value) return mostra("Grazie! Ti avviseremo al lancio.", "ok"); // probabilmente un programma automatico
+    if (email.length > 254) return mostra("Questa email è troppo lunga: controlla di averla scritta bene.", "errore");
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return mostra("Controlla l'indirizzo email.", "errore");
     if (!modulo.consenso.checked) return mostra("Per avvisarti ci serve il tuo consenso.", "errore");
 
@@ -333,6 +337,9 @@
         // 409 = email già in lista: rispondiamo allo stesso modo, senza rivelarlo
         mostra("Grazie! Ti avviseremo al lancio.", "ok");
         modulo.reset();
+      } else if (r.status === 400) {
+        // il database ha rifiutato l'indirizzo (formato o lunghezza)
+        mostra("Controlla l'indirizzo email: sembra non valido.", "errore");
       } else {
         mostra("Qualcosa non ha funzionato. Riprova tra poco o scrivici a info@vividviolet.it.", "errore");
       }
