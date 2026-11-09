@@ -6,214 +6,269 @@
 <title>Vivid Violet</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <meta name="description" content="Vivid Violet è la stilista IA che ogni mattina guarda il meteo della tua città e ti consiglia cosa indossare, impara i tuoi gusti e confronta i prezzi dei negozi online.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#0B0910">
 <style>
-  /* Lo stesso mondo visivo dell'app: nero, viola vivido, dettagli argento.
-     Layout: titolo editoriale a sinistra, "telefono" con il look del giorno a destra;
-     sotto, quattro funzioni in colonna e una sezione sulla trasparenza. */
+  /* Caratteri ospitati qui (nessuna richiesta a Google Fonts). Licenza OFL: fonts/OFL-*.txt */
+  @font-face { font-family: "Cormorant Garamond"; src: url("fonts/CormorantGaramond_500Medium.ttf") format("truetype"); font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Cormorant Garamond"; src: url("fonts/CormorantGaramond_500Medium_Italic.ttf") format("truetype"); font-weight: 500; font-style: italic; font-display: swap; }
+  @font-face { font-family: "Montserrat"; src: url("fonts/Montserrat_400Regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+  @font-face { font-family: "Montserrat"; src: url("fonts/Montserrat_500Medium.ttf") format("truetype"); font-weight: 500; font-display: swap; }
+  @font-face { font-family: "Montserrat"; src: url("fonts/Montserrat_600SemiBold.ttf") format("truetype"); font-weight: 600; font-display: swap; }
+
+  /* Gli stessi colori dell'app (src/theme/colors.ts). */
   :root {
-    --nero: #0a0a0a;
-    --superficie: #151515;
-    --bordo: #2a2a2a;
-    --viola: #8b5cf6;
-    --viola-chiaro: #a78bfa;
-    --argento: #c8cad2;
-    --testo: #f5f5f5;
-    --tenue: #a1a1aa;
+    --nero: #0B0910;
+    --viola-profondo: #24104D;
+    --superficie: rgba(22, 18, 31, 0.72);
+    --riquadro-viola: #2E2257;
+    --bordo: #2E2742;
+    --viola: #8B5CF6;
+    --viola-chiaro: #A78BFA;
+    --viola-pallido: #C4B5FD;
+    --argento: #C8CAD2;
+    --testo: #F6F4FA;
+    --tenue: #ABA4BC;
+    --su-chiaro: #140A26;
+    --errore: #F87171;
     --serif: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
-    --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --sans: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
     color-scheme: dark;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; }
+  html { scroll-behavior: smooth; }
   body {
     background: var(--nero);
+    background-image: linear-gradient(180deg, #07060A 0%, #0E0A18 45%, var(--viola-profondo) 100%);
+    background-attachment: fixed;
     color: var(--testo);
     font-family: var(--sans);
-    font-size: 17px;
-    line-height: 1.6;
+    font-size: 16px;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
   }
   a { color: var(--viola-chiaro); }
-  a:focus-visible, button:focus-visible { outline: 2px solid var(--argento); outline-offset: 3px; }
-  .pagina { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--argento); outline-offset: 3px; }
+  img { max-width: 100%; display: block; }
+  .pagina { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+  .occhiello { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--viola-chiaro); margin: 0; }
 
   /* --- Intestazione --- */
-  header.barra {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 28px 0; border-bottom: 1px solid var(--bordo);
-  }
-  .marchio { font-family: var(--serif); font-size: 26px; font-weight: 600; letter-spacing: 0.02em; color: var(--testo); text-decoration: none; }
-  .marchio span { color: var(--viola); }
-  .stato {
-    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--argento);
-    border: 1px solid color-mix(in srgb, var(--argento) 50%, transparent); border-radius: 999px; padding: 6px 14px;
-  }
+  header.barra { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; }
+  .marchio { display: flex; align-items: center; gap: 12px; color: var(--testo); text-decoration: none; white-space: nowrap; }
+  .marchio .tessera { width: 42px; height: 42px; border-radius: 12px; background: #000; border: 1px solid var(--bordo); display: grid; place-items: center; }
+  .marchio .tessera svg { height: 24px; width: auto; fill: var(--testo); }
+  .marchio .nome { font-family: var(--serif); font-size: 24px; font-weight: 500; }
+  .marchio .nome span { color: var(--viola-chiaro); }
+  .stato { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--argento); border: 1px solid rgba(200,202,210,.45); border-radius: 999px; padding: 7px 14px; white-space: nowrap; }
 
   /* --- Apertura --- */
-  .apertura {
-    display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 64px; align-items: center;
-    padding: 88px 0 96px;
-  }
-  .occhiello { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--argento); margin: 0 0 20px; }
-  h1 {
-    font-family: var(--serif); font-weight: 500; margin: 0;
-    font-size: clamp(56px, 9vw, 118px); line-height: 0.92; letter-spacing: -0.01em;
-    text-wrap: balance;
-  }
-  h1 em { font-style: italic; color: var(--viola); }
-  .filetto { width: 64px; height: 1px; background: var(--argento); margin: 36px 0 28px; }
-  .tesi { font-size: 20px; line-height: 1.55; color: var(--tenue); max-width: 34ch; margin: 0; }
-  .tesi strong { color: var(--testo); font-weight: 500; }
+  .apertura { padding: 64px 0 40px; display: grid; gap: 22px; max-width: 760px; }
+  h1 { font-family: var(--serif); font-weight: 500; margin: 0; font-size: clamp(52px, 9vw, 104px); line-height: 0.95; letter-spacing: -0.01em; text-wrap: balance; }
+  h1 em { color: var(--viola-chiaro); }
+  .tesi { font-size: 18px; color: var(--testo); opacity: .88; max-width: 38ch; margin: 0; }
+  .azioni { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+  .pulsante { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 26px; border-radius: 999px; font: 600 15px var(--sans); text-decoration: none; border: 0; cursor: pointer; }
+  .pulsante.pieno { background: var(--viola-chiaro); color: var(--su-chiaro); }
+  .pulsante.contorno { border: 1.5px solid var(--viola-chiaro); color: var(--viola-chiaro); background: transparent; }
+  .pulsante:hover { filter: brightness(1.06); }
+  .pulsante:disabled { opacity: .6; cursor: progress; }
 
-  /* Il telefono con il look del giorno (contenuto reale dell'app) */
-  .telefono {
-    justify-self: center; width: min(340px, 100%);
-    border: 1px solid var(--bordo); border-radius: 40px; padding: 14px;
-    background: #050505;
-    box-shadow: 0 40px 120px -40px color-mix(in srgb, var(--viola) 55%, transparent);
-  }
-  .schermo { border-radius: 28px; background: var(--nero); padding: 26px 20px 22px; display: grid; gap: 14px; }
-  .schermo .k { font-size: 10px; letter-spacing: 0.18em; color: var(--argento); text-transform: uppercase; }
-  .schermo .citta { font-family: var(--serif); font-size: 30px; color: var(--viola); line-height: 1; }
-  .meteo { display: flex; align-items: center; gap: 14px; background: var(--superficie); border: 1px solid var(--bordo); border-radius: 14px; padding: 14px; }
-  .meteo .gradi { font-family: var(--serif); font-size: 44px; line-height: 1; }
-  .meteo .desc { font-size: 13px; color: var(--tenue); }
-  .citazione { font-family: var(--serif); font-size: 18px; line-height: 1.35; margin: 2px 0; }
-  .capi { border: 1px solid var(--bordo); border-radius: 14px; overflow: hidden; }
-  .capo { display: grid; grid-template-columns: 34px 1fr auto; gap: 10px; align-items: center; padding: 10px 12px; border-bottom: 1px solid var(--bordo); background: var(--superficie); }
-  .capo:last-child { border-bottom: 0; }
-  .capo svg { width: 34px; height: 34px; }
-  .capo .p { font-size: 9px; letter-spacing: 0.16em; color: var(--argento); }
-  .capo .n { font-size: 13px; font-weight: 500; }
-  .capo .e { font-size: 13px; font-weight: 600; color: var(--argento); font-variant-numeric: tabular-nums; }
+  /* --- I telefoni con le schermate vere --- */
+  .telefoni { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding: 36px 0 72px; align-items: end; }
+  .telefono { margin: 0; display: grid; gap: 14px; justify-items: center; }
+  .telefono .cornice { width: min(300px, 100%); aspect-ratio: 9 / 19.5; border-radius: 40px; padding: 10px; background: #050407; border: 1px solid var(--bordo); box-shadow: 0 40px 100px -40px rgba(139, 92, 246, .55); }
+  .telefono:nth-child(2) .cornice { transform: translateY(-28px); }
+  .telefono .schermo { width: 100%; height: 100%; border-radius: 31px; overflow: hidden; background: linear-gradient(180deg, #07060A, var(--viola-profondo)); display: grid; place-items: center; }
+  .telefono .schermo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .telefono .schermo svg { width: 64px; fill: var(--viola); opacity: .5; }
+  .telefono figcaption { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--argento); }
 
-  /* --- Funzioni --- */
-  section { padding: 88px 0; border-top: 1px solid var(--bordo); }
-  h2 {
-    font-family: var(--serif); font-weight: 500; font-size: clamp(36px, 5vw, 54px); line-height: 1.05;
-    margin: 0 0 12px; text-wrap: balance;
-  }
-  .intro { color: var(--tenue); max-width: 60ch; margin: 0 0 48px; }
-  .funzioni { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
-  .funzione { display: grid; gap: 10px; align-content: start; }
-  .funzione .num { font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--argento); }
-  .funzione h3 { margin: 0; font-size: 18px; font-weight: 600; }
-  .funzione p { margin: 0; color: var(--tenue); font-size: 15px; }
-  .funzione .presto { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--viola-chiaro); }
+  /* --- Sezioni --- */
+  section { padding: 80px 0; border-top: 1px solid var(--bordo); }
+  .titolo-sezione { display: flex; align-items: baseline; gap: 16px; margin-bottom: 14px; }
+  .titolo-sezione .num { font-family: var(--serif); font-size: 30px; color: var(--argento); }
+  h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(36px, 5vw, 54px); line-height: 1.05; margin: 0; text-wrap: balance; }
+  .intro { color: var(--tenue); max-width: 60ch; margin: 0 0 40px; }
+  .funzioni { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .funzione { background: var(--superficie); border: 1px solid var(--bordo); border-radius: 22px; padding: 24px; display: grid; gap: 10px; align-content: start; }
+  .funzione .icona { width: 48px; height: 48px; border-radius: 14px; background: var(--viola-chiaro); display: grid; place-items: center; }
+  .funzione .icona svg { width: 24px; height: 24px; stroke: var(--su-chiaro); fill: none; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
+  .funzione h3 { margin: 4px 0 0; font-family: var(--serif); font-weight: 500; font-size: 26px; line-height: 1.1; }
+  .funzione p { margin: 0; color: var(--tenue); font-size: 14.5px; }
+  .presto { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--argento); }
 
-  /* --- Trasparenza (per i negozi partner) --- */
-  .trasparenza { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 64px; }
+  .trasparenza { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; }
   .regole { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
-  .regole li { display: grid; grid-template-columns: 28px 1fr; gap: 14px; }
-  .regole li::before { content: ""; width: 10px; height: 10px; margin-top: 9px; border: 1px solid var(--argento); transform: rotate(45deg); }
+  .regole li { display: grid; grid-template-columns: 22px 1fr; gap: 14px; }
+  .regole li::before { content: ""; width: 9px; height: 9px; margin-top: 9px; border: 1px solid var(--argento); transform: rotate(45deg); }
   .regole strong { font-weight: 600; }
   .regole span { color: var(--tenue); }
 
-  /* --- Contatti e piede --- */
-  .contatti { display: flex; flex-wrap: wrap; gap: 24px 48px; align-items: baseline; }
-  .contatti .mail { font-family: var(--serif); font-size: 28px; color: var(--testo); text-decoration: none; border-bottom: 1px solid var(--argento); }
-  .segnaposto { color: var(--argento); border-bottom: 1px dashed var(--argento); }
-  footer { padding: 32px 0 48px; border-top: 1px solid var(--bordo); color: var(--tenue); font-size: 13px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+  /* --- Lista d'attesa --- */
+  .attesa { background: var(--riquadro-viola); border-radius: 28px; padding: clamp(28px, 5vw, 56px); display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  .attesa h2 { font-size: clamp(34px, 4.5vw, 48px); }
+  .attesa p { color: var(--testo); opacity: .85; margin: 12px 0 0; }
+  form { display: grid; gap: 14px; }
+  label.campo { display: grid; gap: 6px; font-size: 13px; color: var(--argento); letter-spacing: .04em; }
+  input[type="email"] { min-height: 54px; border-radius: 999px; border: 1px solid var(--bordo); background: rgba(11,9,16,.6); color: var(--testo); font: 400 16px var(--sans); padding: 0 22px; }
+  .consenso { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: 13.5px; color: var(--testo); opacity: .9; align-items: start; }
+  .consenso input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--viola-chiaro); }
+  .trappola { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+  .esito { min-height: 22px; margin: 0; font-size: 14px; }
+  .esito.ok { color: var(--viola-pallido); }
+  .esito.errore { color: var(--errore); }
 
-  @media (max-width: 900px) {
-    .apertura { grid-template-columns: 1fr; gap: 56px; padding-top: 56px; }
+  /* --- Contatti e piede --- */
+  .contatti { display: flex; flex-wrap: wrap; gap: 16px 40px; align-items: baseline; }
+  .contatti .mail { font-family: var(--serif); font-size: 30px; color: var(--testo); text-decoration: none; border-bottom: 1px solid var(--argento); }
+  footer { padding: 28px 0 44px; border-top: 1px solid var(--bordo); color: var(--tenue); font-size: 13px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+  footer a { color: var(--tenue); }
+
+  /* --- Telefono e tablet --- */
+  @media (max-width: 920px) {
     .funzioni { grid-template-columns: 1fr 1fr; }
-    .trasparenza { grid-template-columns: 1fr; gap: 32px; }
+    .trasparenza, .attesa { grid-template-columns: 1fr; }
+    .telefoni { gap: 16px; }
+    .telefono .cornice { border-radius: 30px; padding: 7px; }
+    .telefono .schermo { border-radius: 24px; }
+  }
+  @media (max-width: 640px) {
+    /* i telefoni diventano un carosello da scorrere col dito */
+    .telefoni { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 18px; padding: 24px 20px 56px; margin: 0 -20px; }
+    .telefono { flex: 0 0 min(72%, 270px); scroll-snap-align: center; }
+    .telefono:nth-child(2) .cornice { transform: none; }
   }
   @media (max-width: 520px) {
+    .marchio .nome { font-size: 21px; }
+    .stato { font-size: 9.5px; padding: 6px 10px; letter-spacing: .12em; }
     .funzioni { grid-template-columns: 1fr; }
-    section { padding: 64px 0; }
+    section { padding: 60px 0; }
   }
   @media (prefers-reduced-motion: no-preference) {
-    .telefono { animation: entra 900ms cubic-bezier(.2,.7,.2,1) both 150ms; }
-    @keyframes entra { from { transform: translateY(18px); } to { transform: none; } }
+    .telefono .cornice { animation: entra 900ms cubic-bezier(.2,.7,.2,1) both; }
+    .telefono:nth-child(2) .cornice { animation-delay: 120ms; }
+    .telefono:nth-child(3) .cornice { animation-delay: 240ms; }
+    @keyframes entra { from { opacity: 0; translate: 0 18px; } to { opacity: 1; translate: 0 0; } }
   }
 </style>
 </head>
 <body>
-<div class="pagina">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 264 290"><path d="M16 0 L74 0 L146 236 L128 236 Z"/><path d="M232 0 L247 0 L146 236 L133 236 Z"/><path d="M116 53 L136 53 L244 290 L186 290 Z"/><path d="M122 53 L137 53 L33 290 L18 290 Z"/><path d="M0 0 H102 V10 H0 Z"/><path d="M198 0 H264 V10 H198 Z"/><path d="M0 280 H58 V290 H0 Z"/><path d="M160 280 H264 V290 H160 Z"/></symbol>
+</svg>
 
+<div class="pagina">
   <header class="barra">
-    <a class="marchio" href="#">Vivid <span>Violet</span></a>
-    <span class="stato">App Android in arrivo</span>
+    <a class="marchio" href="/" aria-label="Vivid Violet, pagina iniziale">
+      <span class="tessera"><svg viewBox="0 0 264 290" aria-hidden="true"><use href="#logo"/></svg></span>
+      <span class="nome">Vivid <span>Violet</span></span>
+    </a>
+    <span class="stato">Android · in arrivo</span>
   </header>
 
   <main>
     <div class="apertura">
-      <div>
-        <p class="occhiello">La tua stilista IA</p>
-        <h1>Ogni mattina,<br><em>il look giusto.</em></h1>
-        <div class="filetto" aria-hidden="true"></div>
-        <p class="tesi">Vivid Violet guarda <strong>il meteo della tua città</strong>, conosce <strong>i tuoi gusti</strong> e ti propone cosa indossare. E quando ti manca un capo, <strong>confronta i prezzi</strong> dei negozi online.</p>
-      </div>
-
-      <div class="telefono" role="img" aria-label="Esempio della schermata Look dell'app: Milano, 10 gradi, pioggia; outfit con parka, dolcevita, pantaloni sartoriali e stivaletti impermeabili.">
-        <div class="schermo">
-          <div class="k">Il tuo look di oggi</div>
-          <div class="citta">Milano</div>
-          <div class="meteo">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c8cad2" stroke-width="1.3" aria-hidden="true"><path d="M7 15a4 4 0 1 1 .9-7.9A5 5 0 0 1 17.6 9 3.5 3.5 0 0 1 17 16H7"/><path d="M9 18l-1 2M13 18l-1 2M17 18l-1 2"/></svg>
-            <div><div class="gradi">10°</div><div class="desc">Pioggia leggera · 93%</div></div>
-          </div>
-          <p class="citazione">“Oggi a Milano tra 9° e 11°, con pioggia. Parka imbottito per restare all'asciutto.”</p>
-          <div class="capi">
-            <div class="capo"><svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.2" aria-hidden="true"><path d="M12 3v9M5 12a7 7 0 0 1 14 0H5zM12 12v6a2 2 0 0 0 4 0"/></svg><div><div class="p">CAPOSPALLA</div><div class="n">Parka imbottito</div></div><div class="e">179 €</div></div>
-            <div class="capo"><svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.2" aria-hidden="true"><path d="M8 3l-5 3 2 4 2-1v12h10V9l2 1 2-4-5-3a4 4 0 0 1-8 0z"/></svg><div><div class="p">SOPRA</div><div class="n">Dolcevita in merino</div></div><div class="e">95 €</div></div>
-            <div class="capo"><svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.2" aria-hidden="true"><path d="M7 3h10l1 18h-4l-2-11-2 11H6z"/></svg><div><div class="p">SOTTO</div><div class="n">Pantaloni sartoriali</div></div><div class="e">129 €</div></div>
-            <div class="capo"><svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.2" aria-hidden="true"><path d="M5 4h5v9l9 3v4H5z"/></svg><div><div class="p">SCARPE</div><div class="n">Stivaletti impermeabili</div></div><div class="e">149 €</div></div>
-          </div>
-        </div>
+      <p class="occhiello">Vivid Violet · Stilista IA</p>
+      <h1>Ogni mattina,<br><em>il look giusto.</em></h1>
+      <p class="tesi">La stilista che guarda il meteo della tua città, impara i tuoi gusti e, quando ti manca un capo, confronta i prezzi dei negozi online.</p>
+      <div class="azioni">
+        <a class="pulsante pieno" href="#avvisami">Avvisami al lancio</a>
+        <a class="pulsante contorno" href="#come">Come funziona</a>
       </div>
     </div>
 
-    <section aria-labelledby="come">
-      <h2 id="come">Come funziona</h2>
+    <div class="telefoni" role="list" aria-label="Schermate dell'app">
+      <figure class="telefono" role="listitem">
+        <div class="cornice"><div class="schermo">
+          <img src="img/accedi.webp" width="600" height="1333" alt="Schermata di accesso dell'app con il pulsante Accedi con Google" loading="lazy" onerror="mettiSegnaposto(this)">
+        </div></div>
+        <figcaption>Accesso</figcaption>
+      </figure>
+      <figure class="telefono" role="listitem">
+        <div class="cornice"><div class="schermo">
+          <img src="img/look.webp" width="600" height="1333" alt="Schermata Look: meteo della città e outfit consigliato del giorno" loading="lazy" onerror="mettiSegnaposto(this)">
+        </div></div>
+        <figcaption>Look del giorno</figcaption>
+      </figure>
+      <figure class="telefono" role="listitem">
+        <div class="cornice"><div class="schermo">
+          <img src="img/swipe.webp" width="600" height="1333" alt="Schermata Swipe: una carta con un capo da votare" loading="lazy" onerror="mettiSegnaposto(this)">
+        </div></div>
+        <figcaption>Swipe IA</figcaption>
+      </figure>
+    </div>
+
+    <section id="come" aria-labelledby="titolo-come">
+      <div class="titolo-sezione"><span class="num">I</span><h2 id="titolo-come">Come funziona</h2></div>
       <p class="intro">Quattro strumenti, un solo obiettivo: vestirti bene con quello che hai e comprare solo ciò che ti serve, al prezzo migliore.</p>
       <div class="funzioni">
-        <div class="funzione">
-          <span class="num">i.</span>
+        <article class="funzione">
+          <span class="icona"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg></span>
           <h3>Il look del giorno</h3>
           <p>Temperatura, pioggia e stagione della tua città diventano un outfit completo, con una frase che spiega ogni scelta.</p>
-        </div>
-        <div class="funzione">
-          <span class="num">ii.</span>
-          <h3>Swipe</h3>
-          <p>Scorri i capi: mi piace, non mi piace, super like. Ogni voto insegna alla stilista colori, materiali e stile che preferisci.</p>
-        </div>
-        <div class="funzione">
-          <span class="num">iii.</span>
+        </article>
+        <article class="funzione">
+          <span class="icona"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="12" height="15" rx="2"/><path d="M8 3h8"/><path d="M12 15.5l-2.6-2.6a1.7 1.7 0 0 1 2.6-2.2 1.7 1.7 0 0 1 2.6 2.2z"/></svg></span>
+          <h3>Swipe IA</h3>
+          <p>Mi piace, non mi piace, super like: ogni voto insegna alla stilista colori, materiali e stile che preferisci.</p>
+        </article>
+        <article class="funzione">
+          <span class="icona"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3l-5 3 2 4 2-1v12h10V9l2 1 2-4-5-3a4 4 0 0 1-8 0z"/></svg></span>
           <h3>Armadio</h3>
           <p>Fotografa i tuoi vestiti: il look del giorno userà prima di tutto quello che hai già.</p>
           <span class="presto">In arrivo</span>
-        </div>
-        <div class="funzione">
-          <span class="num">iv.</span>
+        </article>
+        <article class="funzione">
+          <span class="icona"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg></span>
           <h3>Cerca e confronta</h3>
-          <p>Il catalogo dei negozi online, con filtri e confronto prezzi: lo stesso capo in più negozi, con il prezzo migliore in evidenza.</p>
-        </div>
+          <p>Lo stesso capo in più negozi online, con il prezzo migliore in evidenza e gli sconti a portata di mano.</p>
+        </article>
       </div>
     </section>
 
-    <section aria-labelledby="trasparenza">
+    <section aria-labelledby="titolo-trasparenza">
       <div class="trasparenza">
         <div>
-          <h2 id="trasparenza">Trasparenza con chi compra e con i negozi</h2>
+          <div class="titolo-sezione"><span class="num">II</span><h2 id="titolo-trasparenza">Trasparenza, sempre</h2></div>
           <p class="intro">Vivid Violet mostra i prodotti dei negozi partner tramite programmi di affiliazione.</p>
         </div>
         <ul class="regole">
           <li><div><strong>Link di affiliazione dichiarati.</strong> <span>Ogni pagina prodotto avvisa che, se acquisti, Vivid Violet può ricevere una commissione. Il prezzo per chi compra non cambia.</span></div></li>
-          <li><div><strong>Prezzi aggiornati e confrontabili.</strong> <span>Mostriamo prezzo, eventuale sconto e disponibilità dei feed ufficiali dei negozi, con la data dell'ultimo aggiornamento.</span></div></li>
-          <li><div><strong>Consigli prima delle vendite.</strong> <span>L'outfit si basa su meteo e gusti personali; i negozi entrano in gioco quando un capo manca davvero.</span></div></li>
+          <li><div><strong>Prezzi aggiornati e confrontabili.</strong> <span>Prezzo, eventuale sconto e disponibilità arrivano dai feed ufficiali dei negozi, con la data dell'ultimo aggiornamento.</span></div></li>
+          <li><div><strong>Consigli prima delle vendite.</strong> <span>L'outfit nasce da meteo e gusti personali; i negozi entrano in gioco quando un capo manca davvero.</span></div></li>
           <li><div><strong>Dati personali al sicuro.</strong> <span>Ogni utente vede solo i propri dati; non vendiamo informazioni personali a terzi.</span></div></li>
         </ul>
       </div>
     </section>
 
-    <section aria-labelledby="contatti">
-      <h2 id="contatti">Contatti</h2>
+    <section id="avvisami" aria-labelledby="titolo-avvisami">
+      <div class="attesa">
+        <div>
+          <p class="occhiello">Lista d'attesa</p>
+          <h2 id="titolo-avvisami">Avvisami al lancio</h2>
+          <p>Lascia la tua email: ti scriviamo una sola volta, quando Vivid Violet arriva su Google Play.</p>
+        </div>
+        <form id="modulo" novalidate>
+          <label class="campo" for="email">La tua email
+            <input id="email" name="email" type="email" autocomplete="email" required placeholder="nome@esempio.it">
+          </label>
+          <div class="trappola" aria-hidden="true">
+            <label for="sito_web">Lascia vuoto</label>
+            <input id="sito_web" name="sito_web" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <label class="consenso" for="consenso">
+            <input id="consenso" name="consenso" type="checkbox" required>
+            <span>Acconsento a ricevere un'email di avviso al lancio dell'app. Ho letto l'<a href="privacy.html">informativa privacy</a>.</span>
+          </label>
+          <button class="pulsante pieno" type="submit" id="invia">Avvisami</button>
+          <p class="esito" id="esito" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section aria-labelledby="titolo-contatti">
+      <div class="titolo-sezione"><span class="num">III</span><h2 id="titolo-contatti">Contatti</h2></div>
       <div class="contatti">
         <a class="mail" href="mailto:info@vividviolet.it">info@vividviolet.it</a>
         <span class="intro" style="margin:0">Per negozi, partner e stampa.</span>
@@ -223,9 +278,54 @@
 
   <footer>
     <span>© 2026 Vivid Violet</span>
-    <span>App in sviluppo · Italia</span>
+    <span><a href="privacy.html">Privacy</a> · App in sviluppo · Italia</span>
   </footer>
-
 </div>
+
+<script>
+  // Finché le schermate vere non ci sono, al loro posto compare il monogramma VV.
+  function mettiSegnaposto(img) {
+    img.outerHTML = '<svg viewBox="0 0 264 290" aria-hidden="true"><use href="#logo"/></svg>';
+  }
+
+  // "Avvisami al lancio": salva l'email nella lista d'attesa (Supabase).
+  // La chiave qui sotto è quella PUBBLICA: il database permette solo di
+  // aggiungere un'email con il consenso, mai di leggere la lista.
+  const SUPABASE_URL = "https://uuwzkvhpurxhmwomjzbr.supabase.co";
+  const CHIAVE_PUBBLICA = "sb_publishable_FWbB47LH8eO00zMdE0wxpw_2_ETG-Ar";
+
+  const modulo = document.getElementById("modulo");
+  const esito = document.getElementById("esito");
+  const invia = document.getElementById("invia");
+  const mostra = (testo, tipo) => { esito.textContent = testo; esito.className = "esito " + tipo; };
+
+  modulo.addEventListener("submit", async (evento) => {
+    evento.preventDefault();
+    const email = modulo.email.value.trim();
+    if (modulo.sito_web.value) return mostra("Grazie! Ti avviseremo al lancio.", "ok"); // probabilmente un programma automatico
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return mostra("Controlla l'indirizzo email.", "errore");
+    if (!modulo.consenso.checked) return mostra("Per avvisarti ci serve il tuo consenso.", "errore");
+
+    invia.disabled = true; invia.textContent = "Invio…";
+    try {
+      const r = await fetch(SUPABASE_URL + "/rest/v1/lista_attesa", {
+        method: "POST",
+        headers: { apikey: CHIAVE_PUBBLICA, "Content-Type": "application/json", Prefer: "return=minimal" },
+        body: JSON.stringify({ email, consenso: true, fonte: "sito" }),
+      });
+      if (r.ok || r.status === 409) {
+        // 409 = email già in lista: rispondiamo allo stesso modo, senza rivelarlo
+        mostra("Grazie! Ti avviseremo al lancio.", "ok");
+        modulo.reset();
+      } else {
+        mostra("Qualcosa non ha funzionato. Riprova tra poco o scrivici a info@vividviolet.it.", "errore");
+      }
+    } catch {
+      mostra("Sembra che tu sia offline. Riprova tra poco.", "errore");
+    } finally {
+      invia.disabled = false; invia.textContent = "Avvisami";
+    }
+  });
+</script>
 </body>
 </html>
