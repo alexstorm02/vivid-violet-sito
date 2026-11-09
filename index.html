@@ -119,12 +119,18 @@
   .titolo-sezione .num { font-family: var(--serif); font-size: 30px; color: var(--argento); }
   h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(36px, 5vw, 54px); line-height: 1.05; margin: 0; text-wrap: balance; }
   .intro { color: var(--tenue); max-width: 60ch; margin: 0 0 40px; }
-  .funzioni { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-  .funzione { background: var(--superficie); border: 1px solid var(--bordo); border-radius: 22px; padding: 24px; display: grid; gap: 10px; align-content: start; }
-  .funzione .icona { width: 48px; height: 48px; border-radius: 14px; background: var(--viola-chiaro); display: grid; place-items: center; }
-  .funzione .icona svg { width: 24px; height: 24px; stroke: var(--su-chiaro); fill: none; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
-  .funzione h3 { margin: 4px 0 0; font-family: var(--serif); font-weight: 500; font-size: 26px; line-height: 1.1; }
-  .funzione p { margin: 0; color: var(--tenue); font-size: 14.5px; }
+  /* "Come funziona": la mattina come linea del tempo (orizzontale su computer, verticale sul telefono).
+     L'ultimo tratto, verso l'Armadio che arriverà, è tratteggiato. */
+  .mattina { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); }
+  .momento { position: relative; display: grid; gap: 10px; align-content: start; padding: 30px 28px 0 0; border-top: 1px solid var(--viola-chiaro); }
+  .momento::before { content: ""; position: absolute; left: 0; top: -6px; width: 11px; height: 11px; border-radius: 50%; background: var(--viola-chiaro); box-shadow: 0 0 0 5px rgba(139, 92, 246, .18); }
+  .momento:nth-last-child(2) { border-top: 1px dashed var(--argento); }
+  .momento.futuro { border-top-color: transparent; }
+  .momento.futuro::before { background: var(--nero); border: 1px solid var(--argento); box-shadow: none; }
+  .momento .ora { font-family: var(--serif); font-style: italic; font-size: 30px; line-height: 1; color: var(--viola-chiaro); }
+  .momento.futuro .ora { color: var(--argento); }
+  .momento h3 { margin: 4px 0 0; font-family: var(--serif); font-weight: 500; font-size: 26px; line-height: 1.12; text-wrap: balance; }
+  .momento p { margin: 0; color: var(--tenue); font-size: 14.5px; }
   .presto { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--argento); }
 
   .trasparenza { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; }
@@ -157,7 +163,11 @@
 
   /* --- Telefono e tablet --- */
   @media (max-width: 920px) {
-    .funzioni { grid-template-columns: 1fr 1fr; }
+    .mattina { grid-template-columns: 1fr; max-width: 560px; }
+    .momento { border-top: 0; border-left: 1px solid var(--viola-chiaro); padding: 0 0 40px 30px; }
+    .momento::before { left: -6px; top: 8px; }
+    .momento:nth-last-child(2) { border-top: 0; border-left: 1px dashed var(--argento); }
+    .momento.futuro { border-left-color: transparent; padding-bottom: 0; }
     .trasparenza, .attesa { grid-template-columns: 1fr; }
     .telefoni { gap: 16px; }
     .telefono .cornice { border-radius: 30px; padding: 7px; }
@@ -172,7 +182,6 @@
   @media (max-width: 520px) {
     .marchio .nome { font-size: 21px; }
     .stato { font-size: 9.5px; padding: 6px 10px; letter-spacing: .12em; }
-    .funzioni { grid-template-columns: 1fr; }
     section { padding: 60px 0; }
   }
   @media (prefers-reduced-motion: no-preference) {
@@ -241,31 +250,36 @@
 
     <section id="come" aria-labelledby="titolo-come">
       <div class="titolo-sezione"><span class="num">I</span><h2 id="titolo-come">Come funziona</h2></div>
-      <p class="intro">Quattro strumenti, un solo obiettivo: vestirti bene con quello che hai e comprare solo ciò che ti serve, al prezzo migliore.</p>
-      <div class="funzioni">
-        <article class="funzione">
-          <span class="icona"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg></span>
-          <h3>Il look del giorno</h3>
-          <p>Temperatura, pioggia e stagione della tua città diventano un outfit completo, con una frase che spiega ogni scelta.</p>
-        </article>
-        <article class="funzione">
-          <span class="icona"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="12" height="15" rx="2"/><path d="M8 3h8"/><path d="M12 15.5l-2.6-2.6a1.7 1.7 0 0 1 2.6-2.2 1.7 1.7 0 0 1 2.6 2.2z"/></svg></span>
-          <h3>Swipe IA</h3>
-          <p>Mi piace, non mi piace, super like: ogni voto insegna alla stilista colori, materiali e stile che preferisci.</p>
-        </article>
-        <article class="funzione">
-          <span class="icona"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3l-5 3 2 4 2-1v12h10V9l2 1 2-4-5-3a4 4 0 0 1-8 0z"/></svg></span>
-          <h3>Armadio</h3>
+      <p class="intro">Dal risveglio alla porta di casa: una mattina con Vivid Violet. L'obiettivo è vestirti bene con quello che hai e comprare solo ciò che ti serve, al prezzo migliore.</p>
+      <ol class="mattina">
+        <li class="momento">
+          <span class="ora">7:30</span>
+          <h3>Il meteo l'ha già guardato lei.</h3>
+          <p>Apri l'app: temperatura, pioggia e stagione della tua città sono già lì.</p>
+        </li>
+        <li class="momento">
+          <span class="ora">7:31</span>
+          <h3>Ecco il tuo look.</h3>
+          <p>Un outfit completo, con una frase che spiega ogni scelta.</p>
+        </li>
+        <li class="momento">
+          <span class="ora">7:32</span>
+          <h3>Manca un capo? Confronti i prezzi.</h3>
+          <p>Lo stesso capo in più negozi online, con il prezzo migliore in evidenza.</p>
+          <span class="presto">Con i negozi partner, al lancio</span>
+        </li>
+        <li class="momento">
+          <span class="ora">La sera</span>
+          <h3>Due minuti di Swipe IA.</h3>
+          <p>Scorri i capi che ti propone e dai un voto: mi piace, non mi piace o super like. Ogni voto le insegna i tuoi gusti, e il look di domani sarà ancora più tuo.</p>
+        </li>
+        <li class="momento futuro">
+          <span class="ora">Presto</span>
+          <h3>Il tuo armadio.</h3>
           <p>Fotografa i tuoi vestiti: il look del giorno userà prima di tutto quello che hai già.</p>
           <span class="presto">In arrivo</span>
-        </article>
-        <article class="funzione">
-          <span class="icona"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg></span>
-          <h3>Cerca e confronta</h3>
-          <p>Lo stesso capo in più negozi online, con il prezzo migliore in evidenza e gli sconti a portata di mano.</p>
-          <span class="presto">Con i negozi partner, al lancio</span>
-        </article>
-      </div>
+        </li>
+      </ol>
     </section>
 
     <section aria-labelledby="titolo-trasparenza">
