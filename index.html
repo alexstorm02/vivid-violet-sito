@@ -54,9 +54,7 @@
   html, body { margin: 0; }
   html { scroll-behavior: smooth; }
   body {
-    background: var(--nero);
-    background-image: linear-gradient(180deg, #07060A 0%, #0E0A18 45%, var(--viola-profondo) 100%);
-    background-attachment: fixed;
+    background: #07060A;
     color: var(--testo);
     font-family: var(--sans);
     font-size: 16px;
@@ -67,13 +65,16 @@
   a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--argento); outline-offset: 3px; }
   img { max-width: 100%; display: block; }
   .pagina { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+
   .occhiello { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--viola-chiaro); margin: 0; }
 
   /* --- Intestazione --- */
   header.barra { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; }
   .marchio { display: flex; align-items: center; gap: 12px; color: var(--testo); text-decoration: none; white-space: nowrap; }
-  .marchio .tessera { width: 42px; height: 42px; border-radius: 12px; background: #000; border: 1px solid var(--bordo); display: grid; place-items: center; }
-  .marchio .tessera svg { height: 24px; width: auto; fill: var(--testo); }
+  .marchio .tessera { position: relative; overflow: hidden; width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(150deg, #17141F, #030305); border: 1px solid var(--bordo); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 6px 14px -6px #000; display: grid; place-items: center; }
+  /* logo in argento metallico (sfumatura "argento" definita nel simbolo in fondo alla pagina) */
+  .marchio .tessera svg { height: 24px; width: auto; fill: url(#argento); }
+  .marchio .tessera::after { content: ""; position: absolute; inset: -50%; background: linear-gradient(115deg, transparent 44%, rgba(255,255,255,.22) 50%, transparent 56%); transform: translateX(-60%); }
   .marchio .nome { font-family: var(--serif); font-size: 24px; font-weight: 500; }
   .marchio .nome span { color: var(--viola-chiaro); }
   .stato { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--argento); text-decoration: none; border: 1px solid rgba(200,202,210,.45); border-radius: 999px; padding: 7px 14px; white-space: nowrap; transition: color .2s, border-color .2s; }
@@ -85,17 +86,26 @@
   h1 em { color: var(--viola-chiaro); }
   .tesi { font-size: 18px; color: var(--testo); opacity: .88; max-width: 38ch; margin: 0; }
   .azioni { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
-  .pulsante { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 26px; border-radius: 999px; font: 600 15px var(--sans); text-decoration: none; border: 0; cursor: pointer; }
-  .pulsante.pieno { background: var(--viola-chiaro); color: var(--su-chiaro); }
-  .pulsante.contorno { border: 1.5px solid var(--viola-chiaro); color: var(--viola-chiaro); background: transparent; }
-  .pulsante:hover { filter: brightness(1.06); }
-  .pulsante:disabled { opacity: .6; cursor: progress; }
+  /* Pulsanti in rilievo: luce sul bordo alto, "spessore" viola sotto; al tocco si abbassano */
+  .pulsante { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 26px; border-radius: 999px; font: 600 15px var(--sans); text-decoration: none; border: 0; cursor: pointer; transition: transform .15s ease, box-shadow .15s ease, filter .2s; }
+  .pulsante.pieno { background: linear-gradient(180deg, #BCA6FC 0%, #A78BFA 55%, #9474F5 100%); color: var(--su-chiaro); box-shadow: inset 0 1px 0 rgba(255,255,255,.55), inset 0 -1px 0 rgba(76,29,149,.35), 0 4px 0 #5B3FB8, 0 12px 22px -8px rgba(91,33,182,.7); }
+  .pulsante.contorno { border: 1.5px solid var(--viola-chiaro); color: var(--viola-chiaro); background: rgba(167,139,250,.05); box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 4px 0 rgba(167,139,250,.28); }
+  .pulsante:hover { filter: brightness(1.06); transform: translateY(-1px); }
+  .pulsante.pieno:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,.55), inset 0 -1px 0 rgba(76,29,149,.35), 0 5px 0 #5B3FB8, 0 16px 26px -8px rgba(91,33,182,.75); }
+  .pulsante.pieno:active { transform: translateY(3px); box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -1px 0 rgba(76,29,149,.35), 0 1px 0 #5B3FB8, 0 4px 10px -4px rgba(91,33,182,.6); }
+  .pulsante.contorno:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(167,139,250,.28); }
+  .pulsante:disabled { opacity: .6; cursor: progress; transform: none; }
 
   /* --- I telefoni con le schermate vere --- */
   .telefoni { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding: 36px 0 72px; align-items: end; }
-  .telefono { margin: 0; display: grid; gap: 14px; justify-items: center; }
-  .telefono .cornice { width: min(300px, 100%); aspect-ratio: 9 / 19.5; border-radius: 40px; padding: 10px; background: #050407; border: 1px solid var(--bordo); box-shadow: 0 40px 100px -40px rgba(139, 92, 246, .55); }
-  .telefono:nth-child(2) .cornice { transform: translateY(-28px); }
+  /* Telefoni in 3D: ogni telefono ha la sua prospettiva; l'inclinazione
+     (--inclina, --gira) la cambia il codice in fondo alla pagina, seguendo
+     il mouse o lo scorrimento. */
+  .telefono { margin: 0; display: grid; gap: 14px; justify-items: center; perspective: 1400px; }
+  .telefono .cornice { position: relative; width: min(300px, 100%); aspect-ratio: 9 / 19.5; border-radius: 40px; padding: 10px; background: linear-gradient(150deg, #1A1724, #050407 40%); border: 1px solid var(--bordo); box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 50px 80px -30px rgba(0,0,0,.95); transform: rotateX(var(--inclina, 0deg)) rotateY(var(--gira, 0deg)); transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+  /* riflesso sul vetro, che scorre con l'inclinazione */
+  .telefono .cornice::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: linear-gradient(110deg, rgba(255,255,255,0) 35%, rgba(255,255,255,.08) 47%, rgba(255,255,255,0) 60%); background-size: 260% 100%; background-position: var(--gx, 35%) 0; transition: background-position .35s; }
+  .telefono:nth-child(2) .cornice { top: -28px; }
   .telefono .schermo { width: 100%; height: 100%; border-radius: 31px; overflow: hidden; background: linear-gradient(180deg, #07060A, var(--viola-profondo)); display: grid; place-items: center; }
   .telefono .schermo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
   .telefono .schermo svg { width: 64px; fill: var(--viola); opacity: .5; }
@@ -107,7 +117,10 @@
     .eroe { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 64px; align-items: center; padding: 8px 0 24px; }
     .eroe .apertura { padding: 40px 0; }
     .telefono-eroe { display: grid; }
-    .eroe .telefono-eroe .cornice { width: 280px; transform: none; }
+    .eroe .telefono-eroe .cornice { width: 280px; top: 0; --gira: -18deg; --inclina: 6deg; box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 1px 0 0 #221D2E, 2px 0 0 #1C1826, 3px 0 0 #171420, 4px 0 0 #13101A, 5px 0 0 #0F0D15, 40px 60px 80px -30px rgba(0,0,0,.95); }
+    /* Accesso e Swipe si guardano, leggermente girati verso il centro */
+    .telefoni .telefono:first-child .cornice { --gira: 14deg; }
+    .telefoni .telefono:last-child .cornice { --gira: -14deg; }
     /* il Look è già in alto: sotto restano Accesso e Swipe */
     .telefoni .look-riga { display: none; }
     .telefoni { grid-template-columns: repeat(2, minmax(0, 300px)); justify-content: center; column-gap: 96px; }
@@ -123,7 +136,7 @@
      L'ultimo tratto, verso l'Armadio che arriverà, è tratteggiato. */
   .mattina { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); }
   .momento { position: relative; display: grid; gap: 10px; align-content: start; padding: 30px 28px 0 0; border-top: 1px solid var(--viola-chiaro); }
-  .momento::before { content: ""; position: absolute; left: 0; top: -6px; width: 11px; height: 11px; border-radius: 50%; background: var(--viola-chiaro); box-shadow: 0 0 0 5px rgba(139, 92, 246, .18); }
+  .momento::before { content: ""; position: absolute; left: 0; top: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F1EBFF 0%, #A78BFA 45%, #5B21B6 100%); box-shadow: 0 2px 4px rgba(0,0,0,.7), 0 0 0 4px rgba(139, 92, 246, .14); }
   .momento:nth-last-child(2) { border-top: 1px dashed var(--argento); }
   .momento.futuro { border-top-color: transparent; }
   .momento.futuro::before { background: var(--nero); border: 1px solid var(--argento); box-shadow: none; }
@@ -141,7 +154,7 @@
   .regole span { color: var(--tenue); }
 
   /* --- Lista d'attesa --- */
-  .attesa { background: var(--riquadro-viola); border-radius: 28px; padding: clamp(28px, 5vw, 56px); display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  .attesa { background: #100D17; border: 1px solid var(--bordo); box-shadow: inset 0 1px 0 rgba(196, 181, 253, .10); border-radius: 28px; padding: clamp(28px, 5vw, 56px); display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
   .attesa h2 { font-size: clamp(34px, 4.5vw, 48px); }
   .attesa p { color: var(--testo); opacity: .85; margin: 12px 0 0; }
   form { display: grid; gap: 14px; }
@@ -177,7 +190,7 @@
     /* i telefoni diventano un carosello da scorrere col dito */
     .telefoni { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 18px; padding: 24px 20px 56px; margin: 0 -20px; }
     .telefono { flex: 0 0 min(72%, 270px); scroll-snap-align: center; }
-    .telefono:nth-child(2) .cornice { transform: none; }
+    .telefono:nth-child(2) .cornice { top: 0; }
   }
   @media (max-width: 520px) {
     .marchio .nome { font-size: 21px; }
@@ -188,12 +201,15 @@
     .telefono .cornice { animation: entra 900ms cubic-bezier(.2,.7,.2,1) both; }
     .telefono:nth-child(2) .cornice { animation-delay: 120ms; }
     .telefono:nth-child(3) .cornice { animation-delay: 240ms; }
+    .marchio .tessera::after { animation: lucida 7s ease-in-out 1.5s infinite; }
+    @keyframes lucida { 0% { transform: translateX(-60%); } 18%, 100% { transform: translateX(60%); } }
     @keyframes entra { from { opacity: 0; translate: 0 18px; } to { opacity: 1; translate: 0 0; } }
   }
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs><linearGradient id="argento" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="264" y2="290"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".35" stop-color="#B4B7C2"/><stop offset=".55" stop-color="#F2F3F6"/><stop offset=".8" stop-color="#8A8D99"/><stop offset="1" stop-color="#D9DBE1"/></linearGradient></defs>
   <symbol id="logo" viewBox="0 0 264 290"><path d="M16 0 L74 0 L146 236 L128 236 Z"/><path d="M232 0 L247 0 L146 236 L133 236 Z"/><path d="M116 53 L136 53 L244 290 L186 290 Z"/><path d="M122 53 L137 53 L33 290 L18 290 Z"/><path d="M0 0 H102 V10 H0 Z"/><path d="M198 0 H264 V10 H198 Z"/><path d="M0 280 H58 V290 H0 Z"/><path d="M160 280 H264 V290 H160 Z"/></symbol>
 </svg>
 
@@ -338,6 +354,60 @@
 </div>
 
 <script>
+  // Telefoni in 3D. Chi ha chiesto al telefono di ridurre le animazioni
+  // vede i telefoni fermi (già inclinati, ma senza movimento).
+  (() => {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    // 1. Su computer il telefono dell'apertura segue il mouse.
+    const eroe = document.querySelector(".eroe");
+    const telEroe = document.querySelector(".telefono-eroe .cornice");
+    if (eroe && telEroe && matchMedia("(hover: hover)").matches) {
+      eroe.addEventListener("pointermove", (e) => {
+        const r = eroe.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;   // da -0,5 a 0,5
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        telEroe.style.setProperty("--gira", (-18 + x * 22).toFixed(1) + "deg");
+        telEroe.style.setProperty("--inclina", (6 - y * 14).toFixed(1) + "deg");
+        telEroe.style.setProperty("--gx", (35 + x * 60).toFixed(0) + "%");
+      });
+      eroe.addEventListener("pointerleave", () => {
+        for (const p of ["--gira", "--inclina", "--gx"]) telEroe.style.removeProperty(p);
+      });
+    }
+
+    // 2. Scorrendo la pagina i telefoni "si alzano" mentre entrano nello
+    //    schermo; nel carosello del telefono, quelli ai lati girano verso il centro.
+    const riga = document.querySelector(".telefoni");
+    const cornici = [...riga.querySelectorAll(".cornice")];
+    const carosello = matchMedia("(max-width: 640px)");
+    let inAttesa = false;
+    function aggiorna() {
+      inAttesa = false;
+      const r = riga.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * 0.75)));
+      const inclina = ((1 - p) * 30).toFixed(1) + "deg";
+      const centro = r.left + r.width / 2;
+      for (const c of cornici) {
+        c.style.setProperty("--inclina", inclina);
+        if (carosello.matches) {
+          const rc = c.getBoundingClientRect();
+          const d = (rc.left + rc.width / 2 - centro) / r.width;
+          c.style.setProperty("--gira", Math.max(-35, Math.min(35, -d * 60)).toFixed(1) + "deg");
+          c.style.setProperty("--gx", (35 - d * 80).toFixed(0) + "%");
+        } else {
+          c.style.removeProperty("--gira");
+          c.style.removeProperty("--gx");
+        }
+      }
+    }
+    const pianifica = () => { if (!inAttesa) { inAttesa = true; requestAnimationFrame(aggiorna); } };
+    addEventListener("scroll", pianifica, { passive: true });
+    addEventListener("resize", pianifica);
+    riga.addEventListener("scroll", pianifica, { passive: true });
+    aggiorna();
+  })();
+
   // Finché le schermate vere non ci sono, al loro posto compare il monogramma VV.
   function mettiSegnaposto(img) {
     img.outerHTML = '<svg viewBox="0 0 264 290" aria-hidden="true"><use href="#logo"/></svg>';
