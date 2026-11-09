@@ -101,6 +101,18 @@
   .telefono .schermo svg { width: 64px; fill: var(--viola); opacity: .5; }
   .telefono figcaption { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--argento); }
 
+  /* --- Apertura a due colonne, solo su computer --- */
+  .telefono-eroe { display: none; }
+  @media (min-width: 921px) {
+    .eroe { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 64px; align-items: center; padding: 8px 0 24px; }
+    .eroe .apertura { padding: 40px 0; }
+    .telefono-eroe { display: grid; }
+    .eroe .telefono-eroe .cornice { width: 280px; transform: none; }
+    /* il Look è già in alto: sotto restano Accesso e Swipe */
+    .telefoni .look-riga { display: none; }
+    .telefoni { grid-template-columns: repeat(2, minmax(0, 300px)); justify-content: center; column-gap: 96px; }
+  }
+
   /* --- Sezioni --- */
   section { padding: 80px 0; border-top: 1px solid var(--bordo); }
   .titolo-sezione { display: flex; align-items: baseline; gap: 16px; margin-bottom: 14px; }
@@ -186,6 +198,7 @@
   </header>
 
   <main>
+    <div class="eroe">
     <div class="apertura">
       <p class="occhiello">Vivid Violet · Stilista IA</p>
       <h1>Ogni mattina,<br><em>il look giusto.</em></h1>
@@ -196,6 +209,15 @@
       </div>
     </div>
 
+    <!-- Su computer: il Look del giorno accanto al titolo (sul telefono è nascosto e il Look resta nel carosello sotto) -->
+    <figure class="telefono telefono-eroe">
+      <div class="cornice"><div class="schermo">
+        <img src="img/look.webp" width="600" height="1333" alt="Schermata Look: meteo della città e outfit consigliato del giorno" fetchpriority="high" onerror="mettiSegnaposto(this)">
+      </div></div>
+      <figcaption>Look del giorno</figcaption>
+    </figure>
+    </div>
+
     <div class="telefoni" role="list" aria-label="Schermate dell'app">
       <figure class="telefono" role="listitem">
         <div class="cornice"><div class="schermo">
@@ -203,7 +225,7 @@
         </div></div>
         <figcaption>Accesso</figcaption>
       </figure>
-      <figure class="telefono" role="listitem">
+      <figure class="telefono look-riga" role="listitem">
         <div class="cornice"><div class="schermo">
           <img src="img/look.webp" width="600" height="1333" alt="Schermata Look: meteo della città e outfit consigliato del giorno" loading="lazy" onerror="mettiSegnaposto(this)">
         </div></div>
