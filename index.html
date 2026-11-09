@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vivid Violet</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta name="description" content="Vivid Violet è la stilista IA che ogni mattina guarda il meteo della tua città e ti consiglia cosa indossare, impara i tuoi gusti e confronta i prezzi dei negozi online.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* Lo stesso mondo visivo dell'app: nero, viola vivido, dettagli argento.
+     Layout: titolo editoriale a sinistra, "telefono" con il look del giorno a destra;
+     sotto, quattro funzioni in colonna e una sezione sulla trasparenza. */
+  :root {
+    --nero: #0a0a0a;
+    --superficie: #151515;
+    --bordo: #2a2a2a;
+    --viola: #8b5cf6;
+    --viola-chiaro: #a78bfa;
+    --argento: #c8cad2;
+    --testo: #f5f5f5;
+    --tenue: #a1a1aa;
+    --serif: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--nero);
+    color: var(--testo);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--viola-chiaro); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--argento); outline-offset: 3px; }
+  .pagina { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* --- Intestazione --- */
+  header.barra {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 28px 0; border-bottom: 1px solid var(--bordo);
+  }
+  .marchio { font-family: var(--serif); font-size: 26px; font-weight: 600; letter-spacing: 0.02em; color: var(--testo); text-decoration: none; }
+  .marchio span { color: var(--viola); }
+  .stato {
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--argento);
+    border: 1px solid color-mix(in srgb, var(--argento) 50%, transparent); border-radius: 999px; padding: 6px 14px;
+  }
+
+  /* --- Apertura --- */
+  .apertura {
+    display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 64px; align-items: center;
+    padding: 88px 0 96px;
+  }
+  .occhiello { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--argento); margin: 0 0 20px; }
+  h1 {
+    font-family: var(--serif); font-weight: 500; margin: 0;
+    font-size: clamp(56px, 9vw, 118px); line-height: 0.92; letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  h1 em { font-style: italic; color: var(--viola); }
+  .filetto { width: 64px; height: 1px; background: var(--argento); margin: 36px 0 28px; }
+  .tesi { font-size: 20px; line-height: 1.55; color: var(--tenue); max-width: 34ch; margin: 0; }
+  .tesi strong { color: var(--testo); font-weight: 500; }
+
+  /* Il telefono con il look del giorno (contenuto reale dell'app) */
+  .telefono {
+    justify-self: center; width: min(340px, 100%);
+    border: 1px solid var(--bordo); border-radius: 40px; padding: 14px;
+    background: #050505;
+    box-shadow: 0 40px 120px -40px color-mix(in srgb, var(--viola) 55%, transparent);
+  }
+  .schermo { border-radius: 28px; background: var(--nero); padding: 26px 20px 22px; display: grid; gap: 14px; }
+  .schermo .k { font-size: 10px; letter-spacing: 0.18em; color: var(--argento); text-transform: uppercase; }
+  .schermo .citta { font-family: var(--serif); font-size: 30px; color: var(--viola); line-height: 1; }
+  .meteo { display: flex; align-items: center; gap: 14px; background: var(--superficie); border: 1px solid var(--bordo); border-radius: 14px; padding: 14px; }
+  .meteo .gradi { font-family: var(--serif); font-size: 44px; line-height: 1; }
+  .meteo .desc { font-size: 13px; color: var(--tenue); }
+  .citazione { font-family: var(--serif); font-size: 18px; line-height: 1.35; margin: 2px 0; }
+  .capi { border: 1px solid var(--bordo); border-radius: 14px; overflow: hidden; }
+  .capo { display: grid; grid-template-columns: 34px 1fr auto; gap: 10px; align-items: center; padding: 10px 12px; border-bottom: 1px solid var(--bordo); background: var(--superficie); }
+  .capo:last-child { border-bottom: 0; }
+  .capo svg { width: 34px; height: 34px; }
+  .capo .p { font-size: 9px; letter-spacing: 0.16em; color: var(--argento); }
+  .capo .n { font-size: 13px; font-weight: 500; }
+  .capo .e { font-size: 13px; font-weight: 600; color: var(--argento); font-variant-numeric: tabular-nums; }
+
+  /* --- Funzioni --- */
+  section { padding: 88px 0; border-top: 1px solid var(--bordo); }
+  h2 {
+    font-family: var(--serif); font-weight: 500; font-size: clamp(36px, 5vw, 54px); line-height: 1.05;
+    margin: 0 0 12px; text-wrap: balance;
+  }
+  .intro { color: var(--tenue); max-width: 60ch; margin: 0 0 48px; }
+  .funzioni { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .funzione { display: grid; gap: 10px; align-content: start; }
+  .funzione .num { font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--argento); }
+  .funzione h3 { margin: 0; font-size: 18px; font-weight: 600; }
+  .funzione p { margin: 0; color: var(--tenue); font-size: 15px; }
+  .funzione .presto { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--viola-chiaro); }
+
+  /* --- Trasparenza (per i negozi partner) --- */
+  .trasparenza { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 64px; }
+  .regole { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+  .regole li { display: grid; grid-template-columns: 28px 1fr; gap: 14px; }
+  .regole li::before { content: ""; width: 10px; height: 10px; margin-top: 9px; border: 1px solid var(--argento); transform: rotate(45deg); }
+  .regole strong { font-weight: 600; }
+  .regole span { color: var(--tenue); }
+
+  /* --- Contatti e piede --- */
+  .contatti { display: flex; flex-wrap: wrap; gap: 24px 48px; align-items: baseline; }
+  .contatti .mail { font-family: var(--serif); font-size: 28px; color: var(--testo); text-decoration: none; border-bottom: 1px solid var(--argento); }
+  .segnaposto { color: var(--argento); border-bottom: 1px dashed var(--argento); }
+  footer { padding: 32px 0 48px; border-top: 1px solid var(--bordo); color: var(--tenue); font-size: 13px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+
+  @media (max-width: 900px) {
+    .apertura { grid-template-columns: 1fr; gap: 56px; padding-top: 56px; }
+    .funzioni { grid-template-columns: 1fr 1fr; }
+    .trasparenza { grid-template-columns: 1fr; gap: 32px; }
+  }
+  @media (max-width: 520px) {
+    .funzioni { grid-template-columns: 1fr; }
+    section { padding: 64px 0; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .telefono { animation: entra 900ms cubic-bezier(.2,.7,.2,1) both 150ms; }
+    @keyframes entra { from { transform: translateY(18px); } to { transform: none; } }
+  }
+</style>
+</head>
+<body>
+<div class="pagina">
+
+  <header class="barra">
+    <a class="marchio" href="#">Vivid <span>Violet</span></a>
+    <span class="stato">App Android in arrivo</span>
+  </header>
+
+  <main>
+    <div class="apertura">
+      <div>
+        <p class="occhiello">La tua stilista IA</p>
+        <h1>Ogni mattina,<br><em>il look giusto.</em></h1>
+        <div class="filetto" aria-hidden="true"></div>
+        <p class="tesi">Vivid Violet guarda <strong>il meteo della tua città</strong>, conosce <strong>i tuoi gusti</strong> e ti propone cosa indossare. E quando ti manca un capo, <strong>confronta i prezzi</strong> dei negozi online.</p>
+      </div>
+
+      <div class="telefono" role="img" aria-label="Esempio della schermata Look dell'app: Milano, 10 gradi, pioggia; outfit con parka, dolcevita, pantaloni sartoriali e stivaletti impermeabili.">
+        <div class="schermo">
+          <div class="k">Il tuo look di oggi</div>
+          <div class="citta">Milano</div>
+          <div class="meteo">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c8cad2" stroke-width="1.3" aria-hidden="true"><path d="M7 15a4 4 0 1 1 .9-7.9A5 5 0 0 1 17.6 9 3.5 3.5 0 0 1 17 16H7"/><path d="M9 18l-1 2M13 18l-1 2M17 18l-1 2"/></svg>
+            <div><div class="gradi">10°</div><div class="desc">Pioggia leggera · 93%</div></div>
+          </div>
+          <p class="citazione">“Oggi a Milano tra 9° e 11°, con pioggia. Parka imbottito per restare all'asciutto.”</p>
+          <div class="capi">
+            <div class="capo"><svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.2" aria-hidden="true"><path d="M12 3v9M5 12a7 7 0 0 1 14 0H5zM12 12v6a2 2 0 0 0 4 0"/></svg><div><div class="p">CAPOSPALLA</div><div class="n">Parka imbottito</div></div><div class="e">179 €</div></div>
+            <div class="capo"><svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.2" aria-hidden="true"><path d="M8 3l-5 3 2 4 2-1v12h10V9l2 1 2-4-5-3a4 4 0 0 1-8 0z"/></svg><div><div class="p">SOPRA</div><div class="n">Dolcevita in merino</div></div><div class="e">95 €</div></div>
+            <div class="capo"><svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.2" aria-hidden="true"><path d="M7 3h10l1 18h-4l-2-11-2 11H6z"/></svg><div><div class="p">SOTTO</div><div class="n">Pantaloni sartoriali</div></div><div class="e">129 €</div></div>
+            <div class="capo"><svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.2" aria-hidden="true"><path d="M5 4h5v9l9 3v4H5z"/></svg><div><div class="p">SCARPE</div><div class="n">Stivaletti impermeabili</div></div><div class="e">149 €</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section aria-labelledby="come">
+      <h2 id="come">Come funziona</h2>
+      <p class="intro">Quattro strumenti, un solo obiettivo: vestirti bene con quello che hai e comprare solo ciò che ti serve, al prezzo migliore.</p>
+      <div class="funzioni">
+        <div class="funzione">
+          <span class="num">i.</span>
+          <h3>Il look del giorno</h3>
+          <p>Temperatura, pioggia e stagione della tua città diventano un outfit completo, con una frase che spiega ogni scelta.</p>
+        </div>
+        <div class="funzione">
+          <span class="num">ii.</span>
+          <h3>Swipe</h3>
+          <p>Scorri i capi: mi piace, non mi piace, super like. Ogni voto insegna alla stilista colori, materiali e stile che preferisci.</p>
+        </div>
+        <div class="funzione">
+          <span class="num">iii.</span>
+          <h3>Armadio</h3>
+          <p>Fotografa i tuoi vestiti: il look del giorno userà prima di tutto quello che hai già.</p>
+          <span class="presto">In arrivo</span>
+        </div>
+        <div class="funzione">
+          <span class="num">iv.</span>
+          <h3>Cerca e confronta</h3>
+          <p>Il catalogo dei negozi online, con filtri e confronto prezzi: lo stesso capo in più negozi, con il prezzo migliore in evidenza.</p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="trasparenza">
+      <div class="trasparenza">
+        <div>
+          <h2 id="trasparenza">Trasparenza con chi compra e con i negozi</h2>
+          <p class="intro">Vivid Violet mostra i prodotti dei negozi partner tramite programmi di affiliazione.</p>
+        </div>
+        <ul class="regole">
+          <li><div><strong>Link di affiliazione dichiarati.</strong> <span>Ogni pagina prodotto avvisa che, se acquisti, Vivid Violet può ricevere una commissione. Il prezzo per chi compra non cambia.</span></div></li>
+          <li><div><strong>Prezzi aggiornati e confrontabili.</strong> <span>Mostriamo prezzo, eventuale sconto e disponibilità dei feed ufficiali dei negozi, con la data dell'ultimo aggiornamento.</span></div></li>
+          <li><div><strong>Consigli prima delle vendite.</strong> <span>L'outfit si basa su meteo e gusti personali; i negozi entrano in gioco quando un capo manca davvero.</span></div></li>
+          <li><div><strong>Dati personali al sicuro.</strong> <span>Ogni utente vede solo i propri dati; non vendiamo informazioni personali a terzi.</span></div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="contatti">
+      <h2 id="contatti">Contatti</h2>
+      <div class="contatti">
+        <a class="mail" href="mailto:info@vividviolet.it">info@vividviolet.it</a>
+        <span class="intro" style="margin:0">Per negozi, partner e stampa.</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 Vivid Violet</span>
+    <span>App in sviluppo · Italia</span>
+  </footer>
+
+</div>
+</body>
+</html>
