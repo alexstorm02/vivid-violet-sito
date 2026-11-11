@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://vividviolet.it/">
 <meta property="og:title" content="Vivid Violet · Ogni mattina, il look giusto.">
 <meta property="og:description" content="La stilista IA che guarda il meteo della tua città, impara i tuoi gusti e confronta i prezzi dei negozi online. App Android in arrivo.">
-<meta property="og:image" content="https://vividviolet.it/anteprima.png?v=2">
+<meta property="og:image" content="https://vividviolet.it/anteprima.png?v=3">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -133,15 +133,12 @@
   h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(36px, 5vw, 54px); line-height: 1.05; margin: 0; text-wrap: balance; }
   .intro { color: var(--tenue); max-width: 60ch; margin: 0 0 40px; }
   /* "Come funziona": la mattina come linea del tempo (orizzontale su computer, verticale sul telefono).
-     L'ultimo tratto, verso l'Armadio che arriverà, è tratteggiato. */
+     L'ultimo momento chiude la linea. */
   .mattina { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); }
   .momento { position: relative; display: grid; gap: 10px; align-content: start; padding: 30px 28px 0 0; border-top: 1px solid var(--viola-chiaro); }
   .momento::before { content: ""; position: absolute; left: 0; top: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F1EBFF 0%, #A78BFA 45%, #5B21B6 100%); box-shadow: 0 2px 4px rgba(0,0,0,.7), 0 0 0 4px rgba(139, 92, 246, .14); }
-  .momento:nth-last-child(2) { border-top: 1px dashed var(--argento); }
-  .momento.futuro { border-top-color: transparent; }
-  .momento.futuro::before { background: var(--nero); border: 1px solid var(--argento); box-shadow: none; }
+  .momento:last-child { border-top-color: transparent; }
   .momento .ora { font-family: var(--serif); font-style: italic; font-size: 30px; line-height: 1; color: var(--viola-chiaro); }
-  .momento.futuro .ora { color: var(--argento); }
   .momento h3 { margin: 4px 0 0; font-family: var(--serif); font-weight: 500; font-size: 26px; line-height: 1.12; text-wrap: balance; }
   .momento p { margin: 0; color: var(--tenue); font-size: 14.5px; }
   .presto { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--argento); }
@@ -179,8 +176,7 @@
     .mattina { grid-template-columns: 1fr; max-width: 560px; }
     .momento { border-top: 0; border-left: 1px solid var(--viola-chiaro); padding: 0 0 40px 30px; }
     .momento::before { left: -6px; top: 8px; }
-    .momento:nth-last-child(2) { border-top: 0; border-left: 1px dashed var(--argento); }
-    .momento.futuro { border-left-color: transparent; padding-bottom: 0; }
+    .momento:last-child { border-left-color: transparent; padding-bottom: 0; }
     .trasparenza, .attesa { grid-template-columns: 1fr; }
     .telefoni { gap: 16px; }
     .telefono .cornice { border-radius: 30px; padding: 7px; }
@@ -237,7 +233,7 @@
     <!-- Su computer: il Look del giorno accanto al titolo (sul telefono è nascosto e il Look resta nel carosello sotto) -->
     <figure class="telefono telefono-eroe">
       <div class="cornice"><div class="schermo">
-        <img src="img/look.webp" width="600" height="1333" alt="Schermata Look: meteo della città e outfit consigliato del giorno" fetchpriority="high" onerror="mettiSegnaposto(this)">
+        <img src="img/look.webp?v=2" width="600" height="1333" alt="Schermata Look: la frase della stilista e il figurino vestito con l'outfit del giorno, capo per capo" fetchpriority="high" onerror="mettiSegnaposto(this)">
       </div></div>
       <figcaption>Look del giorno</figcaption>
     </figure>
@@ -246,19 +242,19 @@
     <div class="telefoni" role="list" aria-label="Schermate dell'app">
       <figure class="telefono" role="listitem">
         <div class="cornice"><div class="schermo">
-          <img src="img/accedi.webp" width="600" height="1333" alt="Schermata di accesso dell'app con il pulsante Accedi con Google" loading="lazy" onerror="mettiSegnaposto(this)">
+          <img src="img/accedi.webp?v=2" width="600" height="1333" alt="Schermata di accesso dell'app con il pulsante Accedi con Google" loading="lazy" onerror="mettiSegnaposto(this)">
         </div></div>
         <figcaption>Accesso</figcaption>
       </figure>
       <figure class="telefono look-riga" role="listitem">
         <div class="cornice"><div class="schermo">
-          <img src="img/look.webp" width="600" height="1333" alt="Schermata Look: meteo della città e outfit consigliato del giorno" loading="lazy" onerror="mettiSegnaposto(this)">
+          <img src="img/look.webp?v=2" width="600" height="1333" alt="Schermata Look: la frase della stilista e il figurino vestito con l'outfit del giorno, capo per capo" loading="lazy" onerror="mettiSegnaposto(this)">
         </div></div>
         <figcaption>Look del giorno</figcaption>
       </figure>
       <figure class="telefono" role="listitem">
         <div class="cornice"><div class="schermo">
-          <img src="img/swipe.webp" width="600" height="1333" alt="Schermata Swipe: una carta con un capo da votare" loading="lazy" onerror="mettiSegnaposto(this)">
+          <img src="img/swipe.webp?v=2" width="600" height="1333" alt="Schermata Swipe: una carta con un capo da votare" loading="lazy" onerror="mettiSegnaposto(this)">
         </div></div>
         <figcaption>Swipe IA</figcaption>
       </figure>
@@ -289,11 +285,11 @@
           <h3>Due minuti di Swipe IA.</h3>
           <p>Scorri i capi che ti propone e dai un voto: mi piace, non mi piace o super like. Ogni voto le insegna i tuoi gusti, e il look di domani sarà ancora più tuo.</p>
         </li>
-        <li class="momento futuro">
-          <span class="ora">Presto</span>
+        <li class="momento">
+          <span class="ora">Quando vuoi</span>
           <h3>Il tuo armadio.</h3>
           <p>Fotografa i tuoi vestiti: il look del giorno userà prima di tutto quello che hai già.</p>
-          <span class="presto">In arrivo</span>
+          <span class="presto">Al lancio</span>
         </li>
       </ol>
     </section>
