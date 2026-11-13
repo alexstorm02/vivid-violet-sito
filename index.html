@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Con JavaScript attivo, la cucitura di "Come funziona" parte quando arriva sullo schermo -->
+<script>document.documentElement.classList.add("anima")</script>
 <title>Vivid Violet · Ogni mattina, il look giusto.</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <meta name="description" content="Vivid Violet è la stilista IA che ogni mattina guarda il meteo della tua città e ti consiglia cosa indossare, impara i tuoi gusti e confronta i prezzi dei negozi online.">
@@ -133,11 +135,16 @@
   h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(36px, 5vw, 54px); line-height: 1.05; margin: 0; text-wrap: balance; }
   .intro { color: var(--tenue); max-width: 60ch; margin: 0 0 40px; }
   /* "Come funziona": la mattina come linea del tempo (orizzontale su computer, verticale sul telefono).
-     L'ultimo momento chiude la linea. */
+     La linea è una cucitura tratteggiata; ogni momento è un bottone d'argento cucito con filo viola
+     e ha un'icona a matita. L'ultimo momento chiude la linea. */
   .mattina { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); }
-  .momento { position: relative; display: grid; gap: 10px; align-content: start; padding: 30px 28px 0 0; border-top: 1px solid var(--viola-chiaro); }
-  .momento::before { content: ""; position: absolute; left: 0; top: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F1EBFF 0%, #A78BFA 45%, #5B21B6 100%); box-shadow: 0 2px 4px rgba(0,0,0,.7), 0 0 0 4px rgba(139, 92, 246, .14); }
-  .momento:last-child { border-top-color: transparent; }
+  .momento { position: relative; display: grid; gap: 10px; align-content: start; padding: 30px 28px 0 0; }
+  .momento::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1.5px; background: repeating-linear-gradient(90deg, var(--viola-chiaro) 0 7px, transparent 7px 12px); }
+  .momento:last-child::after { display: none; }
+  .momento::before { content: ""; position: absolute; z-index: 1; left: -2px; top: -7px; width: 16px; height: 16px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,.7); background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7.2' fill='%2316131F' stroke='%23C8CAD2' stroke-width='1'/%3E%3Ccircle cx='8' cy='8' r='4.8' fill='none' stroke='%23C8CAD2' stroke-opacity='.35' stroke-width='.6'/%3E%3Cpath d='M5.9 5.9 10.1 10.1M10.1 5.9 5.9 10.1' stroke='%23A78BFA' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat; }
+  .schizzo { width: 44px; height: 44px; margin-bottom: 2px; overflow: visible; }
+  .schizzo .t { fill: none; stroke: var(--argento); stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+  .schizzo .t.viola { stroke: var(--viola-chiaro); }
   .momento .ora { font-family: var(--serif); font-style: italic; font-size: 30px; line-height: 1; color: var(--viola-chiaro); }
   .momento h3 { margin: 4px 0 0; font-family: var(--serif); font-weight: 500; font-size: 26px; line-height: 1.12; text-wrap: balance; }
   .momento p { margin: 0; color: var(--tenue); font-size: 14.5px; }
@@ -174,9 +181,10 @@
   /* --- Telefono e tablet --- */
   @media (max-width: 920px) {
     .mattina { grid-template-columns: 1fr; max-width: 560px; }
-    .momento { border-top: 0; border-left: 1px solid var(--viola-chiaro); padding: 0 0 40px 30px; }
-    .momento::before { left: -6px; top: 8px; }
-    .momento:last-child { border-left-color: transparent; padding-bottom: 0; }
+    .momento { padding: 0 0 40px 30px; }
+    .momento::after { right: auto; bottom: 0; width: 1.5px; height: auto; background: repeating-linear-gradient(180deg, var(--viola-chiaro) 0 7px, transparent 7px 12px); }
+    .momento::before { left: -7px; top: 8px; }
+    .momento:last-child { padding-bottom: 0; }
     .trasparenza, .attesa { grid-template-columns: 1fr; }
     .telefoni { gap: 16px; }
     .telefono .cornice { border-radius: 30px; padding: 7px; }
@@ -200,6 +208,17 @@
     .marchio .tessera::after { animation: lucida 7s ease-in-out 1.5s infinite; }
     @keyframes lucida { 0% { transform: translateX(-60%); } 18%, 100% { transform: translateX(60%); } }
     @keyframes entra { from { opacity: 0; translate: 0 18px; } to { opacity: 1; translate: 0 0; } }
+
+    /* "Come funziona" si cuce quando arriva sullo schermo: filo, bottone e icona, un momento dopo l'altro */
+    html.anima .mattina .momento::after { clip-path: inset(0 100% 0 0); transition: clip-path .4s linear calc(var(--i) * .32s); }
+    html.anima .mattina .momento::before { opacity: 0; scale: .3; transition: opacity .2s ease calc(var(--i) * .32s), scale .4s cubic-bezier(.3,1.7,.5,1) calc(var(--i) * .32s); }
+    html.anima .mattina .schizzo .t { stroke-dasharray: 1 2; stroke-dashoffset: 1.01; transition: stroke-dashoffset .8s cubic-bezier(.45,.05,.3,1) calc(var(--i) * .32s + .1s); }
+    html.anima .mattina.cucita .momento::after { clip-path: inset(0); }
+    html.anima .mattina.cucita .momento::before { opacity: 1; scale: 1; }
+    html.anima .mattina.cucita .schizzo .t { stroke-dashoffset: 0; }
+    @media (max-width: 920px) {
+      html.anima .mattina .momento::after { clip-path: inset(0 0 100% 0); }
+    }
   }
 </style>
 </head>
@@ -264,28 +283,33 @@
       <div class="titolo-sezione"><span class="num">I</span><h2 id="titolo-come">Come funziona</h2></div>
       <p class="intro">Dal risveglio alla porta di casa: una mattina con Vivid Violet. L'obiettivo è vestirti bene con quello che hai e comprare solo ciò che ti serve, al prezzo migliore.</p>
       <ol class="mattina">
-        <li class="momento">
+        <li class="momento" style="--i:0">
+          <svg class="schizzo" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path class="t" pathLength="1" d="M19 11a7 7 0 1 0 .01 0"/><path class="t" pathLength="1" d="M19 4v3M8 18h-3M10 9 8 7M28 9l2-2"/><path class="t" pathLength="1" d="M12 37H34C39 37 41 31 37 28C37 22 30 20 27 24C24 20 17 22 18 28C13 28 10 34 12 37Z"/></svg>
           <span class="ora">7:30</span>
           <h3>Il meteo l'ha già guardato lei.</h3>
           <p>Apri l'app: temperatura, pioggia e stagione della tua città sono già lì.</p>
         </li>
-        <li class="momento">
+        <li class="momento" style="--i:1">
+          <svg class="schizzo" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path class="t" pathLength="1" d="M17 9C17 7 31 7 31 9C31 13 28 15 29 19C30 23 33 25 32 31C31 34 17 34 16 31C15 25 18 23 19 19C20 15 17 13 17 9Z"/><path class="t" pathLength="1" d="M24 34V43M18 43H30"/><path class="t" pathLength="1" d="M22 7V5H26V7"/><path class="t viola" pathLength="1" d="M24 10V31"/></svg>
           <span class="ora">7:31</span>
           <h3>Ecco il tuo look.</h3>
           <p>Un outfit completo, con una frase che spiega ogni scelta.</p>
         </li>
-        <li class="momento">
+        <li class="momento" style="--i:2">
+          <svg class="schizzo" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path class="t" pathLength="1" d="M8 26 22 12H37V27L23 41Z"/><path class="t" pathLength="1" d="M32.5 16.5a2 2 0 1 0 .01 0"/><path class="t" pathLength="1" d="M33 17C38 11 42 13 44 7"/><path class="t" pathLength="1" d="M17 28l8-8M20 32l6-6"/></svg>
           <span class="ora">7:32</span>
           <h3>Manca un capo? Confronti i prezzi.</h3>
           <p>Lo stesso capo in più negozi online, con il prezzo migliore in evidenza.</p>
           <span class="presto">Con i negozi partner, al lancio</span>
         </li>
-        <li class="momento">
+        <li class="momento" style="--i:3">
+          <svg class="schizzo" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path class="t" pathLength="1" d="M31 9A15 15 0 1 0 39 33A12 12 0 1 1 31 9Z"/><path class="t" pathLength="1" d="M13 9v8M9 13h8"/><path class="t viola" pathLength="1" d="M40 6v4M38 8h4"/></svg>
           <span class="ora">La sera</span>
           <h3>Due minuti di Swipe IA.</h3>
           <p>Scorri i capi che ti propone e dai un voto: mi piace, non mi piace o super like. Ogni voto le insegna i tuoi gusti, e il look di domani sarà ancora più tuo.</p>
         </li>
-        <li class="momento">
+        <li class="momento" style="--i:4">
+          <svg class="schizzo" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path class="t" pathLength="1" d="M24 14C24 10 28 10 28 13C28 15 24 15 24 18"/><path class="t" pathLength="1" d="M24 18 8 30C6 32 7 35 10 35H38C41 35 42 32 40 30L24 18"/><path class="t" pathLength="1" d="M14 35V39M34 35V39"/></svg>
           <span class="ora">Quando vuoi</span>
           <h3>Il tuo armadio.</h3>
           <p>Fotografa i tuoi vestiti: il look del giorno userà prima di tutto quello che hai già.</p>
@@ -345,7 +369,7 @@
 
   <footer>
     <span>© 2026 Vivid Violet</span>
-    <span><a href="privacy-app.html">Privacy app</a> · <a href="privacy.html">Privacy lista d'attesa</a> · <a href="termini.html">Termini</a> · <a href="copyright.html">Copyright</a> · <a href="elimina-account.html">Elimina account</a> · App in sviluppo · Italia</span>
+    <span><a href="guide/">Guide di stile</a> · <a href="privacy-app.html">Privacy app</a> · <a href="privacy.html">Privacy lista d'attesa</a> · <a href="termini.html">Termini</a> · <a href="copyright.html">Copyright</a> · <a href="elimina-account.html">Elimina account</a> · App in sviluppo · Italia</span>
   </footer>
 </div>
 
@@ -402,6 +426,17 @@
     addEventListener("resize", pianifica);
     riga.addEventListener("scroll", pianifica, { passive: true });
     aggiorna();
+  })();
+
+  // "Come funziona" si cuce quando arriva sullo schermo (vedi lo stile .cucita).
+  (() => {
+    const mattina = document.querySelector(".mattina");
+    if (!mattina) return;
+    if (!("IntersectionObserver" in window)) return mattina.classList.add("cucita");
+    const oss = new IntersectionObserver((voci) => {
+      if (voci.some((v) => v.isIntersecting)) { mattina.classList.add("cucita"); oss.disconnect(); }
+    }, { threshold: 0.35 });
+    oss.observe(mattina);
   })();
 
   // Finché le schermate vere non ci sono, al loro posto compare il monogramma VV.
