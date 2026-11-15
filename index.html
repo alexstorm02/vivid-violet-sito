@@ -552,6 +552,9 @@
         // 409 = email già in lista: rispondiamo allo stesso modo, senza rivelarlo
         mostra("Grazie! Ti avviseremo al lancio.", "ok");
         modulo.reset();
+      } else if (r.status === 429) {
+        // il database ha fermato troppe iscrizioni ravvicinate (anti-spam)
+        mostra("Troppi tentativi in poco tempo. Riprova tra un'ora.", "errore");
       } else if (r.status === 400) {
         // il database ha rifiutato l'indirizzo (formato o lunghezza)
         mostra("Controlla l'indirizzo email: sembra non valido.", "errore");
