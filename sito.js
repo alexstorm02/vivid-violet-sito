@@ -8,25 +8,8 @@
 (() => {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  // 1. Su computer il telefono dell'apertura segue il mouse.
-  const eroe = document.querySelector(".eroe");
-  const telEroe = document.querySelector(".telefono-eroe .cornice");
-  if (eroe && telEroe && matchMedia("(hover: hover)").matches) {
-    eroe.addEventListener("pointermove", (e) => {
-      const r = eroe.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;   // da -0,5 a 0,5
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      telEroe.style.setProperty("--gira", (-18 + x * 22).toFixed(1) + "deg");
-      telEroe.style.setProperty("--inclina", (6 - y * 14).toFixed(1) + "deg");
-      telEroe.style.setProperty("--gx", (35 + x * 60).toFixed(0) + "%");
-    });
-    eroe.addEventListener("pointerleave", () => {
-      for (const p of ["--gira", "--inclina", "--gx"]) telEroe.style.removeProperty(p);
-    });
-  }
-
-  // 2. Scorrendo la pagina i telefoni "si alzano" mentre entrano nello
-  //    schermo; nel carosello del telefono, quelli ai lati girano verso il centro.
+  // Scorrendo la pagina i telefoni "si alzano" mentre entrano nello
+  // schermo; nel carosello del telefono, quelli ai lati girano verso il centro.
   const riga = document.querySelector(".telefoni");
   const cornici = [...riga.querySelectorAll(".cornice")];
   const carosello = matchMedia("(max-width: 640px)");
