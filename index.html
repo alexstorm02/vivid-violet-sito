@@ -66,7 +66,13 @@
     -webkit-font-smoothing: antialiased;
   }
   a { color: var(--viola-chiaro); }
-  a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--argento); outline-offset: 3px; }
+  a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--argento); outline-offset: 3px; }
+  /* Al tocco sul telefono: niente riquadro blu di Android e niente attesa del doppio tocco (i pulsanti hanno già il loro effetto) */
+  a, button, summary, label, input { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  /* "Vai al contenuto": invisibile finché non si preme Tab, poi compare in alto a sinistra */
+  .salta { position: absolute; z-index: 50; left: 16px; top: -80px; padding: 10px 18px; border-radius: 999px; background: #100D17; border: 1px solid var(--argento); color: var(--testo); font-size: 14px; font-weight: 600; text-decoration: none; }
+  .salta:focus { top: 16px; }
+  main:focus { outline: none; }
   img { max-width: 100%; display: block; }
   .pagina { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
 
@@ -170,6 +176,7 @@
   .guide { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
   .guida { display: grid; align-content: start; gap: 10px; padding: 26px 24px 24px; border-radius: 24px; background: #100D17; border: 1px solid var(--bordo); box-shadow: inset 0 1px 0 rgba(196, 181, 253, .10), 0 4px 0 #0C0A12; color: var(--testo); text-decoration: none; transition: transform .2s ease, border-color .2s; }
   .guida:hover { transform: translateY(-3px); border-color: rgba(167, 139, 250, .55); }
+  @media (prefers-reduced-motion: reduce) { .guida, .pulsante { transition: none; } .guida:hover, .pulsante:hover { transform: none; } }
   .guida .schizzo { margin-bottom: 4px; }
   .guida h3 { margin: 0; font: 500 26px/1.12 var(--serif); text-wrap: balance; }
   .guida p { margin: 0; color: var(--tenue); font-size: 14.5px; }
@@ -284,11 +291,12 @@
   <symbol id="logo" viewBox="0 0 264 290"><path d="M16 0 L74 0 L146 236 L128 236 Z"/><path d="M232 0 L247 0 L146 236 L133 236 Z"/><path d="M116 53 L136 53 L244 290 L186 290 Z"/><path d="M122 53 L137 53 L33 290 L18 290 Z"/><path d="M0 0 H102 V10 H0 Z"/><path d="M198 0 H264 V10 H198 Z"/><path d="M0 280 H58 V290 H0 Z"/><path d="M160 280 H264 V290 H160 Z"/></symbol>
 </svg>
 
+<a class="salta" href="#contenuto">Vai al contenuto</a>
 <div class="pagina">
   <header class="barra">
     <a class="marchio" href="/" aria-label="Vivid Violet, pagina iniziale">
       <span class="tessera"><svg viewBox="0 0 264 290" aria-hidden="true"><use href="#logo"/></svg></span>
-      <span class="nome">Vivid <span>Violet</span></span>
+      <span class="nome" translate="no">Vivid <span>Violet</span></span>
     </a>
     <nav class="navigazione" aria-label="Menu principale">
       <details class="menu-guide">
@@ -304,10 +312,10 @@
     </nav>
   </header>
 
-  <main>
+  <main id="contenuto" tabindex="-1">
     <div class="eroe">
     <div class="apertura">
-      <p class="occhiello">Vivid Violet · Stilista IA</p>
+      <p class="occhiello"><span translate="no">Vivid Violet</span> · Stilista IA</p>
       <h1>Ogni mattina,<br><em>il look giusto.</em></h1>
       <p class="tesi">La stilista che guarda il meteo della tua città, impara i tuoi gusti e, quando ti manca un capo, confronta i prezzi dei negozi online.</p>
       <div class="azioni">
@@ -409,7 +417,7 @@
         </div>
         <form id="modulo" novalidate>
           <label class="campo" for="email">La tua email
-            <input id="email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="nome@esempio.it">
+            <input id="email" name="email" type="email" autocomplete="email" spellcheck="false" autocapitalize="off" required maxlength="254" placeholder="nome@esempio.it">
           </label>
           <div class="trappola" aria-hidden="true">
             <label for="sito_web">Lascia vuoto</label>
@@ -463,11 +471,11 @@
   </main>
 
   <footer>
-    <span>© 2026 Vivid Violet</span>
+    <span>© 2026 <span translate="no">Vivid Violet</span></span>
     <span><a href="guide/">Guide di stile</a> · <a href="privacy-app.html">Privacy app</a> · <a href="privacy.html">Privacy lista d'attesa</a> · <a href="termini.html">Termini</a> · <a href="copyright.html">Copyright</a> · <a href="elimina-account.html">Elimina account</a> · App in sviluppo · Italia</span>
   </footer>
 </div>
 
-<script src="sito.js?v=1"></script>
+<script src="sito.js?v=2"></script>
 </body>
 </html>

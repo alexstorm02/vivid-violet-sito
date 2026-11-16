@@ -9,6 +9,14 @@
 body { margin: 0; background: #07060A; color: #F6F4FA; font-family: "Montserrat", system-ui, sans-serif; line-height: 1.75; -webkit-font-smoothing: antialiased; }
 main { max-width: 720px; margin: 0 auto; padding: 40px 20px 72px; }
 a { color: #A78BFA; }
+/* Con la tastiera: lo stesso bordo argento della home */
+a:focus-visible, [tabindex]:focus-visible, summary:focus-visible { outline: 2px solid #C8CAD2; outline-offset: 3px; }
+/* Al tocco sul telefono: niente riquadro blu di Android e niente attesa del doppio tocco */
+a, button, summary { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+/* "Vai al contenuto": invisibile finché non si preme Tab */
+.salta { position: absolute; z-index: 50; left: 16px; top: -80px; padding: 10px 18px; border-radius: 999px; background: #100D17; border: 1px solid #C8CAD2; color: #F6F4FA; font-size: 14px; font-weight: 600; text-decoration: none; }
+.salta:focus { top: 16px; }
+#contenuto:focus { outline: none; }
 .indietro { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; }
 .kicker { margin: 40px 0 0; font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: #C8CAD2; }
 h1 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 500; font-size: clamp(40px, 8vw, 62px); line-height: 1.02; margin: 12px 0 16px; }
@@ -28,7 +36,8 @@ tr:last-child td { border-bottom: 0; }
 .riquadro { border: 1px solid #2E2742; border-top-color: #4A3F66; border-radius: 18px; padding: 6px 22px; background: #120F19; box-shadow: 0 3px 0 #1C1726; margin: 20px 0; }
 .invito { margin-top: 56px; text-align: center; padding: 28px 22px 30px; }
 .invito h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 500; font-size: 30px; margin: 8px 0; color: #F6F4FA; }
-.pulsante { display: inline-block; margin-top: 8px; padding: 14px 26px; border-radius: 999px; background: linear-gradient(#B39DFB, #8B5CF6); color: #0B0910; font-weight: 600; text-decoration: none; box-shadow: 0 4px 0 #5B3BB5; }
+.pulsante { display: inline-block; margin-top: 8px; padding: 14px 26px; border-radius: 999px; background: linear-gradient(#B39DFB, #8B5CF6); color: #0B0910; font-weight: 600; text-decoration: none; box-shadow: 0 4px 0 #5B3BB5; transition: transform .15s ease, box-shadow .15s ease, filter .2s; }
+.pulsante:hover { filter: brightness(1.06); transform: translateY(-1px); box-shadow: 0 5px 0 #5B3BB5; }
 .pulsante:active { transform: translateY(3px); box-shadow: 0 1px 0 #5B3BB5; }
 .altre { margin-top: 48px; }
 .altre h3 { font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: #C8CAD2; font-weight: 500; }
@@ -46,7 +55,19 @@ footer a { color: #ABA4BC; }
 .elenco .num { display: block; font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: #C8CAD2; }
 .elenco .titolo { display: block; margin: 8px 0 6px; font-family: "Cormorant Garamond", Georgia, serif; font-size: 28px; line-height: 1.15; color: #F6F4FA; }
 .elenco .riassunto { display: block; color: #D9D4E4; font-size: 15px; }
-@media (prefers-reduced-motion: reduce) { .elenco a { transition: none; } .elenco a:hover { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .elenco a, .pulsante { transition: none; } .elenco a:hover, .pulsante:hover { transform: none; } }
+
+/* Domande frequenti in fondo alle guide: ogni domanda si apre con un tocco
+   (details/summary, funziona anche senza JavaScript) */
+.domande details { border-top: 1px solid #231D33; }
+.domande details:last-child { border-bottom: 1px solid #231D33; }
+.domande summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 0; font-family: "Cormorant Garamond", Georgia, serif; font-size: 22px; line-height: 1.25; color: #F6F4FA; }
+.domande summary::-webkit-details-marker { display: none; }
+.domande summary::after { content: "+"; flex: none; font-family: "Montserrat", sans-serif; font-size: 18px; color: #C8CAD2; transition: transform .2s; }
+.domande details[open] summary::after { transform: rotate(45deg); color: #C4B5FD; }
+.domande summary:hover { color: #C4B5FD; }
+.domande details p { margin: 0 0 18px; }
+@media (prefers-reduced-motion: reduce) { .domande summary::after { transition: none; } }
 
 /* Sui telefoni la tabella diventa una scheda per riga */
 @media (max-width: 640px) {

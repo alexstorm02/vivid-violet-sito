@@ -1,0 +1,25 @@
+# Vivid Violet
+
+> Vivid Violet è un'app Android italiana con una stilista basata sull'intelligenza artificiale: ogni mattina propone un outfit completo in base al meteo della città, ai gusti della persona e ai capi che ha già nell'armadio. L'app è in sviluppo e arriverà su Google Play; il sito vividviolet.it raccoglie la lista d'attesa e pubblica guide di stile gratuite.
+
+Come funziona l'app:
+
+- Look del giorno: un outfit completo scelto su temperatura media, pioggia e stagione, con una frase che spiega ogni scelta.
+- Swipe IA: si votano dei capi (mi piace, non mi piace, super like) e la stilista impara i gusti.
+- Armadio: si fotografano i propri vestiti e il look del giorno usa prima di tutto quelli.
+- Confronto prezzi: quando manca un capo, lo stesso capo in più negozi online. Arriverà al lancio con i negozi partner, tramite link di affiliazione dichiarati.
+
+Disponibilità: solo Italia, solo Android, in arrivo. Contatti: info@vividviolet.it
+
+## Guide di stile
+
+- [Cosa mettersi oggi in base alla temperatura](https://vividviolet.it/guide/cosa-mettersi-in-base-alla-temperatura.html): tabella grado per grado (sopra, sotto, capospalla, scarpe), quando serve la giacca, come vestirsi a strati.
+- [Cosa mettersi quando piove](https://vividviolet.it/guide/cosa-mettersi-quando-piove.html): da quale probabilità di pioggia vestirsi per la pioggia, capospalla e scarpe giuste, tessuti da evitare, neve.
+- [Come abbinare i colori dei vestiti](https://vividviolet.it/guide/come-abbinare-i-colori-dei-vestiti.html): neutri, colori di base e colori forti, la regola del colore forte unico, coppie che stanno bene e coppie difficili, scarpe colorate.
+
+## Pagine utili
+
+- [Home e lista d'attesa](https://vividviolet.it/)
+- [Tutte le guide](https://vividviolet.it/guide/)
+- [Informativa privacy dell'app](https://vividviolet.it/privacy-app.html)
+- [Termini di utilizzo](https://vividviolet.it/termini.html)

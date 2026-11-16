@@ -99,14 +99,25 @@ const modulo = document.getElementById("modulo");
 const esito = document.getElementById("esito");
 const invia = document.getElementById("invia");
 const mostra = (testo, tipo) => { esito.textContent = testo; esito.className = "esito " + tipo; };
+// Un errore su un campo: il messaggio compare sotto e il cursore torna
+// nel campo da correggere (anche il lettore di schermo lo segnala).
+const sbagliato = (campo, testo) => {
+  mostra(testo, "errore");
+  campo.setAttribute("aria-invalid", "true");
+  campo.focus();
+};
+for (const campo of [modulo.email, modulo.consenso]) {
+  campo.setAttribute("aria-describedby", "esito");
+  campo.addEventListener("input", () => campo.removeAttribute("aria-invalid"));
+}
 
 modulo.addEventListener("submit", async (evento) => {
   evento.preventDefault();
   const email = modulo.email.value.trim();
   if (modulo.sito_web.value) return mostra("Grazie! Ti avviseremo al lancio.", "ok"); // probabilmente un programma automatico
-  if (email.length > 254) return mostra("Questa email è troppo lunga: controlla di averla scritta bene.", "errore");
-  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return mostra("Controlla l'indirizzo email.", "errore");
-  if (!modulo.consenso.checked) return mostra("Per avvisarti ci serve il tuo consenso.", "errore");
+  if (email.length > 254) return sbagliato(modulo.email, "Questa email è troppo lunga: controlla di averla scritta bene.");
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return sbagliato(modulo.email, "Controlla l'indirizzo email.");
+  if (!modulo.consenso.checked) return sbagliato(modulo.consenso, "Per avvisarti ci serve il tuo consenso.");
 
   invia.disabled = true; invia.textContent = "Invio…";
   try {
@@ -124,7 +135,7 @@ modulo.addEventListener("submit", async (evento) => {
       mostra("Troppi tentativi in poco tempo. Riprova tra un'ora.", "errore");
     } else if (r.status === 400) {
       // il database ha rifiutato l'indirizzo (formato o lunghezza)
-      mostra("Controlla l'indirizzo email: sembra non valido.", "errore");
+      sbagliato(modulo.email, "Controlla l'indirizzo email: sembra non valido.");
     } else {
       mostra("Qualcosa non ha funzionato. Riprova tra poco o scrivici a info@vividviolet.it.", "errore");
     }
