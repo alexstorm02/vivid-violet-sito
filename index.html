@@ -11,6 +11,8 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <meta name="description" content="Vivid Violet è la stilista IA: ogni mattina ti consiglia cosa indossare in base al meteo, ai tuoi gusti e ai capi del tuo armadio. In arrivo su Android.">
 <meta name="theme-color" content="#0B0910">
+<!-- Modalità giorno/notte: si decide prima di disegnare la pagina (niente lampo) -->
+<script src="tema.js?v=1"></script>
 <link rel="canonical" href="https://vividviolet.it/">
 <!-- Anteprima quando il link viene condiviso (WhatsApp, Instagram, Telegram, Facebook...) -->
 <meta property="og:type" content="website">
@@ -210,6 +212,51 @@
   footer { padding: 28px 0 44px; border-top: 1px solid var(--bordo); color: var(--tenue); font-size: 13px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
   footer a { color: var(--tenue); }
 
+  /* --- Pulsante sole/luna (compare solo con JavaScript attivo) --- */
+  .tema { display: inline-grid; place-items: center; flex: none; width: 36px; height: 36px; padding: 0; border-radius: 50%; border: 1px solid rgba(200,202,210,.45); background: transparent; color: var(--argento); cursor: pointer; transition: color .2s, border-color .2s; }
+  .tema[hidden] { display: none; }
+  .tema:hover { color: var(--testo); border-color: var(--viola-chiaro); }
+  .tema svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+  .tema .luna { display: none; }
+  html[data-tema="giorno"] .tema .sole { display: none; }
+  html[data-tema="giorno"] .tema .luna { display: block; }
+
+  /* --- Modalità giorno: bianco come colore principale, nero e viola per pulsanti e dettagli.
+         I telefoni restano scuri: sono le schermate vere dell'app. --- */
+  html[data-tema="giorno"] {
+    color-scheme: light;
+    --testo: #0B0910;
+    --tenue: #5E5870;
+    --argento: #3D3747;
+    --viola-chiaro: #6D28D9;
+    --viola-pallido: #5B21B6;
+    --bordo: #E4E0EB;
+    --errore: #B91C1C;
+    --su-chiaro: #FFFFFF;
+  }
+  html[data-tema="giorno"] body { background: #FFFFFF; }
+  html[data-tema="giorno"] .marchio .tessera { background: #F6F5F8; border-color: #E4E0EB; box-shadow: inset 0 1px 0 #FFFFFF, 0 3px 0 #ECE9F2; }
+  html[data-tema="giorno"] .marchio .tessera svg { fill: #1A1724; }
+  html[data-tema="giorno"] .stato, html[data-tema="giorno"] .tema { color: var(--testo); border-color: rgba(11,9,16,.5); }
+  html[data-tema="giorno"] .stato:hover, html[data-tema="giorno"] .tema:hover, html[data-tema="giorno"] .menu-guide[open] summary { border-color: var(--viola-chiaro); }
+  html[data-tema="giorno"] .tendina { background: #FFFFFF; box-shadow: 0 4px 0 #ECE9F2, 0 24px 40px -20px rgba(30,20,50,.25); }
+  html[data-tema="giorno"] .pulsante.pieno { background: #7C3AED; box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 4px 0 #4C1D95, 0 12px 22px -10px rgba(76,29,149,.45); }
+  html[data-tema="giorno"] .pulsante.pieno:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 5px 0 #4C1D95, 0 16px 26px -10px rgba(76,29,149,.5); }
+  html[data-tema="giorno"] .pulsante.pieno:active { box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 #4C1D95, 0 4px 10px -4px rgba(76,29,149,.4); }
+  html[data-tema="giorno"] .pulsante.contorno { border-color: #0B0910; color: #0B0910; background: #FFFFFF; box-shadow: 0 4px 0 #0B0910; }
+  html[data-tema="giorno"] .pulsante.contorno:active { box-shadow: 0 1px 0 #0B0910; }
+  html[data-tema="giorno"] .telefono .cornice { box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 40px 60px -30px rgba(30,20,50,.5); }
+  html[data-tema="giorno"] .momento::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7.2' fill='%23FFFFFF' stroke='%233D3747' stroke-width='1'/%3E%3Ccircle cx='8' cy='8' r='4.8' fill='none' stroke='%233D3747' stroke-opacity='.35' stroke-width='.6'/%3E%3Cpath d='M5.9 5.9 10.1 10.1M10.1 5.9 5.9 10.1' stroke='%236D28D9' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E"); box-shadow: 0 2px 3px rgba(30,20,50,.25); }
+  html[data-tema="giorno"] .guida { background: #FFFFFF; box-shadow: 0 4px 0 #ECE9F2; }
+  html[data-tema="giorno"] .guida:hover { border-color: rgba(109,40,217,.5); }
+  html[data-tema="giorno"] .attesa { background: #FFFFFF; box-shadow: 0 4px 0 #ECE9F2; }
+  html[data-tema="giorno"] input[type="email"] { background: #FFFFFF; border-color: #CFCAD9; }
+  html[data-tema="giorno"] .salta { background: #FFFFFF; }
+  html[data-tema="giorno"] .tesi { opacity: 1; }
+  @media (min-width: 921px) {
+    html[data-tema="giorno"] .eroe .telefono-eroe .cornice { box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 1px 0 0 #221D2E, 2px 0 0 #1C1826, 3px 0 0 #171420, 4px 0 0 #13101A, 5px 0 0 #0F0D15, 40px 60px 80px -40px rgba(30,20,50,.5); }
+  }
+
   /* --- Telefono e tablet --- */
   @media (max-width: 920px) {
     .mattina { grid-template-columns: 1fr; max-width: 560px; }
@@ -235,6 +282,8 @@
     .menu-guide { position: static; }
     .tendina { left: 0; right: 0; width: auto; }
     .stato { font-size: 9.5px; padding: 6px 10px; letter-spacing: .12em; }
+    .navigazione { gap: 8px; }
+    .tema { width: 32px; height: 32px; }
     section { padding: 60px 0; }
   }
   @media (prefers-reduced-motion: no-preference) {
@@ -299,6 +348,10 @@
       <span class="nome" translate="no">Vivid <span>Violet</span></span>
     </a>
     <nav class="navigazione" aria-label="Menu principale">
+      <button class="tema" type="button" hidden aria-label="Passa alla modalità giorno">
+        <svg class="sole" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.5 1.5M17.1 17.1l1.5 1.5M5.4 18.6l1.5-1.5M17.1 6.9l1.5-1.5"/></svg>
+        <svg class="luna" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19.6 14.6A8 8 0 1 1 9.4 4.4a6.4 6.4 0 0 0 10.2 10.2Z"/></svg>
+      </button>
       <details class="menu-guide">
         <summary class="stato">Guide <svg viewBox="0 0 10 10" aria-hidden="true" focusable="false"><path d="M2 3.5 5 6.5 8 3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
         <div class="tendina">

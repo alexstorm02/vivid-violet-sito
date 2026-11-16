@@ -10,6 +10,8 @@
 <title>Pagina non trovata · Vivid Violet</title>
 <link rel="icon" type="image/png" href="/favicon.png">
 <meta name="theme-color" content="#0B0910">
+<!-- Modalità giorno/notte: si decide prima di disegnare la pagina (niente lampo) -->
+<script src="/tema.js?v=1"></script>
 <style>
   @font-face { font-family: "Cormorant Garamond"; src: url("/fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
   @font-face { font-family: "Cormorant Garamond"; src: url("/fonts/cormorant-garamond-latin-500-italic.woff2") format("woff2"); font-weight: 500; font-style: italic; font-display: swap; }
@@ -28,9 +30,34 @@
   .primario { background: linear-gradient(#B39DFB, #8B5CF6); color: #0B0910; box-shadow: 0 4px 0 #5B3BB5; }
   .secondario { border: 1px solid #2E2742; border-top-color: #4A3F66; background: #120F19; color: #F6F4FA; box-shadow: 0 3px 0 #1C1726; }
   .pulsante:active { transform: translateY(3px); }
+  .cima-angolo { position: fixed; top: 16px; right: 16px; }
+  /* Pulsante sole/luna (compare solo con JavaScript attivo) */
+  .tema { display: inline-grid; place-items: center; flex: none; width: 36px; height: 36px; padding: 0; border-radius: 50%; border: 1px solid rgba(200,202,210,.45); background: transparent; color: #C8CAD2; cursor: pointer; transition: color .2s, border-color .2s; }
+  .tema[hidden] { display: none; }
+  .tema:hover { color: #F6F4FA; border-color: #A78BFA; }
+  .tema:focus-visible { outline: 2px solid #C8CAD2; outline-offset: 3px; }
+  .tema svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+  .tema .luna { display: none; }
+  html[data-tema="giorno"] .tema .sole { display: none; }
+  html[data-tema="giorno"] .tema .luna { display: block; }
+  html[data-tema="giorno"] .tema { color: #0B0910; border-color: rgba(11,9,16,.5); }
+  html[data-tema="giorno"] .tema:hover { border-color: #6D28D9; }
+  html[data-tema="giorno"] .tema:focus-visible { outline-color: #3D3747; }
+  /* Modalità giorno: bianco come colore principale, nero e viola scuro nei dettagli */
+  html[data-tema="giorno"] { color-scheme: light; }
+  html[data-tema="giorno"] body { background: #FFFFFF; color: #0B0910; }
+  html[data-tema="giorno"] .numero { color: #3D3747; }
+  html[data-tema="giorno"] h1 em { color: #6D28D9; }
+  html[data-tema="giorno"] p { color: #3D3747; }
+  html[data-tema="giorno"] .primario { background: #7C3AED; color: #FFFFFF; box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 4px 0 #4C1D95; }
+  html[data-tema="giorno"] .secondario { background: #FFFFFF; border-color: #0B0910; color: #0B0910; box-shadow: 0 3px 0 #0B0910; }
 </style>
 </head>
 <body>
+<div class="cima-angolo"><button class="tema" type="button" hidden aria-label="Passa alla modalità giorno">
+    <svg class="sole" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.5 1.5M17.1 17.1l1.5 1.5M5.4 18.6l1.5-1.5M17.1 6.9l1.5-1.5"/></svg>
+    <svg class="luna" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19.6 14.6A8 8 0 1 1 9.4 4.4a6.4 6.4 0 0 0 10.2 10.2Z"/></svg>
+  </button></div>
 <main>
   <p class="numero">Errore 404</p>
   <h1>Questo capo <em>non è nell'armadio</em></h1>

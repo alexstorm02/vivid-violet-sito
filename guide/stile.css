@@ -81,3 +81,45 @@ footer a { color: #ABA4BC; }
   td:first-child { font-size: 24px; margin-bottom: 4px; }
   td:not(:first-child)::before { content: attr(data-etichetta); display: block; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #ABA4BC; }
 }
+
+/* --- Riga in alto: link per tornare indietro e pulsante sole/luna --- */
+.cima { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.tema { display: inline-grid; place-items: center; flex: none; width: 36px; height: 36px; padding: 0; border-radius: 50%; border: 1px solid rgba(200,202,210,.45); background: transparent; color: #C8CAD2; cursor: pointer; transition: color .2s, border-color .2s; }
+.tema[hidden] { display: none; }
+.tema:hover { color: #F6F4FA; border-color: #A78BFA; }
+.tema:focus-visible { outline: 2px solid #C8CAD2; outline-offset: 3px; }
+.tema svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.tema .luna { display: none; }
+html[data-tema="giorno"] .tema .sole { display: none; }
+html[data-tema="giorno"] .tema .luna { display: block; }
+
+/* --- Modalità giorno: bianco come colore principale, nero e viola scuro per pulsanti e dettagli --- */
+html[data-tema="giorno"] { color-scheme: light; }
+html[data-tema="giorno"] body { background: #FFFFFF; color: #0B0910; }
+html[data-tema="giorno"] a { color: #6D28D9; }
+html[data-tema="giorno"] a:focus-visible, html[data-tema="giorno"] [tabindex]:focus-visible, html[data-tema="giorno"] .tema:focus-visible { outline-color: #3D3747; }
+html[data-tema="giorno"] .salta { background: #FFFFFF; border-color: #3D3747; color: #0B0910; }
+html[data-tema="giorno"] .tema { color: #0B0910; border-color: rgba(11,9,16,.5); }
+html[data-tema="giorno"] .tema:hover { border-color: #6D28D9; }
+html[data-tema="giorno"] .kicker, html[data-tema="giorno"] h2 .num, html[data-tema="giorno"] th,
+html[data-tema="giorno"] .altre h3, html[data-tema="giorno"] .elenco .num { color: #3D3747; }
+html[data-tema="giorno"] h1 em { color: #6D28D9; }
+html[data-tema="giorno"] .firma, html[data-tema="giorno"] footer, html[data-tema="giorno"] footer a { color: #5E5870; }
+html[data-tema="giorno"] .apertura { color: #2A2533; }
+html[data-tema="giorno"] p, html[data-tema="giorno"] li, html[data-tema="giorno"] .elenco .riassunto { color: #3D3747; }
+html[data-tema="giorno"] strong, html[data-tema="giorno"] td:first-child, html[data-tema="giorno"] .invito h3,
+html[data-tema="giorno"] .altre a, html[data-tema="giorno"] .elenco .titolo, html[data-tema="giorno"] .domande summary { color: #0B0910; }
+html[data-tema="giorno"] h2 { border-top-color: #E4E0EB; }
+html[data-tema="giorno"] .tabella, html[data-tema="giorno"] .riquadro, html[data-tema="giorno"] .elenco a { background: #FFFFFF; border-color: #E4E0EB; box-shadow: 0 3px 0 #ECE9F2; }
+html[data-tema="giorno"] .elenco a:hover, html[data-tema="giorno"] .elenco a:focus-visible { border-color: rgba(109,40,217,.5); }
+html[data-tema="giorno"] th, html[data-tema="giorno"] td, html[data-tema="giorno"] tr,
+html[data-tema="giorno"] .altre li, html[data-tema="giorno"] .domande details { border-color: #ECE9F2; }
+html[data-tema="giorno"] .altre a:hover, html[data-tema="giorno"] .domande summary:hover,
+html[data-tema="giorno"] .domande details[open] summary::after { color: #6D28D9; }
+html[data-tema="giorno"] .domande summary::after { color: #3D3747; }
+html[data-tema="giorno"] .pulsante { background: #7C3AED; color: #FFFFFF; box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 4px 0 #4C1D95; }
+html[data-tema="giorno"] .pulsante:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 5px 0 #4C1D95; }
+html[data-tema="giorno"] .pulsante:active { box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 #4C1D95; }
+@media (max-width: 640px) {
+  html[data-tema="giorno"] td:not(:first-child)::before { color: #5E5870; }
+}
