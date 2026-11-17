@@ -352,6 +352,40 @@
     .arte-piede { margin-top: 16px; }
   }
 
+  /* --- Gratis o Premium: il prezzo è un cartellino da sarta appeso a un filo viola --- */
+  .piani { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 900px; }
+  .piano { position: relative; display: grid; align-content: start; gap: 14px; padding: 28px 26px; border-radius: 24px; background: #100D17; border: 1px solid var(--bordo); box-shadow: inset 0 1px 0 rgba(196,181,253,.10), 0 4px 0 #0C0A12; }
+  .piano h3 { margin: 0; font: 500 32px/1 var(--serif); }
+  .piano.premium { border-color: rgba(167,139,250,.55); }
+  .piano .gratis { margin: 0; font: 500 44px/1 var(--serif); color: var(--argento); }
+  .voci { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 10px; }
+  .voci li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; color: var(--tenue); font-size: 15px; }
+  .voci li::before { content: ""; width: 9px; height: 9px; margin-top: 7px; border: 1px solid var(--argento); transform: rotate(45deg); }
+  .premium .voci li::before { border-color: var(--viola-chiaro); background: rgba(167,139,250,.18); }
+  .voci strong { color: var(--testo); font-weight: 600; }
+  .appeso { position: relative; height: 112px; margin: 0 0 4px; }
+  /* il filo scende fino al foro del cartellino, che dondola attorno al foro */
+  .appeso::after { content: ""; position: absolute; z-index: 1; left: 18px; top: -8px; width: 2px; height: 66px; background: repeating-linear-gradient(180deg, var(--viola-chiaro) 0 6px, transparent 6px 9px); }
+  .cartellino-prezzo { position: absolute; left: 0; top: 22px; height: 74px; margin: 0; display: grid; align-content: center; gap: 2px; min-width: 168px; padding: 0 20px 0 44px; background: #EDEAE3; color: #140A26; border-radius: 6px 14px 14px 6px; clip-path: polygon(18px 0, 100% 0, 100% 100%, 18px 100%, 0 50%); box-shadow: 0 10px 18px -10px rgba(0,0,0,.8); transform: rotate(-5deg); transform-origin: 19px 50%; }
+  .cartellino-prezzo::before { content: ""; position: absolute; left: 13px; top: calc(50% - 6px); width: 12px; height: 12px; border-radius: 50%; background: #07060A; box-shadow: inset 0 1px 2px rgba(0,0,0,.6); }
+  html[data-tema="giorno"] .cartellino-prezzo::before { background: #FFFFFF; box-shadow: inset 0 0 0 1px #CFCAD9; }
+  .cartellino-prezzo .cifra { font: 500 40px/1 var(--serif); }
+  .cartellino-prezzo .periodo { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #3D3747; }
+  .piano .anno { margin: 0; color: var(--tenue); font-size: 15px; }
+  .piano .anno strong { color: var(--testo); font-weight: 600; }
+  .note-piani { max-width: 900px; margin: 24px 0 0; color: var(--tenue); font-size: 14px; }
+  html[data-tema="giorno"] .piano { background: #FFFFFF; box-shadow: 0 4px 0 #ECE9F2; }
+  html[data-tema="giorno"] .piano.premium { border-color: rgba(109,40,217,.45); }
+  html[data-tema="giorno"] .cartellino-prezzo { background: #F4F1EA; box-shadow: 0 0 0 1px #E4E0EB, 0 10px 18px -12px rgba(30,20,50,.35); }
+  @media (max-width: 720px) { .piani { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: no-preference) {
+    /* il cartellino dondola sul filo mentre arriva sullo schermo (browser che lo supportano) */
+    @supports (animation-timeline: view()) {
+      .cartellino-prezzo { animation: dondola linear both; animation-timeline: view(); animation-range: entry 10% cover 45%; }
+      @keyframes dondola { 0% { transform: rotate(-32deg); } 45% { transform: rotate(9deg); } 70% { transform: rotate(-11deg); } 88% { transform: rotate(-3deg); } 100% { transform: rotate(-5deg); } }
+    }
+  }
+
   /* --- Telefono e tablet --- */
   @media (max-width: 920px) {
     .mattina { grid-template-columns: 1fr; max-width: 560px; }
@@ -619,11 +653,38 @@
       </div>
     </section>
 
+    <section id="premium" aria-labelledby="titolo-premium">
+      <div class="titolo-sezione"><span class="num">IV</span><h2 id="titolo-premium">Gratis o Premium</h2></div>
+      <p class="intro">Vivid Violet è gratuita. Premium toglie i limiti di ogni giorno, per chi la usa tanto.</p>
+      <div class="piani">
+        <article class="piano" aria-labelledby="piano-gratis">
+          <h3 id="piano-gratis">Gratis</h3>
+          <p class="gratis">0 €</p>
+          <ul class="voci">
+            <li><span><strong>3 look</strong> al giorno</span></li>
+            <li><span><strong>20 swipe</strong> al giorno</span></li>
+          </ul>
+        </article>
+        <article class="piano premium" aria-labelledby="piano-premium">
+          <h3 id="piano-premium">Premium</h3>
+          <div class="appeso">
+            <p class="cartellino-prezzo"><span class="cifra">4,99 €</span><span class="periodo">al mese</span></p>
+          </div>
+          <p class="anno">oppure <strong>39,99 € all’anno</strong>: costa come 8 mesi.</p>
+          <ul class="voci">
+            <li><span><strong>Look del giorno</strong> senza limiti</span></li>
+            <li><span><strong>Swipe IA</strong> senza limiti</span></li>
+          </ul>
+        </article>
+      </div>
+      <p class="note-piani">Premium si potrà attivare dall’app, quando sarà su Google Play: paghi con Google Play, si rinnova da solo e lo disdici quando vuoi. Non c’è una prova gratuita. Prezzi, rinnovo e disdetta sono spiegati nei <a href="termini.html">Termini</a>.</p>
+    </section>
+
     <section id="avvisami" aria-labelledby="titolo-avvisami">
       <div class="attesa">
         <div>
           <p class="occhiello">Lista d'attesa</p>
-          <div class="titolo-sezione"><span class="num">IV</span><h2 id="titolo-avvisami">Avvisami al lancio</h2></div>
+          <div class="titolo-sezione"><span class="num">V</span><h2 id="titolo-avvisami">Avvisami al lancio</h2></div>
           <p>Lascia la tua email: ti scriviamo una sola volta, quando Vivid Violet arriva su Google Play.</p>
         </div>
         <form id="modulo" novalidate>
@@ -645,7 +706,7 @@
     </section>
 
     <section id="guide" aria-labelledby="titolo-guide">
-      <div class="titolo-sezione"><span class="num">V</span><h2 id="titolo-guide">Guide di stile</h2></div>
+      <div class="titolo-sezione"><span class="num">VI</span><h2 id="titolo-guide">Guide di stile</h2></div>
       <p class="intro">I consigli della stilista, da leggere già adesso: cosa mettersi con il freddo o con il caldo, sotto la pioggia, e come abbinare i colori.</p>
       <div class="guide">
         <a class="guida" href="guide/cosa-mettersi-in-base-alla-temperatura.html">
@@ -673,7 +734,7 @@
     </section>
 
     <section aria-labelledby="titolo-contatti">
-      <div class="titolo-sezione"><span class="num">VI</span><h2 id="titolo-contatti">Contatti</h2></div>
+      <div class="titolo-sezione"><span class="num">VII</span><h2 id="titolo-contatti">Contatti</h2></div>
       <div class="contatti">
         <a class="mail" href="mailto:info@vividviolet.it">info@vividviolet.it</a>
         <span class="intro" style="margin:0">Per negozi, partner e stampa.</span>
