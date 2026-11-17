@@ -337,6 +337,8 @@
   .arte-piede { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; margin-top: 48px; }
   .arte-piede .firma { margin: 0; color: var(--tenue); font-size: 14.5px; }
   .arte-piede .firma strong { color: var(--testo); font-weight: 600; }
+  .arte-piede .rivista { margin-top: 6px; }
+  .arte-piede .rivista a { font-weight: 600; }
   html[data-tema="giorno"] .telo { background: #FFFFFF; box-shadow: 0 4px 0 #ECE9F2; }
   html[data-tema="giorno"] .quadro { background: #FFFFFF; box-shadow: 0 4px 0 #ECE9F2, 0 30px 50px -30px rgba(30,20,50,.35); }
   html[data-tema="giorno"] .quadro img { outline-color: rgba(11,9,16,.18); }
@@ -594,7 +596,10 @@
         <figure class="quadro" role="listitem" style="--i:2"><img src="img/arte/opera-manichini.webp?v=1" srcset="img/arte/opera-manichini-480.webp?v=1 480w, img/arte/opera-manichini.webp?v=1 720w" sizes="(max-width: 640px) min(78vw, 300px), 340px" width="720" height="720" alt="Opera di Alessandro De Luca: una stanza in bianco e nero con manichini, cornici sospese e un occhio disegnato" loading="lazy" decoding="async"></figure>
       </div>
       <div class="arte-piede">
-        <p class="firma">Opere originali e capi di <strong translate="no">Alessandro De Luca</strong>.</p>
+        <div>
+          <p class="firma">Opere originali e capi di <strong translate="no">Alessandro De Luca</strong>.</p>
+          <p class="firma rivista">Arte e moda continuano su <a href="/vertigo/" translate="no">Vertigo</a>, la nostra rivista: ogni due settimane, via email.</p>
+        </div>
         <a class="pulsante contorno" href="#avvisami">Avvisami al lancio</a>
       </div>
     </section>
@@ -678,7 +683,7 @@
 
   <footer>
     <span>© 2026 <span translate="no">Vivid Violet</span></span>
-    <span><a href="guide/">Guide di stile</a> · <a href="privacy-app.html">Privacy app</a> · <a href="privacy.html">Privacy lista d'attesa</a> · <a href="termini.html">Termini</a> · <a href="copyright.html">Copyright</a> · <a href="elimina-account.html">Elimina account</a> · App in sviluppo · Italia</span>
+    <span><a href="guide/">Guide di stile</a> · <a href="vertigo/"><span translate="no">Vertigo</span></a> · <a href="privacy-app.html">Privacy app</a> · <a href="privacy.html">Privacy lista d'attesa</a> · <a href="termini.html">Termini</a> · <a href="copyright.html">Copyright</a> · <a href="elimina-account.html">Elimina account</a> · App in sviluppo · Italia</span>
   </footer>
 </div>
 

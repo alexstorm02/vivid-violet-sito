@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://uuwzkvhpurxhmwomjzbr.supabase.co; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Vertigo · la rivista di arte e moda di Vivid Violet</title>
+<meta name="description" content="Vertigo è la rivista di Vivid Violet su arte e moda: esce ogni due settimane via email. Il primo numero guarda lontano: inverno 2030.">
+<link rel="canonical" href="https://vividviolet.it/vertigo/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<meta name="theme-color" content="#0B0910">
+<!-- Modalità giorno/notte: si decide prima di disegnare la pagina (niente lampo) -->
+<script src="/tema.js?v=1"></script>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vivid Violet">
+<meta property="og:locale" content="it_IT">
+<meta property="og:url" content="https://vividviolet.it/vertigo/">
+<meta property="og:title" content="Vertigo · arte e moda, ogni due settimane">
+<meta property="og:description" content="La rivista di Vivid Violet su arte e moda. Il primo numero guarda lontano: inverno 2030.">
+<link rel="preload" href="/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  @font-face { font-family: "Cormorant Garamond"; src: url("/fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Cormorant Garamond"; src: url("/fonts/cormorant-garamond-latin-500-italic.woff2") format("woff2"); font-weight: 500; font-style: italic; font-display: swap; }
+  @font-face { font-family: "Montserrat"; src: url("/fonts/montserrat-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+  @font-face { font-family: "Montserrat"; src: url("/fonts/montserrat-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+  /* Vertigo ha i colori del suo numero: il blu della copertina "inverno 2030".
+     Di notte: inchiostro nero e carta chiara; di giorno: la carta grigia della copertina. */
+  :root {
+    color-scheme: dark;
+    --carta: #07060A;
+    --inchiostro: #F1F1F1;
+    --tenue: #A9A9B2;
+    --blu: #6F9BD6;          /* la V e le parole in blu */
+    --blu-testo: #8DB2E3;    /* link e testo piccolo in blu, leggibile sul nero */
+    --filo: #26252B;
+    --riquadro: #0F0E13;
+    --serif: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+    --sans: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  html[data-tema="giorno"] {
+    color-scheme: light;
+    --carta: #F1F1F1;
+    --inchiostro: #2F2F2F;
+    --tenue: #5C5C63;
+    --blu: #4F84C4;
+    --blu-testo: #2F609E;
+    --filo: #D9D9DC;
+    --riquadro: #FFFFFF;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--carta); color: var(--inchiostro); font-family: var(--sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  a { color: var(--blu-testo); }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--blu-testo); outline-offset: 3px; }
+  a, button, label, input { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  .salta { position: absolute; z-index: 50; left: 16px; top: -80px; padding: 10px 18px; border-radius: 999px; background: var(--riquadro); border: 1px solid var(--inchiostro); color: var(--inchiostro); font-size: 14px; font-weight: 600; text-decoration: none; }
+  .salta:focus { top: 16px; }
+  main:focus { outline: none; }
+  img { display: block; max-width: 100%; }
+  .pagina { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+
+  .cima { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; }
+  .indietro { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; color: var(--inchiostro); }
+  .tema { display: inline-grid; place-items: center; flex: none; width: 36px; height: 36px; padding: 0; border-radius: 50%; border: 1px solid var(--tenue); background: transparent; color: var(--inchiostro); cursor: pointer; transition: border-color .2s; }
+  .tema[hidden] { display: none; }
+  .tema:hover { border-color: var(--blu); }
+  .tema svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+  .tema .luna { display: none; }
+  html[data-tema="giorno"] .tema .sole { display: none; }
+  html[data-tema="giorno"] .tema .luna { display: block; }
+
+  /* --- La testata, come sulla copertina --- */
+  .testata { padding: 8px 0 0; overflow: hidden; }
+  /* la parola occupa tutta la larghezza, come sulla copertina (larga circa 4,2 volte la sua altezza) */
+  h1 { margin: 0; font: 500 min(calc((100vw - 40px) / 4.2), 266px)/.82 var(--serif); text-transform: uppercase; letter-spacing: -.012em; white-space: nowrap; text-align: center; }
+  h1 .v { color: var(--blu); }
+  .riga { display: grid; grid-template-columns: repeat(4, 1fr); margin: 28px 0 32px; padding: 0; list-style: none; text-align: center; font: 600 clamp(14px, 2.1vw, 24px)/1 var(--sans); letter-spacing: -.01em; }
+  .riga .blu { color: var(--blu); }
+  .riga .sotto { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+
+  /* --- L'opera: mentre scorri sprofonda dentro la cornice (l'effetto "vertigine" del cinema) --- */
+  .opera { margin: 0; }
+  .opera .cornice { overflow: hidden; aspect-ratio: 1316 / 1511; margin: 0 auto; background: #0A1424; }
+  .opera img { width: 100%; height: 100%; object-fit: cover; transform-origin: 62% 58%; }
+  .opera figcaption { display: flex; justify-content: space-between; gap: 16px; margin-top: 12px; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--tenue); }
+
+  /* --- Testo e iscrizione --- */
+  .colonne { display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px; padding: 88px 0 96px; align-items: start; }
+  h2 { margin: 0 0 18px; font: 500 clamp(40px, 5.6vw, 68px)/1 var(--serif); letter-spacing: -.01em; text-wrap: balance; }
+  h2 em { color: var(--blu); }
+  .colonne p { margin: 0 0 16px; max-width: 46ch; color: var(--inchiostro); opacity: .88; }
+  .app { margin-top: 28px !important; padding-top: 20px; border-top: 1px solid var(--filo); font-size: 14.5px; }
+  .iscrizione { padding: clamp(26px, 4vw, 40px); background: var(--riquadro); border: 1px solid var(--filo); border-radius: 4px; }
+  .iscrizione h3 { margin: 0 0 6px; font: 500 34px/1.05 var(--serif); }
+  .iscrizione > p { font-size: 14.5px; }
+  form { display: grid; gap: 14px; margin-top: 18px; }
+  label.campo { display: grid; gap: 6px; font-size: 13px; letter-spacing: .04em; color: var(--tenue); }
+  input[type="email"] { min-height: 54px; border-radius: 0; border: 0; border-bottom: 1.5px solid var(--inchiostro); background: transparent; color: var(--inchiostro); font: 400 18px var(--sans); padding: 0 2px; }
+  input[type="email"]::placeholder { color: var(--tenue); opacity: 1; }
+  .consenso { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: 13.5px; align-items: start; }
+  .consenso input { width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--blu); }
+  .trappola { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+  .iscriviti { justify-self: start; min-height: 52px; padding: 0 30px; border: 0; border-radius: 999px; background: var(--inchiostro); color: var(--carta); font: 600 15px var(--sans); cursor: pointer; box-shadow: 0 4px 0 var(--blu); transition: transform .15s ease, box-shadow .15s ease; }
+  .iscriviti:hover { transform: translateY(-1px); box-shadow: 0 5px 0 var(--blu); }
+  .iscriviti:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--blu); }
+  .iscriviti:disabled { opacity: .6; cursor: progress; transform: none; }
+  .esito { min-height: 22px; margin: 0; font-size: 14px; }
+  .esito.ok { color: var(--blu-testo); }
+  .esito.errore { color: #E5484D; }
+  html[data-tema="giorno"] .esito.errore { color: #B91C1C; }
+
+  footer { padding: 28px 0 44px; border-top: 1px solid var(--filo); color: var(--tenue); font-size: 13px; }
+  footer a { color: var(--tenue); }
+
+  @media (max-width: 820px) {
+    .colonne { grid-template-columns: 1fr; gap: 36px; padding: 64px 0 72px; }
+  }
+
+  /* Animazioni: solo senza "riduci animazioni" */
+  @media (prefers-reduced-motion: no-preference) {
+    /* la testata arriva larga e si stringe, come uno zoom che "tira" */
+    h1 { animation: stringi 1.6s cubic-bezier(.2,.7,.2,1) both; }
+    @keyframes stringi { from { letter-spacing: .14em; opacity: 0; } }
+    /* l'opera sprofonda mentre attraversa lo schermo (browser che lo supportano) */
+    @supports (animation-timeline: view()) {
+      .opera img { animation: sprofonda linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+      @keyframes sprofonda { from { transform: scale(1.32) rotate(-1.5deg); } to { transform: scale(1) rotate(0deg); } }
+    }
+    .iscriviti { transition: transform .15s ease, box-shadow .15s ease; }
+  }
+</style>
+</head>
+<body>
+<a class="salta" href="#contenuto">Vai al contenuto</a>
+<div class="pagina">
+  <div class="cima">
+    <a class="indietro" href="/">← <span translate="no">Vivid Violet</span></a>
+    <button class="tema" type="button" hidden aria-label="Passa alla modalità giorno">
+      <svg class="sole" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.5 1.5M17.1 17.1l1.5 1.5M5.4 18.6l1.5-1.5M17.1 6.9l1.5-1.5"/></svg>
+      <svg class="luna" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19.6 14.6A8 8 0 1 1 9.4 4.4a6.4 6.4 0 0 0 10.2 10.2Z"/></svg>
+    </button>
+  </div>
+
+  <main id="contenuto" tabindex="-1">
+    <header class="testata">
+      <h1 translate="no"><span class="v">V</span>ertigo</h1>
+      <ul class="riga" aria-label="Il numero">
+        <li class="blu" translate="no">vivid</li>
+        <li class="sotto">magazine</li>
+        <li>inverno</li>
+        <li>2030</li>
+      </ul>
+    </header>
+
+    <figure class="opera">
+      <div class="cornice">
+        <img src="/img/vertigo/inverno-2030-1000.webp?v=1" srcset="/img/vertigo/inverno-2030-600.webp?v=1 600w, /img/vertigo/inverno-2030-1000.webp?v=1 1000w, /img/vertigo/inverno-2030-1300.webp?v=1 1300w" sizes="(max-width: 1160px) calc(100vw - 40px), 1120px" width="1316" height="1511" alt="L’opera di copertina del numero d’inverno 2030: onde di blu e azzurro che si spezzano sul nero" fetchpriority="high">
+      </div>
+      <figcaption><span>Copertina · inverno 2030</span><span>Numero 1</span></figcaption>
+    </figure>
+
+    <div class="colonne">
+      <section aria-labelledby="titolo-cos">
+        <h2 id="titolo-cos">Arte e moda, <em>ogni due settimane.</em></h2>
+        <p><span translate="no">Vertigo</span> è la rivista di <span translate="no">Vivid Violet</span>. Esce ogni due settimane e arriva via email: opere, capi e le idee che li tengono insieme.</p>
+        <p>Il primo numero guarda lontano: inverno 2030.</p>
+        <p class="app"><span translate="no">Vivid Violet</span> è anche un’app: la stilista IA che ogni mattina ti consiglia cosa indossare, con il meteo e i capi che hai già. <a href="/">Scopri l’app</a></p>
+      </section>
+
+      <section class="iscrizione" id="iscriviti" aria-labelledby="titolo-iscriviti">
+        <h3 id="titolo-iscriviti">Ricevi <span translate="no">Vertigo</span></h3>
+        <p>Il primo numero è in arrivo: lascia la tua email e te lo mandiamo appena esce.</p>
+        <!-- method="post": se JavaScript manca, l’email non finisce mai nell’indirizzo della pagina -->
+        <form id="modulo" method="post" novalidate>
+          <label class="campo" for="email">La tua email
+            <input id="email" name="email" type="email" autocomplete="email" spellcheck="false" autocapitalize="off" required maxlength="254" placeholder="nome@esempio.it">
+          </label>
+          <div class="trappola" aria-hidden="true">
+            <label for="sito_web">Lascia vuoto</label>
+            <input id="sito_web" name="sito_web" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <label class="consenso" for="consenso">
+            <input id="consenso" name="consenso" type="checkbox" required>
+            <span>Voglio ricevere <span translate="no">Vertigo</span> via email, ogni due settimane. Posso disiscrivermi quando voglio. Ho letto l’<a href="/privacy.html#vertigo">informativa privacy</a>.</span>
+          </label>
+          <button class="iscriviti" type="submit" id="invia">Iscrivimi</button>
+          <p class="esito" id="esito" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <footer>© 2026 <span translate="no">Vivid Violet</span> · <a href="/privacy.html">Privacy</a> · <a href="/termini.html">Termini</a> · <a href="/">Torna al sito</a></footer>
+</div>
+<script src="/vertigo.js?v=1"></script>
+</body>
+</html>
