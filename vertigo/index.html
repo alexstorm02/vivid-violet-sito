@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://uuwzkvhpurxhmwomjzbr.supabase.co; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Vertigo · la rivista di arte e moda di Vivid Violet</title>
-<meta name="description" content="Vertigo è la rivista di Vivid Violet su arte e moda: esce ogni due settimane via email. Il primo numero guarda lontano: inverno 2030.">
+<meta name="description" content="Vertigo è la rivista di Vivid Violet su arte e moda: esce ogni due settimane via email. Il primo numero, inverno 2030, è gratis.">
 <link rel="canonical" href="https://vividviolet.it/vertigo/">
 <link rel="icon" type="image/png" href="/favicon.png">
 <meta name="theme-color" content="#0B0910">
@@ -17,7 +17,7 @@
 <meta property="og:locale" content="it_IT">
 <meta property="og:url" content="https://vividviolet.it/vertigo/">
 <meta property="og:title" content="Vertigo · arte e moda, ogni due settimane">
-<meta property="og:description" content="La rivista di Vivid Violet su arte e moda. Il primo numero guarda lontano: inverno 2030.">
+<meta property="og:description" content="La rivista di Vivid Violet su arte e moda. Il primo numero, inverno 2030, è gratis.">
 <link rel="preload" href="/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
   @font-face { font-family: "Cormorant Garamond"; src: url("/fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
@@ -95,6 +95,8 @@
   .iscrizione { padding: clamp(26px, 4vw, 40px); background: var(--riquadro); border: 1px solid var(--filo); border-radius: 4px; }
   .iscrizione h3 { margin: 0 0 6px; font: 500 34px/1.05 var(--serif); }
   .iscrizione > p { font-size: 14.5px; }
+  .iscrizione > p.dopo { margin-top: -6px; color: var(--tenue); font-size: 13.5px; }
+  .iscrizione strong { font-weight: 600; }
   form { display: grid; gap: 14px; margin-top: 18px; }
   label.campo { display: grid; gap: 6px; font-size: 13px; letter-spacing: .04em; color: var(--tenue); }
   input[type="email"] { min-height: 54px; border-radius: 0; border: 0; border-bottom: 1.5px solid var(--inchiostro); background: transparent; color: var(--inchiostro); font: 400 18px var(--sans); padding: 0 2px; }
@@ -158,20 +160,21 @@
       <div class="cornice">
         <img src="/img/vertigo/inverno-2030-1000.webp?v=1" srcset="/img/vertigo/inverno-2030-600.webp?v=1 600w, /img/vertigo/inverno-2030-1000.webp?v=1 1000w, /img/vertigo/inverno-2030-1300.webp?v=1 1300w" sizes="(max-width: 1160px) calc(100vw - 40px), 1120px" width="1316" height="1511" alt="L’opera di copertina del numero d’inverno 2030: onde di blu e azzurro che si spezzano sul nero" fetchpriority="high">
       </div>
-      <figcaption><span>Copertina · inverno 2030</span><span>Numero 1</span></figcaption>
+      <figcaption><span>Numero 1 · inverno 2030</span><span>Copertina di <span translate="no">Alessandro De Luca</span></span></figcaption>
     </figure>
 
     <div class="colonne">
       <section aria-labelledby="titolo-cos">
         <h2 id="titolo-cos">Arte e moda, <em>ogni due settimane.</em></h2>
         <p><span translate="no">Vertigo</span> è la rivista di <span translate="no">Vivid Violet</span>. Esce ogni due settimane e arriva via email: opere, capi e le idee che li tengono insieme.</p>
-        <p>Il primo numero guarda lontano: inverno 2030.</p>
+        <p>Il primo numero guarda lontano: inverno 2030. Ed è gratis.</p>
         <p class="app"><span translate="no">Vivid Violet</span> è anche un’app: la stilista IA che ogni mattina ti consiglia cosa indossare, con il meteo e i capi che hai già. <a href="/">Scopri l’app</a></p>
       </section>
 
       <section class="iscrizione" id="iscriviti" aria-labelledby="titolo-iscriviti">
         <h3 id="titolo-iscriviti">Ricevi <span translate="no">Vertigo</span></h3>
-        <p>Il primo numero è in arrivo: lascia la tua email e te lo mandiamo appena esce.</p>
+        <p>Il primo numero è in arrivo ed è <strong>gratis</strong>: lascia la tua email e te lo mandiamo appena esce.</p>
+        <p class="dopo">I numeri successivi saranno a pagamento. Prima di chiederti qualcosa ti diremo prezzo e modalità, e sceglierai tu se continuare: senza la tua scelta non paghi niente.</p>
         <!-- method="post": se JavaScript manca, l’email non finisce mai nell’indirizzo della pagina -->
         <form id="modulo" method="post" novalidate>
           <label class="campo" for="email">La tua email
@@ -183,7 +186,7 @@
           </div>
           <label class="consenso" for="consenso">
             <input id="consenso" name="consenso" type="checkbox" required>
-            <span>Voglio ricevere <span translate="no">Vertigo</span> via email, ogni due settimane. Posso disiscrivermi quando voglio. Ho letto l’<a href="/privacy.html#vertigo">informativa privacy</a>.</span>
+            <span>Voglio ricevere il primo numero di <span translate="no">Vertigo</span>, gratis, e sapere quando escono i successivi. Posso disiscrivermi quando voglio. Ho letto l’<a href="/privacy.html#vertigo">informativa privacy</a>.</span>
           </label>
           <button class="iscriviti" type="submit" id="invia">Iscrivimi</button>
           <p class="esito" id="esito" role="status" aria-live="polite"></p>
