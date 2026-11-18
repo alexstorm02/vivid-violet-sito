@@ -290,66 +290,41 @@
   html.anima-eroe.fermo .tavola, html.anima-eroe.fermo .tavola * { transition: none !important; }
   @media (max-width: 920px) { .tavola-eroe .foglio { width: min(420px, 100%); } }
 
-  /* --- La moda incontra l'arte: l'opera ritagliata diventa il capo (arte.js) --- */
+  /* --- La moda incontra l'arte: la copertina di Vertigo, che segue il mouse (arte.js) --- */
   /* la sezione si prepara (e scarica le immagini) solo quando ci si avvicina */
-  #arte { content-visibility: auto; contain-intrinsic-size: auto 1450px; }
-  .dal-quadro { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-  .taglio { margin: 0; display: grid; gap: 16px; }
-  .telo { position: relative; aspect-ratio: 1; overflow: hidden; isolation: isolate; border-radius: 22px; background: #100D17; border: 1px solid var(--bordo); box-shadow: inset 0 1px 0 rgba(196,181,253,.10), 0 4px 0 #0C0A12; }
-  .telo > img, .telo > svg, .telo .ombra, .telo .ombra img { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .telo .ombra { opacity: 0; visibility: hidden; filter: drop-shadow(0 16px 18px rgba(0,0,0,.7)); }
-  .taglio[data-capo="felpa"] .ritaglio { -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpath d='M400 160L600 160L745 190C830 205 900 260 940 330L975 400L960 500L945 525L945 590L830 590L825 525L805 480L785 420L750 335L745 890L255 890L250 335L215 420L195 480L175 525L170 590L55 590L55 525L40 500L25 400L60 330C100 260 170 205 255 190Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpath d='M400 160L600 160L745 190C830 205 900 260 940 330L975 400L960 500L945 525L945 590L830 590L825 525L805 480L785 420L750 335L745 890L255 890L250 335L215 420L195 480L175 525L170 590L55 590L55 525L40 500L25 400L60 330C100 260 170 205 255 190Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; }
-  .taglio[data-capo="bomber"] .ritaglio { -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpath d='M318 100C360 70 440 55 492 70L560 110L700 150C790 170 850 190 880 230C910 290 935 360 940 440L900 450C850 430 800 405 765 365L735 420L700 490L560 735L480 765L482 835L330 840L318 780L250 735L225 795L135 812L112 740C70 700 30 650 25 560C25 470 45 380 80 310C120 240 200 160 318 100Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpath d='M318 100C360 70 440 55 492 70L560 110L700 150C790 170 850 190 880 230C910 290 935 360 940 440L900 450C850 430 800 405 765 365L735 420L700 490L560 735L480 765L482 835L330 840L318 780L250 735L225 795L135 812L112 740C70 700 30 650 25 560C25 470 45 380 80 310C120 240 200 160 318 100Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; }
-  .linea-taglio { opacity: 0; pointer-events: none; }
-  .linea-taglio .sotto { fill: none; stroke: #07060A; stroke-opacity: .6; stroke-width: 7; stroke-linejoin: round; }
-  .linea-taglio .sopra { fill: none; stroke: #A78BFA; stroke-width: 3.2; stroke-dasharray: 14 10; stroke-linejoin: round; stroke-linecap: round; }
-  .linea-taglio .cuciture { opacity: 0; }
-  .linea-taglio .cuciture .sotto { stroke-width: 5; stroke-opacity: .55; }
-  .linea-taglio .punti { fill: none; stroke: #A78BFA; stroke-width: 2; stroke-dasharray: 5 6; stroke-linecap: round; }
-  .taglio[data-fase="ritaglio"] .cuciture { opacity: 1; }
-  html.anima-arte .linea-taglio .cuciture { transition: opacity .8s ease .25s; }
-  .linea-taglio .traccia { fill: none; stroke: #FFFFFF; stroke-width: 40; stroke-dasharray: 1 1; stroke-dashoffset: 1; }
-  .taglio:not([data-fase="capo"]) .capo { opacity: 0; transform: scale(1.04); }
-  .taglio[data-fase="taglio"] .linea-taglio, .taglio[data-fase="ritaglio"] .linea-taglio { opacity: 1; }
-  .taglio[data-fase="taglio"] .traccia, .taglio[data-fase="ritaglio"] .traccia, .taglio[data-fase="capo"] .traccia { stroke-dashoffset: 0; }
-  .taglio[data-fase="ritaglio"] .opera { opacity: .1; filter: grayscale(1); }
-  .taglio[data-fase="ritaglio"] .ombra { visibility: visible; opacity: 1; transform: translateY(-10px) scale(1.015); }
-  .passaggio { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; }
-  .passaggio p { margin: 0; font: italic 500 23px/1.2 var(--serif); }
-  .passaggio p span { color: var(--viola-chiaro); }
-  .passaggio .scegli[hidden] { display: none; }
-  html.anima-arte .telo .opera { transition: opacity .9s ease, filter .9s ease; }
-  html.anima-arte .telo .ombra { transition: opacity .5s ease, transform 1s cubic-bezier(.2,.7,.2,1), visibility 0s .5s; }
-  html.anima-arte .taglio[data-fase="ritaglio"] .ombra { transition: opacity .5s ease, transform 1s cubic-bezier(.2,.7,.2,1), visibility 0s; }
-  html.anima-arte .telo .capo { transition: opacity 1s ease, transform 1.4s cubic-bezier(.2,.7,.2,1); }
-  html.anima-arte .linea-taglio { transition: opacity .5s ease; }
-  html.anima-arte .linea-taglio .traccia { transition: stroke-dashoffset 1.7s cubic-bezier(.6,.1,.3,1); }
-  html.anima-arte .taglio[data-fase="opera"] .traccia { transition: none; }
+  #arte { content-visibility: auto; contain-intrinsic-size: auto 820px; }
+  .vetrina { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: 56px; align-items: center; }
+  .vetrina .occhiello-vertigo { margin: 0 0 14px; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--argento); }
+  .vetrina .occhiello-vertigo span { color: #8DB2E3; }
+  html[data-tema="giorno"] .vetrina .occhiello-vertigo span { color: #2F609E; }
+  .vetrina .intro { margin-bottom: 28px; }
+  /* La copertina è un oggetto: resta "di carta" anche di notte, con il blu del numero */
+  .rivista { display: block; perspective: 1400px; text-decoration: none; border-radius: 4px; }
+  .copertina { container-type: inline-size; display: grid; gap: 0; padding: 3.4cqw 3.4cqw 3.6cqw; background: #F1F1F1; color: #2F2F2F; border-radius: 3px; box-shadow: 1px 0 0 #D9D9DC, 2px 0 0 #CFCFD3, 3px 0 0 #C4C4C9, 0 50px 70px -36px rgba(0,0,0,.95); transform: rotateY(var(--gira, -9deg)) rotateX(var(--inclina, 3deg)); transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+  html[data-tema="giorno"] .copertina { box-shadow: 1px 0 0 #E4E4E7, 2px 0 0 #DADADE, 3px 0 0 #D0D0D5, 0 40px 60px -34px rgba(30,20,50,.45); }
+  .rivista:hover .copertina, .rivista:focus-visible .copertina { --gira: -3deg; --inclina: 1deg; }
+  .testata-mini { margin: 0; font: 500 24cqw/.8 var(--serif); text-transform: uppercase; letter-spacing: -.012em; text-align: center; white-space: nowrap; }
+  .testata-mini .v { color: #4F84C4; }
+  .riga-mini { display: grid; grid-template-columns: repeat(4, 1fr); margin: 4.4cqw 0; padding: 0; list-style: none; text-align: center; font: 600 2.6cqw/1 var(--sans); }
+  .riga-mini li:first-child { color: #4F84C4; }
+  .riga-mini li:nth-child(2) { text-decoration: underline; text-underline-offset: .3em; }
+  .opera-mini { overflow: hidden; aspect-ratio: 1316 / 1511; background: #0A1424; }
+  .opera-mini img { width: 100%; height: 100%; object-fit: cover; transform-origin: 62% 58%; }
+  .arte-firma { margin: 22px 0 0; color: var(--tenue); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
+  .arte-firma strong { color: var(--testo); font-weight: 600; }
 
-  /* Le altre opere, in cornice: arrivano inclinate e si raddrizzano */
-  .galleria { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 64px; perspective: 1600px; }
-  .quadro { margin: 0; padding: 14px; border-radius: 6px; background: #100D17; border: 1px solid var(--bordo); box-shadow: inset 0 1px 0 rgba(196,181,253,.10), 0 30px 50px -30px #000; transform: rotateY(var(--riposo, 0deg)); }
-  .quadro img { width: 100%; height: auto; aspect-ratio: 1; outline: 1px solid rgba(200,202,210,.22); }
-  .quadro:first-child { --riposo: 8deg; }
-  .quadro:last-child { --riposo: -8deg; }
-  html.anima-arte .quadro { opacity: 0; transform: translateY(40px) rotateX(14deg) rotateY(calc(var(--riposo, 0deg) * 3)); transition: transform 1.2s cubic-bezier(.2,.7,.2,1) calc(var(--i) * .15s), opacity .8s ease calc(var(--i) * .15s); }
-  html.anima-arte .galleria.appesa .quadro { opacity: 1; transform: rotateY(var(--riposo, 0deg)); }
-  .arte-piede { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; margin-top: 48px; }
-  .arte-piede .firma { margin: 0; color: var(--tenue); font-size: 14.5px; }
-  .arte-piede .firma strong { color: var(--testo); font-weight: 600; }
-  .arte-piede .rivista { margin-top: 6px; }
-  .arte-piede .rivista a { font-weight: 600; }
-  html[data-tema="giorno"] .telo { background: #FFFFFF; box-shadow: 0 4px 0 #ECE9F2; }
-  html[data-tema="giorno"] .quadro { background: #FFFFFF; box-shadow: 0 4px 0 #ECE9F2, 0 30px 50px -30px rgba(30,20,50,.35); }
-  html[data-tema="giorno"] .quadro img { outline-color: rgba(11,9,16,.18); }
   @media (max-width: 920px) {
-    #arte { contain-intrinsic-size: auto 1700px; }
-    .dal-quadro { grid-template-columns: 1fr; max-width: 560px; }
+    #arte { contain-intrinsic-size: auto 980px; }
+    .vetrina { grid-template-columns: 1fr; gap: 40px; }
+    .lato-copertina { width: min(420px, 100%); }
   }
-  @media (max-width: 640px) {
-    .galleria { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 18px; padding: 8px 20px 40px; margin: 40px -20px 0; }
-    .quadro { flex: 0 0 min(78%, 300px); scroll-snap-align: center; --riposo: 0deg !important; }
-    .arte-piede { margin-top: 16px; }
+  @media (prefers-reduced-motion: reduce) { .copertina { transition: none; } }
+  @media (prefers-reduced-motion: no-preference) {
+    /* l'opera sprofonda nella copertina mentre scorri, come sulla pagina di Vertigo */
+    @supports (animation-timeline: view()) {
+      .opera-mini img { animation: sprofonda-mini linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+      @keyframes sprofonda-mini { from { transform: scale(1.3) rotate(-1.5deg); } to { transform: scale(1) rotate(0deg); } }
+    }
   }
 
   /* --- Gratis o Premium: il prezzo è un cartellino da sarta appeso a un filo viola --- */
@@ -596,45 +571,23 @@
     </section>
 
     <section id="arte" aria-labelledby="titolo-arte">
-      <div class="titolo-sezione"><span class="num">II</span><h2 id="titolo-arte">La moda incontra l’arte</h2></div>
-      <p class="intro">Capi esclusivi sull’app. Ogni stampa nasce da un’opera originale: prima il quadro, poi il capo.</p>
-      <div class="dal-quadro">
-        <figure class="taglio" data-capo="felpa" data-fase="capo">
-          <div class="telo">
-            <img class="opera" src="img/arte/felpa-opera-720.webp?v=1" srcset="img/arte/felpa-opera-480.webp?v=1 480w, img/arte/felpa-opera-720.webp?v=1 720w, img/arte/felpa-opera.webp?v=1 1000w" sizes="(max-width: 600px) calc(100vw - 40px), (max-width: 920px) 560px, 540px" width="1000" height="1000" alt="Opera di Alessandro De Luca: frammenti verde petrolio, bianchi e neri attorno a un volto, con un lampo rosa" loading="lazy" decoding="async">
-            <div class="ombra" aria-hidden="true"><img class="ritaglio" src="img/arte/felpa-opera-720.webp?v=1" srcset="img/arte/felpa-opera-480.webp?v=1 480w, img/arte/felpa-opera-720.webp?v=1 720w, img/arte/felpa-opera.webp?v=1 1000w" sizes="(max-width: 600px) calc(100vw - 40px), (max-width: 920px) 560px, 540px" width="1000" height="1000" alt="" loading="lazy" decoding="async"></div>
-            <img class="capo" src="img/arte/felpa-720.webp?v=1" srcset="img/arte/felpa-480.webp?v=1 480w, img/arte/felpa-720.webp?v=1 720w, img/arte/felpa.webp?v=1 1000w" sizes="(max-width: 600px) calc(100vw - 40px), (max-width: 920px) 560px, 540px" width="1000" height="1000" alt="La felpa girocollo con l’opera stampata, collo e polsini neri a coste" loading="lazy" decoding="async">
-            <svg class="linea-taglio" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false"><defs><mask id="taglio-felpa" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000"><path class="traccia" pathLength="1" d="M400 160L600 160L745 190C830 205 900 260 940 330L975 400L960 500L945 525L945 590L830 590L825 525L805 480L785 420L750 335L745 890L255 890L250 335L215 420L195 480L175 525L170 590L55 590L55 525L40 500L25 400L60 330C100 260 170 205 255 190Z"/></mask></defs><g mask="url(#taglio-felpa)"><path class="sotto" d="M400 160L600 160L745 190C830 205 900 260 940 330L975 400L960 500L945 525L945 590L830 590L825 525L805 480L785 420L750 335L745 890L255 890L250 335L215 420L195 480L175 525L170 590L55 590L55 525L40 500L25 400L60 330C100 260 170 205 255 190Z"/><path class="sopra" d="M400 160L600 160L745 190C830 205 900 260 940 330L975 400L960 500L945 525L945 590L830 590L825 525L805 480L785 420L750 335L745 890L255 890L250 335L215 420L195 480L175 525L170 590L55 590L55 525L40 500L25 400L60 330C100 260 170 205 255 190Z"/></g><g class="cuciture"><path class="sotto" d="M440 163C462 218 538 218 560 163M255 192L250 335M745 192L750 335M57 527L173 527M827 527L943 527M255 842L745 842"/><path class="punti" d="M440 163C462 218 538 218 560 163M255 192L250 335M745 192L750 335M57 527L173 527M827 527L943 527M255 842L745 842"/></g></svg>
-          </div>
-          <figcaption class="passaggio">
-            <p>Dall’opera <span>alla felpa</span></p>
-            <span class="scegli" role="group" aria-label="Felpa: guarda l’opera o il capo" hidden><button type="button" aria-pressed="false">Opera</button><button type="button" aria-pressed="true">Capo</button></span>
-          </figcaption>
-        </figure>
-        <figure class="taglio" data-capo="bomber" data-fase="capo">
-          <div class="telo">
-            <img class="opera" src="img/arte/bomber-opera-720.webp?v=1" srcset="img/arte/bomber-opera-480.webp?v=1 480w, img/arte/bomber-opera-720.webp?v=1 720w, img/arte/bomber-opera.webp?v=1 1000w" sizes="(max-width: 600px) calc(100vw - 40px), (max-width: 920px) 560px, 540px" width="1000" height="1000" alt="Opera di Alessandro De Luca: superficie bianca e grigia con schizzi rosso scuro" loading="lazy" decoding="async">
-            <div class="ombra" aria-hidden="true"><img class="ritaglio" src="img/arte/bomber-opera-720.webp?v=1" srcset="img/arte/bomber-opera-480.webp?v=1 480w, img/arte/bomber-opera-720.webp?v=1 720w, img/arte/bomber-opera.webp?v=1 1000w" sizes="(max-width: 600px) calc(100vw - 40px), (max-width: 920px) 560px, 540px" width="1000" height="1000" alt="" loading="lazy" decoding="async"></div>
-            <img class="capo" src="img/arte/bomber-720.webp?v=1" srcset="img/arte/bomber-480.webp?v=1 480w, img/arte/bomber-720.webp?v=1 720w, img/arte/bomber.webp?v=1 1000w" sizes="(max-width: 600px) calc(100vw - 40px), (max-width: 920px) 560px, 540px" width="1000" height="1000" alt="Il bomber con l’opera stampata, colletto e polsini neri, accanto a jeans neri e scarpe alte" loading="lazy" decoding="async">
-            <svg class="linea-taglio" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false"><defs><mask id="taglio-bomber" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000"><path class="traccia" pathLength="1" d="M318 100C360 70 440 55 492 70L560 110L700 150C790 170 850 190 880 230C910 290 935 360 940 440L900 450C850 430 800 405 765 365L735 420L700 490L560 735L480 765L482 835L330 840L318 780L250 735L225 795L135 812L112 740C70 700 30 650 25 560C25 470 45 380 80 310C120 240 200 160 318 100Z"/></mask></defs><g mask="url(#taglio-bomber)"><path class="sotto" d="M318 100C360 70 440 55 492 70L560 110L700 150C790 170 850 190 880 230C910 290 935 360 940 440L900 450C850 430 800 405 765 365L735 420L700 490L560 735L480 765L482 835L330 840L318 780L250 735L225 795L135 812L112 740C70 700 30 650 25 560C25 470 45 380 80 310C120 240 200 160 318 100Z"/><path class="sopra" d="M318 100C360 70 440 55 492 70L560 110L700 150C790 170 850 190 880 230C910 290 935 360 940 440L900 450C850 430 800 405 765 365L735 420L700 490L560 735L480 765L482 835L330 840L318 780L250 735L225 795L135 812L112 740C70 700 30 650 25 560C25 470 45 380 80 310C120 240 200 160 318 100Z"/></g><g class="cuciture"><path class="sotto" d="M326 108C352 160 382 192 420 196C452 190 472 138 489 78M420 196L545 730M300 135C255 300 225 480 218 730M490 82C565 165 680 262 765 365M114 742L218 731M321 778L479 763"/><path class="punti" d="M326 108C352 160 382 192 420 196C452 190 472 138 489 78M420 196L545 730M300 135C255 300 225 480 218 730M490 82C565 165 680 262 765 365M114 742L218 731M321 778L479 763"/></g></svg>
-          </div>
-          <figcaption class="passaggio">
-            <p>Dall’opera <span>al bomber</span></p>
-            <span class="scegli" role="group" aria-label="Bomber: guarda l’opera o il capo" hidden><button type="button" aria-pressed="false">Opera</button><button type="button" aria-pressed="true">Capo</button></span>
-          </figcaption>
-        </figure>
-      </div>
-      <div class="galleria" role="list" aria-label="Altre opere">
-        <figure class="quadro" role="listitem" style="--i:0"><img src="img/arte/opera-viola.webp?v=1" srcset="img/arte/opera-viola-480.webp?v=1 480w, img/arte/opera-viola.webp?v=1 720w" sizes="(max-width: 640px) min(78vw, 300px), 340px" width="720" height="720" alt="Opera di Alessandro De Luca: pennellate viola, rosa e azzurre con macchie bianche" loading="lazy" decoding="async"></figure>
-        <figure class="quadro" role="listitem" style="--i:1"><img src="img/arte/opera-rossa.webp?v=1" srcset="img/arte/opera-rossa-480.webp?v=1 480w, img/arte/opera-rossa.webp?v=1 720w" sizes="(max-width: 640px) min(78vw, 300px), 340px" width="720" height="720" alt="Opera di Alessandro De Luca: una figura spezzata in bianco e nero, con dettagli rosso acceso" loading="lazy" decoding="async"></figure>
-        <figure class="quadro" role="listitem" style="--i:2"><img src="img/arte/opera-manichini.webp?v=1" srcset="img/arte/opera-manichini-480.webp?v=1 480w, img/arte/opera-manichini.webp?v=1 720w" sizes="(max-width: 640px) min(78vw, 300px), 340px" width="720" height="720" alt="Opera di Alessandro De Luca: una stanza in bianco e nero con manichini, cornici sospese e un occhio disegnato" loading="lazy" decoding="async"></figure>
-      </div>
-      <div class="arte-piede">
+      <div class="vetrina">
         <div>
-          <p class="firma">Opere originali e capi di <strong translate="no">Alessandro De Luca</strong>.</p>
-          <p class="firma rivista">Arte e moda continuano su <a href="/vertigo/" translate="no">Vertigo</a>, la nostra rivista: ogni due settimane, via email. Il primo numero è gratis.</p>
+          <p class="occhiello-vertigo"><span translate="no">Vertigo</span> · Numero 1 · inverno 2030</p>
+          <div class="titolo-sezione"><span class="num">II</span><h2 id="titolo-arte">La moda incontra l’arte</h2></div>
+          <p class="intro"><span translate="no">Vertigo</span> è la nostra rivista di arte e moda: ogni due settimane, via email. Il primo numero è gratis.</p>
+          <a class="pulsante contorno" href="/vertigo/">Scopri <span translate="no">Vertigo</span></a>
         </div>
-        <a class="pulsante contorno" href="#avvisami">Avvisami al lancio</a>
+        <div class="lato-copertina">
+        <a class="rivista" href="/vertigo/" aria-label="Copertina di Vertigo, numero 1, inverno 2030: vai alla pagina della rivista">
+          <div class="copertina">
+            <p class="testata-mini" aria-hidden="true" translate="no"><span class="v">V</span>ertigo</p>
+            <ul class="riga-mini" aria-hidden="true"><li translate="no">vivid</li><li>magazine</li><li>inverno</li><li>2030</li></ul>
+            <div class="opera-mini"><img src="img/vertigo/inverno-2030-600.webp?v=1" srcset="img/vertigo/inverno-2030-600.webp?v=1 600w, img/vertigo/inverno-2030-1000.webp?v=1 1000w" sizes="(max-width: 920px) min(400px, calc(100vw - 70px)), 420px" width="1316" height="1511" alt="" loading="lazy" decoding="async"></div>
+          </div>
+        </a>
+        <p class="arte-firma">Copertina di <strong translate="no">Alessandro De Luca</strong></p>
+        </div>
       </div>
     </section>
 
@@ -750,6 +703,6 @@
 
 <script src="sito.js?v=3"></script>
 <script src="eroe.js?v=1"></script>
-<script src="arte.js?v=1"></script>
+<script src="arte.js?v=2"></script>
 </body>
 </html>
