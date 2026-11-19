@@ -124,21 +124,6 @@
   .pulsante.contorno:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(167,139,250,.28); }
   .pulsante:disabled { opacity: .6; cursor: progress; transform: none; }
 
-  /* --- I telefoni con le schermate vere --- */
-  .telefoni { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding: 36px 0 72px; align-items: end; }
-  /* Telefoni in 3D: ogni telefono ha la sua prospettiva; l'inclinazione
-     (--inclina, --gira) la cambia il codice in fondo alla pagina, seguendo
-     il mouse o lo scorrimento. */
-  .telefono { margin: 0; display: grid; gap: 14px; justify-items: center; perspective: 1400px; }
-  .telefono .cornice { position: relative; width: min(300px, 100%); aspect-ratio: 9 / 19.5; border-radius: 40px; padding: 10px; background: linear-gradient(150deg, #1A1724, #050407 40%); border: 1px solid var(--bordo); box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 50px 80px -30px rgba(0,0,0,.95); transform: rotateX(var(--inclina, 0deg)) rotateY(var(--gira, 0deg)); transition: transform .35s cubic-bezier(.2,.7,.2,1); }
-  /* riflesso sul vetro, che scorre con l'inclinazione */
-  .telefono .cornice::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: linear-gradient(110deg, rgba(255,255,255,0) 35%, rgba(255,255,255,.08) 47%, rgba(255,255,255,0) 60%); background-size: 260% 100%; background-position: var(--gx, 35%) 0; transition: background-position .35s; }
-  .telefono:nth-child(2) .cornice { top: -28px; }
-  .telefono .schermo { width: 100%; height: 100%; border-radius: 31px; overflow: hidden; background: linear-gradient(180deg, #07060A, var(--viola-profondo)); display: grid; place-items: center; }
-  .telefono .schermo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-  .telefono .schermo svg { width: 64px; fill: var(--viola); opacity: .5; }
-  .telefono figcaption { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--argento); }
-
   /* --- Apertura a due colonne su computer: il titolo e la tavola col figurino --- */
 
   /* --- Sezioni --- */
@@ -234,7 +219,6 @@
   html[data-tema="giorno"] .pulsante.pieno:active { box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 1px 0 #4C1D95, 0 4px 10px -4px rgba(76,29,149,.4); }
   html[data-tema="giorno"] .pulsante.contorno { border-color: #0B0910; color: #0B0910; background: #FFFFFF; box-shadow: 0 4px 0 #0B0910; }
   html[data-tema="giorno"] .pulsante.contorno:active { box-shadow: 0 1px 0 #0B0910; }
-  html[data-tema="giorno"] .telefono .cornice { box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 40px 60px -30px rgba(30,20,50,.5); }
   html[data-tema="giorno"] .momento::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7.2' fill='%23FFFFFF' stroke='%233D3747' stroke-width='1'/%3E%3Ccircle cx='8' cy='8' r='4.8' fill='none' stroke='%233D3747' stroke-opacity='.35' stroke-width='.6'/%3E%3Cpath d='M5.9 5.9 10.1 10.1M10.1 5.9 5.9 10.1' stroke='%236D28D9' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E"); box-shadow: 0 2px 3px rgba(30,20,50,.25); }
   html[data-tema="giorno"] .guida { background: #FFFFFF; box-shadow: 0 4px 0 #ECE9F2; }
   html[data-tema="giorno"] .guida:hover { border-color: rgba(109,40,217,.5); }
@@ -391,9 +375,10 @@
     .passi-app { gap: 0; }
     .passo-app { min-height: min(72vh, 640px); }
     .schermo-passo { display: none; }
-    /* il passo che stai leggendo è acceso, gli altri in secondo piano (solo se lo script è partito: .vivo) */
-    .corpo-app.vivo .passo-app { opacity: .38; transition: opacity .5s ease; }
-    .corpo-app.vivo .passo-app.attivo { opacity: 1; }
+    /* il passo che stai leggendo è acceso, gli altri in secondo piano ma sempre leggibili (solo se lo script è partito: .vivo) */
+    .corpo-app.vivo .passo-app h3, .corpo-app.vivo .passo-app h3 em { color: var(--tenue); transition: color .5s ease; }
+    .corpo-app.vivo .passo-app.attivo h3 { color: var(--testo); }
+    .corpo-app.vivo .passo-app.attivo h3 em { color: var(--viola-chiaro); }
   }
   @media (prefers-reduced-motion: no-preference) {
     .fisso .schermo img { transition: opacity .55s ease, translate .55s cubic-bezier(.2,.7,.2,1); translate: 0 14px; }
@@ -479,15 +464,6 @@
     .momento::before { left: -7px; top: 8px; }
     .momento:last-child { padding-bottom: 0; }
     .trasparenza, .attesa, .guide { grid-template-columns: 1fr; }
-    .telefoni { gap: 16px; }
-    .telefono .cornice { border-radius: 30px; padding: 7px; }
-    .telefono .schermo { border-radius: 24px; }
-  }
-  @media (max-width: 640px) {
-    /* i telefoni diventano un carosello da scorrere col dito */
-    .telefoni { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 18px; padding: 24px 20px 56px; margin: 0 -20px; }
-    .telefono { flex: 0 0 min(72%, 270px); scroll-snap-align: center; }
-    .telefono:nth-child(2) .cornice { top: 0; }
   }
   @media (max-width: 520px) {
     /* sul telefono resta il monogramma VV: il nome è subito sotto, e il link lo dice al lettore di schermo */
@@ -501,14 +477,10 @@
     section { padding: 60px 0; }
   }
   @media (prefers-reduced-motion: no-preference) {
-    .telefono .cornice { animation: entra 900ms cubic-bezier(.2,.7,.2,1) both; }
-    .telefono:nth-child(2) .cornice { animation-delay: 120ms; }
-    .telefono:nth-child(3) .cornice { animation-delay: 240ms; }
-    .marchio .tessera::after { animation: lucida 7s ease-in-out 1.5s infinite; }
+    .marchio .tessera::after { animation: lucida 1.4s ease-in-out 1.2s both; } /* una volta sola: niente animazioni continue */
     .menu-guide[open] .tendina { animation: apri .18s ease-out; }
     @keyframes apri { from { opacity: 0; translate: 0 -6px; } }
-    @keyframes lucida { 0% { transform: translateX(-60%); } 18%, 100% { transform: translateX(60%); } }
-    @keyframes entra { from { opacity: 0; translate: 0 18px; } to { opacity: 1; translate: 0 0; } }
+    @keyframes lucida { from { transform: translateX(-60%); } to { transform: translateX(60%); } }
 
     /* "Come funziona" si cuce quando arriva sullo schermo: filo, bottone e icona, un momento dopo l'altro */
     html.anima .mattina .momento::after { clip-path: inset(0 100% 0 0); transition: clip-path .4s linear calc(var(--i) * .32s); }
@@ -607,6 +579,8 @@
       @keyframes parallasse-larga { from { object-position: 50% 30%; } to { object-position: 50% 56%; } }
       /* il manifesto e i titoli delle sezioni salgono appena entrano */
       .manifesto p, .attesa h2 { animation: sale-blocco linear both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
+      /* tappa 5: anche i titoli delle sezioni salgono appena entrano, una volta sola e senza fermare la lettura */
+      main > section > .titolo-sezione, .banda-app h2, .frase-tavola, .trasparenza .titolo-sezione { animation: sale-blocco linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
       @keyframes sale-blocco { from { opacity: 0; translate: 0 28px; } to { opacity: 1; translate: 0 0; } }
     }
   }
