@@ -76,7 +76,9 @@
   .salta:focus { top: 16px; }
   main:focus { outline: none; }
   img { max-width: 100%; display: block; }
-  .pagina { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+  .pagina { max-width: 1360px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); }
+  /* le sezioni restano a misura di lettura; l'apertura e le bande usano tutta la larghezza */
+  main > section, footer { max-width: 1160px; margin-left: auto; margin-right: auto; }
 
   .occhiello { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--viola-chiaro); margin: 0; }
 
@@ -138,13 +140,6 @@
   .telefono figcaption { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--argento); }
 
   /* --- Apertura a due colonne su computer: il titolo e la tavola col figurino --- */
-  @media (min-width: 921px) {
-    .eroe { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 470px); gap: 40px; align-items: center; padding: 8px 0 24px; }
-    .eroe .apertura { padding: 40px 0; }
-    /* Accesso e Swipe girati verso il Look, al centro */
-    .telefoni .telefono:first-child .cornice { --gira: 14deg; }
-    .telefoni .telefono:last-child .cornice { --gira: -14deg; }
-  }
 
   /* --- Sezioni --- */
   section { padding: 80px 0; border-top: 1px solid var(--bordo); }
@@ -289,6 +284,82 @@
   html.anima-eroe .look.spento .disegna, html.anima-eroe .look.spento .nota { transition: none; }
   html.anima-eroe.fermo .tavola, html.anima-eroe.fermo .tavola * { transition: none !important; }
   @media (max-width: 920px) { .tavola-eroe .foglio { width: min(420px, 100%); } }
+
+  /* =====================================================================
+     Apertura editoriale (Vogue + un tocco di Apple): titolo grande a sinistra,
+     la felpa a destra con l'app "in mano", il figurino in una banda sotto.
+     ===================================================================== */
+  .voce { position: relative; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--argento); text-decoration: none; padding: 6px 4px; white-space: nowrap; }
+  .voce, .link-scendi { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .35s cubic-bezier(.2,.7,.2,1), color .2s; }
+  .voce:hover, .voce:focus-visible, .link-scendi:hover, .link-scendi:focus-visible { background-size: 100% 1px; color: var(--testo); }
+  .navigazione .voce + .menu-guide { margin-left: 6px; }
+
+  .eroe { display: grid; gap: 40px; padding: 24px 0 72px; }
+  .apertura { padding: 32px 0 0; display: grid; gap: 24px; max-width: 640px; }
+  h1 { font-size: clamp(54px, 6.2vw, 108px); line-height: .92; letter-spacing: -.015em; }
+  .riga-titolo { display: block; overflow: hidden; padding-bottom: .1em; margin-bottom: -.1em; }
+  .riga-titolo > * { display: block; }
+  .tesi { font-size: 18px; max-width: 40ch; }
+  .azioni { align-items: center; gap: 28px; }
+  .link-scendi { font: 600 14px var(--sans); letter-spacing: .04em; color: var(--argento); text-decoration: none; padding: 6px 0; }
+  .nota-eroe { margin: 4px 0 0; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--tenue); }
+
+  .scatto { position: relative; margin: 0; }
+  .scatto .foto { overflow: hidden; background: #07060A; aspect-ratio: 1; }
+  .scatto .foto img { width: 100%; height: 100%; object-fit: cover; }
+  .scatto figcaption { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 14px; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--tenue); }
+  .scatto figcaption strong { color: var(--testo); font-weight: 600; }
+  /* l'app appoggiata sulla foto: un telefono vero, leggermente girato */
+  .app-in-mano { position: absolute; left: -6%; bottom: 9%; width: clamp(120px, 22%, 200px); rotate: -7deg; }
+  .app-in-mano .cornice { aspect-ratio: 9 / 19.5; border-radius: 30px; padding: 7px; background: linear-gradient(150deg, #1A1724, #050407 40%); border: 1px solid var(--bordo); box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 3px 0 #1C1826, 0 40px 60px -24px rgba(0,0,0,.9); }
+  .app-in-mano .schermo { width: 100%; height: 100%; border-radius: 23px; overflow: hidden; background: #07060A; display: grid; place-items: center; }
+  .app-in-mano .schermo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .app-in-mano .schermo svg { width: 48px; fill: var(--viola); opacity: .5; }
+
+  /* la banda della tavola: testo a sinistra, figurino a destra, a tutta larghezza */
+  .banda-tavola { display: grid; gap: 24px; align-items: center; padding: 72px 0 88px; border-top: 1px solid var(--bordo); }
+  .testo-tavola { display: grid; gap: 18px; max-width: 520px; }
+  .frase-tavola { margin: 0; font: 500 clamp(36px, 4.4vw, 64px)/1 var(--serif); letter-spacing: -.01em; text-wrap: balance; }
+  .frase-tavola em { color: var(--viola-chiaro); }
+  .testo-tavola .intro { margin: 0; }
+
+  @media (min-width: 921px) {
+    .eroe { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 5vw, 88px); align-items: center; padding: 16px 0 96px; }
+    .apertura { padding: 0; }
+    /* la didascalia sta a destra, lontana dal telefono appoggiato a sinistra */
+    .scatto figcaption { flex-direction: column; align-items: flex-end; gap: 6px; text-align: right; }
+    .banda-tavola { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(40px, 5vw, 88px); }
+  }
+  @media (max-width: 920px) {
+    /* sul telefono la foto va da bordo a bordo, il telefono resta appoggiato in basso */
+    .scatto { margin: 0 calc(-1 * clamp(20px, 4vw, 56px)); }
+    .scatto figcaption { padding: 0 clamp(20px, 4vw, 56px); }
+    .app-in-mano { left: 5%; bottom: -2%; width: 27%; }
+    /* la didascalia a destra, accanto al telefono appoggiato in basso a sinistra */
+    .scatto figcaption { flex-direction: column; align-items: flex-end; gap: 6px; text-align: right; padding-left: 38%; margin-top: 16px; }
+    .voce { display: none; }
+  }
+  html[data-tema="giorno"] .voce, html[data-tema="giorno"] .link-scendi { color: var(--testo); }
+  html[data-tema="giorno"] .app-in-mano .cornice { box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 30px 50px -24px rgba(30,20,50,.55); }
+
+  /* Movimento: il titolo sale riga per riga, la foto si posa, l'app arriva per ultima.
+     Scorrendo, la foto si sposta appena (parallasse leggero). Con "riduci animazioni" è tutto fermo. */
+  @media (prefers-reduced-motion: no-preference) {
+    .riga-titolo > * { animation: sale-riga .8s cubic-bezier(.2,.7,.2,1) both; }
+    .riga-titolo + .riga-titolo > * { animation-delay: .12s; }
+    /* solo uno spostamento, senza dissolvenza: il testo è subito leggibile (e la pagina risulta veloce) */
+    .apertura .tesi, .apertura .azioni, .apertura .nota-eroe { animation: compare .8s cubic-bezier(.2,.7,.2,1) .2s both; }
+    .scatto .foto { animation: posa 1.4s cubic-bezier(.2,.7,.2,1) both; }
+    .app-in-mano { animation: arriva 1s cubic-bezier(.2,.7,.2,1) .55s both; }
+    @keyframes sale-riga { from { translate: 0 105%; } }
+    @keyframes compare { from { translate: 0 14px; } }
+    @keyframes posa { from { opacity: 0; translate: 0 16px; } } /* niente ingrandimento: sul telefono uscirebbe dai bordi */
+    @keyframes arriva { from { opacity: 0; translate: 0 40px; } }
+    @supports (animation-timeline: view()) {
+      .scatto .foto img { animation: parallasse linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+      @keyframes parallasse { from { translate: 0 -3%; scale: 1.08; } to { translate: 0 3%; scale: 1.08; } }
+    }
+  }
 
   /* --- La moda incontra l'arte: la copertina di Vertigo, che segue il mouse (arte.js) --- */
   /* la sezione si prepara (e scarica le immagini) solo quando ci si avvicina */
@@ -456,6 +527,8 @@
         <svg class="sole" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.5 1.5M17.1 17.1l1.5 1.5M5.4 18.6l1.5-1.5M17.1 6.9l1.5-1.5"/></svg>
         <svg class="luna" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19.6 14.6A8 8 0 1 1 9.4 4.4a6.4 6.4 0 0 0 10.2 10.2Z"/></svg>
       </button>
+      <a class="voce" href="#come">Come funziona</a>
+      <a class="voce" href="/vertigo/" translate="no">Vertigo</a>
       <details class="menu-guide">
         <summary class="stato">Guide <svg viewBox="0 0 10 10" aria-hidden="true" focusable="false"><path d="M2 3.5 5 6.5 8 3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
         <div class="tendina">
@@ -471,17 +544,32 @@
 
   <main id="contenuto" tabindex="-1">
     <div class="eroe">
-    <div class="apertura">
-      <p class="occhiello"><span translate="no">Vivid Violet</span> · Stilista IA</p>
-      <h1>Ogni mattina,<br><em>il look giusto.</em></h1>
-      <p class="tesi">La stilista che guarda il meteo della tua città, impara i tuoi gusti e, quando ti manca un capo, confronta i prezzi dei negozi online.</p>
-      <div class="azioni">
-        <a class="pulsante pieno" href="#avvisami">Avvisami al lancio</a>
-        <a class="pulsante contorno" href="#come">Come funziona</a>
+      <div class="apertura">
+        <p class="occhiello"><span translate="no">Vivid Violet</span> · Stilista IA</p>
+        <h1><span class="riga-titolo"><span>Ogni mattina,</span></span><span class="riga-titolo"><em>il look giusto.</em></span></h1>
+        <p class="tesi">La stilista che guarda il meteo della tua città, sceglie tra i vestiti che hai già e impara i tuoi gusti. Quando ti manca un capo, confronta i prezzi dei negozi online.</p>
+        <div class="azioni">
+          <a class="pulsante pieno" href="#avvisami">Avvisami al lancio</a>
+          <a class="link-scendi" href="#come">Come funziona <span aria-hidden="true">↓</span></a>
+        </div>
+        <p class="nota-eroe">App per Android · in arrivo su Google Play · gratis, con Premium facoltativo</p>
       </div>
+      <figure class="scatto">
+        <div class="foto"><img src="img/moda/felpa-1000.webp?v=1" srcset="img/moda/felpa-640.webp?v=1 640w, img/moda/felpa-1000.webp?v=1 1000w, img/moda/felpa-1400.webp?v=1 1400w" sizes="(max-width: 920px) 100vw, min(56vw, 760px)" width="1400" height="1400" alt="Felpa girocollo stampata con un’opera astratta in nero, bianco, blu e rosa di Alessandro De Luca, davanti al monogramma di Vivid Violet" fetchpriority="high" decoding="async"></div>
+        <div class="app-in-mano"><div class="cornice"><div class="schermo">
+          <img src="img/accedi.webp?v=2" width="600" height="1333" alt="L’app Vivid Violet: la schermata di accesso con il pulsante Accedi con Google" decoding="async" data-segnaposto>
+        </div></div></div>
+        <figcaption><span>Progetto <span translate="no">Vivid Violet</span></span><span>Felpa con un’opera di <strong translate="no">Alessandro De Luca</strong></span></figcaption>
+      </figure>
     </div>
 
-    <!-- figurino:inizio -->
+    <div class="banda-tavola">
+      <div class="testo-tavola">
+        <p class="occhiello">La tavola della stilista</p>
+        <p class="frase-tavola">Pioggia, sole o freddo: <em>il look cambia con il cielo.</em></p>
+        <p class="intro">Ogni mattina la stilista veste il figurino con il meteo della tua città. Prova tu: scegli un cielo e guarda come si riveste.</p>
+      </div>
+      <!-- figurino:inizio -->
     <figure class="tavola-eroe">
       <div class="foglio">
         <svg class="tavola" viewBox="-120 -6 520 652" role="img" aria-labelledby="tavola-titolo">
@@ -508,27 +596,6 @@
       </div>
     </figure>
     <!-- figurino:fine -->
-    </div>
-
-    <div class="telefoni" role="list" aria-label="Schermate dell'app">
-      <figure class="telefono" role="listitem">
-        <div class="cornice"><div class="schermo">
-          <img src="img/accedi.webp?v=2" width="600" height="1333" alt="Schermata di accesso dell'app con il pulsante Accedi con Google" loading="lazy" data-segnaposto>
-        </div></div>
-        <figcaption>Accesso</figcaption>
-      </figure>
-      <figure class="telefono" role="listitem">
-        <div class="cornice"><div class="schermo">
-          <img src="img/look.webp?v=2" width="600" height="1333" alt="Schermata Look: la frase della stilista e il figurino vestito con l'outfit del giorno, capo per capo" loading="lazy" data-segnaposto>
-        </div></div>
-        <figcaption>Look del giorno</figcaption>
-      </figure>
-      <figure class="telefono" role="listitem">
-        <div class="cornice"><div class="schermo">
-          <img src="img/swipe.webp?v=2" width="600" height="1333" alt="Schermata Swipe: una carta con un capo da votare" loading="lazy" data-segnaposto>
-        </div></div>
-        <figcaption>Swipe IA</figcaption>
-      </figure>
     </div>
 
     <section id="come" aria-labelledby="titolo-come">
@@ -564,8 +631,7 @@
           <svg class="schizzo" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path class="t" pathLength="1" d="M24 14C24 10 28 10 28 13C28 15 24 15 24 18"/><path class="t" pathLength="1" d="M24 18 8 30C6 32 7 35 10 35H38C41 35 42 32 40 30L24 18"/><path class="t" pathLength="1" d="M14 35V39M34 35V39"/></svg>
           <span class="ora">Quando vuoi</span>
           <h3>Il tuo armadio.</h3>
-          <p>Fotografa i tuoi vestiti: il look del giorno userà prima di tutto quello che hai già.</p>
-          <span class="presto">Al lancio</span>
+          <p>Fotografa i tuoi vestiti: il look del giorno usa prima di tutto quello che hai già.</p>
         </li>
       </ol>
     </section>
@@ -701,7 +767,7 @@
   </footer>
 </div>
 
-<script src="sito.js?v=3"></script>
+<script src="sito.js?v=4"></script>
 <script src="eroe.js?v=1"></script>
 <script src="arte.js?v=2"></script>
 </body>

@@ -3,43 +3,6 @@
 // dentro la pagina) perché la politica di sicurezza (CSP) del sito
 // permette solo script che vengono dal sito stesso.
 // =====================================================================
-// Telefoni in 3D. Chi ha chiesto al telefono di ridurre le animazioni
-// vede i telefoni fermi (già inclinati, ma senza movimento).
-(() => {
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  // Scorrendo la pagina i telefoni "si alzano" mentre entrano nello
-  // schermo; nel carosello del telefono, quelli ai lati girano verso il centro.
-  const riga = document.querySelector(".telefoni");
-  const cornici = [...riga.querySelectorAll(".cornice")];
-  const carosello = matchMedia("(max-width: 640px)");
-  let inAttesa = false;
-  function aggiorna() {
-    inAttesa = false;
-    const r = riga.getBoundingClientRect();
-    const p = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * 0.75)));
-    const inclina = ((1 - p) * 30).toFixed(1) + "deg";
-    const centro = r.left + r.width / 2;
-    for (const c of cornici) {
-      c.style.setProperty("--inclina", inclina);
-      if (carosello.matches) {
-        const rc = c.getBoundingClientRect();
-        const d = (rc.left + rc.width / 2 - centro) / r.width;
-        c.style.setProperty("--gira", Math.max(-35, Math.min(35, -d * 60)).toFixed(1) + "deg");
-        c.style.setProperty("--gx", (35 - d * 80).toFixed(0) + "%");
-      } else {
-        c.style.removeProperty("--gira");
-        c.style.removeProperty("--gx");
-      }
-    }
-  }
-  const pianifica = () => { if (!inAttesa) { inAttesa = true; requestAnimationFrame(aggiorna); } };
-  addEventListener("scroll", pianifica, { passive: true });
-  addEventListener("resize", pianifica);
-  riga.addEventListener("scroll", pianifica, { passive: true });
-  aggiorna();
-})();
-
 // "Come funziona" si cuce quando arriva sullo schermo (vedi lo stile .cucita).
 (() => {
   const mattina = document.querySelector(".mattina");
@@ -66,7 +29,7 @@ function mettiSegnaposto(img) {
   img.outerHTML = '<svg viewBox="0 0 264 290" aria-hidden="true"><use href="#logo"/></svg>';
 }
 // Le immagini già fallite prima che questo file arrivasse, e quelle che
-// falliranno dopo (il carosello le carica solo quando servono).
+// falliranno dopo.
 for (const img of document.querySelectorAll("img[data-segnaposto]")) {
   if (img.complete && img.naturalWidth === 0) mettiSegnaposto(img);
   else img.addEventListener("error", () => mettiSegnaposto(img), { once: true });
