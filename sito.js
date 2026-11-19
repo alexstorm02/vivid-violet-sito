@@ -14,6 +14,27 @@
   oss.observe(mattina);
 })();
 
+// L'app, schermata per schermata: sul computer il telefono resta fermo e
+// mostra la schermata del passo che stai leggendo (gli altri passi si spengono).
+// Senza questo script il telefono mostra il Look e i passi restano tutti accesi.
+(() => {
+  const corpo = document.querySelector(".corpo-app");
+  if (!corpo || !("IntersectionObserver" in window)) return;
+  const passi = [...corpo.querySelectorAll(".passo-app")];
+  const schermi = [...corpo.querySelectorAll(".fisso img")];
+  const accendi = (i) => {
+    passi.forEach((p, k) => p.classList.toggle("attivo", k === i));
+    schermi.forEach((img, k) => img.classList.toggle("attiva", k === i));
+  };
+  // un passo è "quello che stai leggendo" quando attraversa la fascia centrale dello schermo
+  const oss = new IntersectionObserver((voci) => {
+    for (const v of voci) if (v.isIntersecting) accendi(passi.indexOf(v.target));
+  }, { rootMargin: "-45% 0px -45% 0px" });
+  passi.forEach((p) => oss.observe(p));
+  accendi(0);
+  corpo.classList.add("vivo");
+})();
+
 // Menu "Guide": si chiude toccando fuori o con il tasto Esc.
 (() => {
   const menu = document.querySelector(".menu-guide");

@@ -361,6 +361,45 @@
     }
   }
 
+  /* =====================================================================
+     L'app, schermata per schermata (il 30% "Apple"): sul computer il telefono
+     resta fermo al centro e cambia schermata mentre scorrono i quattro passi;
+     sul telefono ogni passo ha la sua schermata sotto il testo.
+     ===================================================================== */
+  .banda-app .testa-app { display: grid; gap: 18px; max-width: 720px; margin-bottom: 64px; }
+  .banda-app h2 { margin: 0; font: 500 clamp(42px, 5.2vw, 76px)/1 var(--serif); letter-spacing: -.01em; text-wrap: balance; }
+  .banda-app h2 em, .passo-app h3 em { color: var(--viola-chiaro); }
+  .banda-app .intro { margin: 0; }
+  .passi-app { list-style: none; margin: 0; padding: 0; display: grid; gap: 80px; }
+  .passo-app { display: grid; gap: 18px; align-content: center; }
+  .passo-app .numero { margin: 0; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--argento); }
+  .passo-app h3 { margin: 0; font: 500 clamp(34px, 3.8vw, 54px)/1.02 var(--serif); letter-spacing: -.01em; text-wrap: balance; }
+  .passo-app .testo-passo { margin: 0; max-width: 42ch; font-size: 17px; color: var(--tenue); }
+  .cornice-app { position: relative; aspect-ratio: 1116 / 2480; border-radius: 34px; padding: 8px; background: linear-gradient(150deg, #1A1724, #050407 40%); border: 1px solid var(--bordo); box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 3px 0 #1C1826, 0 40px 70px -30px rgba(0,0,0,.9); }
+  .cornice-app .schermo { position: relative; width: 100%; height: 100%; border-radius: 26px; overflow: hidden; background: #07060B; }
+  .cornice-app .schermo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .schermo-passo { margin: 14px 0 0; width: min(240px, 66%); }
+  .fisso { display: none; }
+  .chiusa-app { margin: 72px 0 0; }
+  html[data-tema="giorno"] .cornice-app { box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 30px 60px -28px rgba(30,20,50,.5); }
+
+  @media (min-width: 921px) {
+    .corpo-app { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(48px, 7vw, 120px); }
+    .fisso { display: block; position: sticky; top: max(24px, calc(50vh - 290px)); align-self: start; justify-self: center; width: 262px; }
+    .fisso .schermo img { position: absolute; inset: 0; opacity: 0; }
+    .fisso .schermo img.attiva { opacity: 1; }
+    .passi-app { gap: 0; }
+    .passo-app { min-height: min(72vh, 640px); }
+    .schermo-passo { display: none; }
+    /* il passo che stai leggendo è acceso, gli altri in secondo piano (solo se lo script è partito: .vivo) */
+    .corpo-app.vivo .passo-app { opacity: .38; transition: opacity .5s ease; }
+    .corpo-app.vivo .passo-app.attivo { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .fisso .schermo img { transition: opacity .55s ease, translate .55s cubic-bezier(.2,.7,.2,1); translate: 0 14px; }
+    .fisso .schermo img.attiva { translate: 0 0; }
+  }
+
   /* --- La moda incontra l'arte: la copertina di Vertigo, che segue il mouse (arte.js) --- */
   /* la sezione si prepara (e scarica le immagini) solo quando ci si avvicina */
   #arte { content-visibility: auto; contain-intrinsic-size: auto 820px; }
@@ -598,6 +637,44 @@
     <!-- figurino:fine -->
     </div>
 
+    <section class="banda-app" id="app" aria-labelledby="titolo-app">
+      <div class="testa-app">
+        <p class="occhiello">L’app</p>
+        <h2 id="titolo-app">Quattro gesti, <em>ogni giorno.</em></h2>
+        <p class="intro">Le schermate vere dell’app, ancora in sviluppo. I capi segnati “Esempio” servono solo per la prova: non sono in vendita.</p>
+      </div>
+      <div class="corpo-app">
+        <div class="fisso" aria-hidden="true"><div class="cornice-app"><div class="schermo"><img class="attiva" src="img/app/look-480.webp?v=1" srcset="img/app/look-480.webp?v=1 480w, img/app/look-800.webp?v=1 800w" sizes="(max-width: 920px) 240px, 280px" width="1116" height="2480" alt="L’app Vivid Violet, schermata Look: la frase della stilista e il figurino vestito con impermeabile, felpa, jeans e stivali da pioggia" loading="lazy" decoding="async"><img aria-hidden="true" src="img/app/swipe-480.webp?v=1" srcset="img/app/swipe-480.webp?v=1 480w, img/app/swipe-800.webp?v=1 800w" sizes="(max-width: 920px) 240px, 280px" width="1116" height="2480" alt="L’app Vivid Violet, schermata Swipe IA: la carta di un paio di jeans con i pulsanti no, super like e mi piace" loading="lazy" decoding="async"><img aria-hidden="true" src="img/app/armadio-480.webp?v=1" srcset="img/app/armadio-480.webp?v=1 480w, img/app/armadio-800.webp?v=1 800w" sizes="(max-width: 920px) 240px, 280px" width="1116" height="2480" alt="L’app Vivid Violet, schermata Armadio: il pulsante Aggiungi capo, Il mio Avatar e un impermeabile nero appeso alla gruccia" loading="lazy" decoding="async"><img aria-hidden="true" src="img/app/cerca-480.webp?v=1" srcset="img/app/cerca-480.webp?v=1 480w, img/app/cerca-800.webp?v=1 800w" sizes="(max-width: 920px) 240px, 280px" width="1116" height="2480" alt="L’app Vivid Violet, schermata Cerca: la barra di ricerca e due capi di esempio, un blazer e un cardigan" loading="lazy" decoding="async"></div></div></div>
+        <ol class="passi-app">
+          <li class="passo-app">
+            <p class="numero">01 · Look del giorno</p>
+            <h3>Il look del giorno, <em>spiegato.</em></h3>
+            <p class="testo-passo">Il meteo della tua città, i vestiti che hai già e i gusti che ha imparato: ogni mattina un outfit completo, con una frase che spiega ogni scelta.</p>
+            <figure class="schermo-passo"><div class="cornice-app"><div class="schermo"><img src="img/app/look-480.webp?v=1" srcset="img/app/look-480.webp?v=1 480w, img/app/look-800.webp?v=1 800w" sizes="(max-width: 920px) 240px, 280px" width="1116" height="2480" alt="L’app Vivid Violet, schermata Look: la frase della stilista e il figurino vestito con impermeabile, felpa, jeans e stivali da pioggia" loading="lazy" decoding="async"></div></div></figure>
+          </li>
+          <li class="passo-app">
+            <p class="numero">02 · Swipe IA</p>
+            <h3>Un voto, <em>e ti conosce meglio.</em></h3>
+            <p class="testo-passo">Scorri i capi e scegli: mi piace, no o super like. Ogni voto insegna alla stilista cosa ti somiglia, e il look di domani cambia.</p>
+            <figure class="schermo-passo"><div class="cornice-app"><div class="schermo"><img src="img/app/swipe-480.webp?v=1" srcset="img/app/swipe-480.webp?v=1 480w, img/app/swipe-800.webp?v=1 800w" sizes="(max-width: 920px) 240px, 280px" width="1116" height="2480" alt="L’app Vivid Violet, schermata Swipe IA: la carta di un paio di jeans con i pulsanti no, super like e mi piace" loading="lazy" decoding="async"></div></div></figure>
+          </li>
+          <li class="passo-app">
+            <p class="numero">03 · Armadio</p>
+            <h3>Il tuo armadio, <em>in tasca.</em></h3>
+            <p class="testo-passo">Fotografi i tuoi capi una volta e il look del giorno parte da lì. Con Il mio Avatar li provi sul figurino prima di vestirti.</p>
+            <figure class="schermo-passo"><div class="cornice-app"><div class="schermo"><img src="img/app/armadio-480.webp?v=1" srcset="img/app/armadio-480.webp?v=1 480w, img/app/armadio-800.webp?v=1 800w" sizes="(max-width: 920px) 240px, 280px" width="1116" height="2480" alt="L’app Vivid Violet, schermata Armadio: il pulsante Aggiungi capo, Il mio Avatar e un impermeabile nero appeso alla gruccia" loading="lazy" decoding="async"></div></div></figure>
+          </li>
+          <li class="passo-app">
+            <p class="numero">04 · Cerca</p>
+            <h3>Cerca un capo, <em>trova dove costa meno.</em></h3>
+            <p class="testo-passo">Cerchi per nome, colore o stile. Il confronto dei prezzi tra i negozi online arriva al lancio, con i negozi partner.</p><span class="presto">Confronto prezzi al lancio</span>
+            <figure class="schermo-passo"><div class="cornice-app"><div class="schermo"><img src="img/app/cerca-480.webp?v=1" srcset="img/app/cerca-480.webp?v=1 480w, img/app/cerca-800.webp?v=1 800w" sizes="(max-width: 920px) 240px, 280px" width="1116" height="2480" alt="L’app Vivid Violet, schermata Cerca: la barra di ricerca e due capi di esempio, un blazer e un cardigan" loading="lazy" decoding="async"></div></div></figure>
+          </li>
+        </ol>
+      </div>
+      <p class="chiusa-app"><a class="pulsante pieno" href="#avvisami">Avvisami al lancio</a></p>
+    </section>
+
     <section id="come" aria-labelledby="titolo-come">
       <div class="titolo-sezione"><span class="num">I</span><h2 id="titolo-come">Come funziona</h2></div>
       <p class="intro">Dal risveglio alla porta di casa: una mattina con Vivid Violet. L'obiettivo è vestirti bene con quello che hai e comprare solo ciò che ti serve, al prezzo migliore.</p>
@@ -767,7 +844,7 @@
   </footer>
 </div>
 
-<script src="sito.js?v=4"></script>
+<script src="sito.js?v=5"></script>
 <script src="eroe.js?v=1"></script>
 <script src="arte.js?v=2"></script>
 </body>
