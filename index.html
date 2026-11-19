@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://uuwzkvhpurxhmwomjzbr.supabase.co; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; connect-src 'self' https://uuwzkvhpurxhmwomjzbr.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- Con JavaScript attivo, la cucitura di "Come funziona" parte quando arriva sullo schermo -->
 <script src="inizio.js?v=1"></script>
@@ -13,6 +13,7 @@
 <meta name="theme-color" content="#0B0910">
 <!-- Modalità giorno/notte: si decide prima di disegnare la pagina (niente lampo) -->
 <script src="tema.js?v=1"></script>
+<script src="/consenso.js?v=1" defer></script>
 <link rel="canonical" href="https://vividviolet.it/">
 <!-- Anteprima quando il link viene condiviso (WhatsApp, Instagram, Telegram, Facebook...) -->
 <meta property="og:type" content="website">
@@ -921,7 +922,7 @@
   </footer>
 </div>
 
-<script src="sito.js?v=5"></script>
+<script src="sito.js?v=6"></script>
 <script src="eroe.js?v=1"></script>
 <script src="arte.js?v=2"></script>
 </body>

@@ -3,15 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Informativa privacy · Vivid Violet</title>
-<meta name="description" content="Informativa privacy della lista d'attesa e della rivista Vertigo di Vivid Violet: quali dati raccogliamo, perché, per quanto e come cancellarli.">
+<meta name="description" content="Informativa privacy della lista d'attesa, della rivista Vertigo e delle statistiche del sito Vivid Violet: quali dati raccogliamo, perché, per quanto e come cancellarli.">
 <link rel="canonical" href="https://vividviolet.it/privacy.html">
 <link rel="icon" type="image/png" href="favicon.png">
 <meta name="theme-color" content="#0B0910">
 <!-- Modalità giorno/notte: si decide prima di disegnare la pagina (niente lampo) -->
 <script src="/tema.js?v=1"></script>
+<script src="/consenso.js?v=1" defer></script>
 <style>
   @font-face { font-family: "Cormorant Garamond"; src: url("fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
   @font-face { font-family: "Montserrat"; src: url("fonts/montserrat-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
@@ -62,13 +63,13 @@
   </button>
   </div>
   <h1>Informativa privacy</h1>
-  <p class="data">Lista d'attesa “Avvisami al lancio” e rivista <span translate="no">Vertigo</span> · aggiornata il 17 novembre 2026</p>
+  <p class="data">Lista d'attesa “Avvisami al lancio”, rivista <span translate="no">Vertigo</span> e statistiche del sito · aggiornata il 19 novembre 2026</p>
 
   <h2>Chi tratta i tuoi dati</h2>
   <p>Il titolare del trattamento è <strong>Alessandro De Luca (Vivid Violet)</strong>. Per qualsiasi domanda o richiesta scrivi a <a href="mailto:info@vividviolet.it">info@vividviolet.it</a>.</p>
 
   <h2>Quali dati raccogliamo</h2>
-  <p>Solo il tuo <strong>indirizzo email</strong>, insieme alla data dell'iscrizione e alla conferma del tuo consenso. Non chiediamo nome, telefono o altri dati, e il sito non usa cookie di profilazione né strumenti di tracciamento.</p>
+  <p>Solo il tuo <strong>indirizzo email</strong>, insieme alla data dell'iscrizione e alla conferma del tuo consenso. Non chiediamo nome, telefono o altri dati, e il sito non usa cookie di profilazione. Le statistiche di visita (Google Analytics) partono solo se le accetti: vedi <a href="#statistiche">Statistiche del sito e cookie</a>.</p>
 
   <h2>Perché e su quale base</h2>
   <p>Usiamo la tua email <strong>solo per avvisarti quando l'app Vivid Violet sarà disponibile</strong>. La base giuridica è il tuo <strong>consenso</strong> (art. 6, par. 1, lett. a del Regolamento UE 2016/679, “GDPR”), che dai spuntando la casella nel modulo. Non useremo l'email per altri scopi e non la cederemo né venderemo a nessuno.</p>
@@ -86,6 +87,12 @@
   <p>Se ti iscrivi a <span translate="no">Vertigo</span> dalla pagina <a href="/vertigo/">vividviolet.it/vertigo</a>, raccogliamo solo il tuo <strong>indirizzo email</strong>, con la data dell'iscrizione e la conferma del consenso. È una lista <strong>separata</strong> dalla lista d'attesa: iscriversi a una non iscrive all'altra.</p>
   <p>Usiamo l'email <strong>solo per mandarti <span translate="no">Vertigo</span></strong>: il primo numero, gratis, e l'avviso quando escono i successivi, che saranno a pagamento. Prima di qualsiasi pagamento ti diremo prezzo e modalità e sceglierai tu se continuare. La base giuridica è il tuo <strong>consenso</strong> (art. 6, par. 1, lett. a GDPR), che dai spuntando la casella nel modulo. Conserviamo l'email finché resti iscritto; quando ti disiscrivi la cancelliamo entro 30 giorni. Puoi disiscriverti quando vuoi, scrivendo a <a href="mailto:info@vividviolet.it">info@vividviolet.it</a>; quando partiranno gli invii, ogni numero avrà anche un link per farlo con un clic.</p>
   <p>Per ora i dati sono conservati da <strong>Supabase</strong>, come per la lista d'attesa (vedi sopra). Prima del primo numero sceglieremo un servizio di invio email: lo indicheremo qui, aggiornando la data in alto.</p>
+
+  <h2 id="statistiche">Statistiche del sito e cookie</h2>
+  <p>Se nel banner scegli <strong>“Accetta”</strong>, il sito usa <strong>Google Analytics 4</strong> per contare le visite: quali pagine apri, da quale sito o ricerca arrivi, il tipo di dispositivo e di browser, la zona approssimativa (città o regione, ricavata dall'indirizzo IP, che Google Analytics non conserva) e se completi un'iscrizione, senza la tua email. Se scegli <strong>“Rifiuta”</strong>, o non scegli, Google Analytics non viene caricato e non salva nulla nel tuo browser.</p>
+  <p>La base giuridica è il tuo consenso (art. 6, par. 1, lett. a GDPR e art. 122 del Codice privacy). Guardiamo questi dati solo tutti insieme, per capire quali pagine sono utili e migliorare il sito: niente pubblicità, niente Google Signals, nessun incrocio con altri dati.</p>
+  <p>Google Analytics salva nel browser i cookie <code>_ga</code> e <code>_ga_9LYQ5MGRXB</code>, che durano al massimo 13 mesi; i dati delle statistiche restano nel nostro account Analytics per 14 mesi. <strong>Google Ireland Limited</strong> agisce come responsabile del trattamento; i dati possono essere trattati anche negli Stati Uniti, sulla base dell'EU-US Data Privacy Framework.</p>
+  <p>La tua scelta resta solo nel tuo browser (non è un cookie e non arriva a noi). Puoi cambiarla quando vuoi dal link <strong>“Preferenze cookie”</strong> in fondo alla pagina: se ritiri il consenso, i cookie di Analytics vengono cancellati.</p>
 
   <h2>Modifiche</h2>
   <p>Se cambiamo questa informativa, aggiorneremo la data in alto. Per l'app Vivid Violet c'è un'<a href="privacy-app.html">informativa a parte</a>.</p>

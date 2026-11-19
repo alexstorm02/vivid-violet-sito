@@ -97,6 +97,8 @@ modulo.addEventListener("submit", async (evento) => {
       // 409 = email già in lista: rispondiamo allo stesso modo, senza rivelarlo
       mostra("Grazie! Ti avviseremo al lancio.", "ok");
       modulo.reset();
+      // statistiche: l'iscrizione conta come obiettivo, solo se hai accettato (vedi consenso.js)
+      if (typeof window !== "undefined" && window.vvEvento) window.vvEvento("generate_lead", { modulo: "lista_attesa" });
     } else if (r.status === 429) {
       // il database ha fermato troppe iscrizioni ravvicinate (anti-spam)
       mostra("Troppi tentativi in poco tempo. Riprova tra un'ora.", "errore");

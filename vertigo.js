@@ -44,6 +44,8 @@
         // 409 = email già iscritta: rispondiamo allo stesso modo, senza rivelarlo
         mostra(FATTO, "ok");
         modulo.reset();
+        // statistiche: l'iscrizione conta come obiettivo, solo se hai accettato (vedi consenso.js)
+        if (typeof window !== "undefined" && window.vvEvento) window.vvEvento("generate_lead", { modulo: "vertigo" });
       } else if (r.status === 429) {
         mostra("Troppi tentativi in poco tempo. Riprova tra un'ora.", "errore");
       } else if (r.status === 400) {
